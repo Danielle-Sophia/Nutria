@@ -67,10 +67,9 @@
       outDir: 'build',
     },
     // vite.config.js
-export default {
-  server: {
-    host: true,
-    port: 5173  // puerto que Netlify espera
-  }
-}
+
+    server: {
+      host: true,
+      port: 5173  // puerto que Netlify espera
+    },
   });
