@@ -70,6 +70,7 @@
 
     server: {
       host: true,
-      port: 5173  // puerto que Netlify espera
+      port: 5173,  // puerto que Netlify espera
+      allowedHosts: ['.netlify.app']
     },
   });
