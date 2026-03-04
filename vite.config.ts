@@ -66,11 +66,8 @@
       target: 'esnext',
       outDir: 'build',
     },
-    // vite.config.js
-
     server: {
-      host: true,
-      port: 5173,  // puerto que Netlify espera
-      allowedHosts: ['.netlify.app']
+      port: 3000,
+      open: true,
     },
   });
