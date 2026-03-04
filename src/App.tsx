@@ -13,6 +13,7 @@ import { RegistrarGlucosa } from './components/RegistrarGlucosa';
 import { RegistrarSintomas } from './components/RegistrarSintomas';
 import { SincronizarSensor } from './components/SincronizarSensor';
 import { AgendarCita } from './components/AgendarCita';
+import { CalcularInsulina } from './components/CalcularInsulina';
 
 export default function App() {
   return (
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="/sintomas" element={<RegistrarSintomas />} />
         <Route path="/sincronizar-sensor" element={<SincronizarSensor />} />
         <Route path="/agendar-cita" element={<AgendarCita />} />
+        <Route path="/calcular-insulina" element={<CalcularInsulina />} />
       </Routes>
     </Router>
   );

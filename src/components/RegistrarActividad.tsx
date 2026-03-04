@@ -68,10 +68,10 @@ export function RegistrarActividad() {
     <div className="bg-[#85aab3] min-h-screen w-full">
       {/* Header */}
       <div className="fixed left-0 top-0 w-full z-50">
-        <div className="bg-[#193073] h-[80px] w-full flex items-center justify-between px-[60px]">
+        <div className="bg-[#193073] h-[60px] w-full flex items-center justify-between px-[60px]">
           <button 
             onClick={() => navigate('/menu-paciente')}
-            className="font-['Istok_Web:Regular',sans-serif] font-['Jost:Regular',sans-serif] leading-[normal] not-italic text-[40px] text-nowrap text-white hover:opacity-80 transition-opacity cursor-pointer"
+            className="font-['Istok_Web:Regular',sans-serif] font-['Jost:Regular',sans-serif] leading-[normal] not-italic text-[32px] text-nowrap text-white hover:opacity-80 transition-opacity cursor-pointer"
           >
             Nutr<span className="text-[#8db9f2]">IA</span>
           </button>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, Bell, User } from 'lucide-react';
+import { Search, Bell, User, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { ProfileMenu } from './ProfileMenu';
 import imgAvatarsDefaultWithBackdrop from "figma:asset/096952a3ce49665f2e8700549ef936cfae6aca06.png";
@@ -7,6 +7,7 @@ import imgFoodiesMealIngredients from "figma:asset/ab1a1cb53499fd7537e3427b3dd57
 import imgCoolKidsOnWheels from "figma:asset/84a8a89c1913a34f01f581c6a7cd48d9c2cd1445.png";
 import imgLifesaversHand from "figma:asset/a359c166e3c6c52ae6fba315f1afeac60968b39e.png";
 import imgCoolKidsAloneTime from "figma:asset/a19df1aeeeaa40b6e7abaeada2a62b68f64ac612.png";
+import imgHappyBunchChat from "figma:asset/3801a4dad9b0d3378d29571589ff08210e598380.png";
 
 interface MenuCardProps {
   title: string;
@@ -90,11 +91,11 @@ export function MenuPrincipalPaciente() {
     <div className="bg-[#85aab3] min-h-screen w-full relative">
       {/* Header */}
       <div className="fixed left-0 top-0 w-full z-50">
-        <div className="bg-[#193073] h-[80px] w-full flex items-center justify-between px-[60px]">
+        <div className="bg-[#193073] h-[60px] w-full flex items-center justify-between px-[60px]">
           {/* Logo */}
           <button 
             onClick={() => navigate('/menu-paciente')}
-            className="font-['Istok_Web:Regular',sans-serif] font-['Jost:Regular',sans-serif] leading-[normal] not-italic text-[40px] text-nowrap text-white hover:opacity-80 transition-opacity cursor-pointer"
+            className="font-['Istok_Web:Regular',sans-serif] font-['Jost:Regular',sans-serif] leading-[normal] not-italic text-[32px] text-nowrap text-white hover:opacity-80 transition-opacity cursor-pointer"
           >
             Nutr<span className="text-[#8db9f2]">IA</span>
           </button>
@@ -182,7 +183,7 @@ export function MenuPrincipalPaciente() {
             </p>
             
             {/* Menu Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[17px] justify-items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[17px] justify-items-center mb-[30px]">
               <MenuCard 
                 title="Alimentos" 
                 image={imgFoodiesMealIngredients}
@@ -203,6 +204,40 @@ export function MenuPrincipalPaciente() {
                 image={imgCoolKidsAloneTime}
                 onClick={() => handleCardClick('/sintomas')}
               />
+            </div>
+
+            {/* AI Insulin Calculator - Special Button */}
+            <div className="flex justify-center">
+              <button
+                onClick={() => handleCardClick('/calcular-insulina')}
+                className="group cursor-pointer transition-all hover:scale-105 active:scale-95"
+              >
+                <div className="relative w-[550px]">
+                  {/* Header Bar with gradient */}
+                  <div className="relative h-[50px] rounded-t-[10px] bg-gradient-to-r from-[#5e7deb] to-[#8db9f2] group-hover:from-[#4d6bd9] group-hover:to-[#7aa8e1] transition-all shadow-md">
+                    <div className="absolute inset-0 flex items-center justify-center gap-[10px]">
+                      <Sparkles size={24} className="text-white" />
+                      <p className="font-['Poppins:Bold',sans-serif] text-[22px] text-white">
+                        Calcular dosis de insulina con IA
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Content Area */}
+                  <div className="bg-[#f2f2f2] rounded-b-[10px] p-[20px] group-hover:bg-[#e8e8e8] transition-colors shadow-lg">
+                    <div className="flex items-center justify-center h-[140px]">
+                      <img 
+                        alt="Calcular dosis IA" 
+                        className="max-h-full object-contain pointer-events-none" 
+                        src={imgHappyBunchChat} 
+                      />
+                    </div>
+                    <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-center text-gray-600 mt-[10px]">
+                      Obtén una recomendación personalizada basada en tus datos de glucosa, ejercicio y alimentación
+                    </p>
+                  </div>
+                </div>
+              </button>
             </div>
           </div>
 
