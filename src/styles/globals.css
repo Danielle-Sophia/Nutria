@@ -126,6 +126,8 @@
 
   body {
     @apply bg-background text-foreground;
+    line-height: inherit;
+    font-family: 'Poppins', sans-serif;
   }
 }
 
