@@ -135,59 +135,61 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
     switch (activeTab) {
       case 'datos-generales':
         return (
-          <div className="border border-[#39588a] rounded-[10px] overflow-hidden">
-            {/* Table Header */}
-            <div className="bg-[rgba(57,88,138,0.5)] h-[65px] flex items-center border-b border-[#39588a]">
-              <div className="w-[242px] flex items-center justify-center border-r border-[#39588a]">
-                <p className="font-['Poppins:Medium',sans-serif] text-[20px] text-black">
-                  Atributo
-                </p>
+          <div className="flex justify-center">
+            <div className="border border-[#39588a] rounded-[10px] overflow-hidden">
+              {/* Table Header */}
+              <div className="bg-[rgba(57,88,138,0.5)] h-[65px] flex items-center border-b border-[#39588a]">
+                <div className="w-[242px] flex items-center justify-center border-r border-[#39588a]">
+                  <p className="font-['Poppins:Medium',sans-serif] text-[20px] text-black">
+                    Atributo
+                  </p>
+                </div>
+                <div className="w-[252px] flex items-center justify-center border-r border-[#39588a]">
+                  <p className="font-['Poppins:Medium',sans-serif] text-[20px] text-black">
+                    Valor
+                  </p>
+                </div>
+                <div className="flex-1 flex items-center justify-center">
+                  <p className="font-['Poppins:Medium',sans-serif] text-[20px] text-black">
+                    Fecha
+                  </p>
+                </div>
               </div>
-              <div className="w-[252px] flex items-center justify-center border-r border-[#39588a]">
-                <p className="font-['Poppins:Medium',sans-serif] text-[20px] text-black">
-                  Valor
-                </p>
-              </div>
-              <div className="flex-1 flex items-center justify-center">
-                <p className="font-['Poppins:Medium',sans-serif] text-[20px] text-black">
-                  Fecha
-                </p>
-              </div>
-            </div>
 
-            {/* Table Rows */}
-            {mockClinicalRecords.map((record, index) => {
-              const isLastRow = index === mockClinicalRecords.length - 1;
-              const rowHeight = index >= 6 ? 'min-h-[100px]' : 'h-[50px]';
-              
-              return (
-                <div 
-                  key={index}
-                  className={`flex ${rowHeight} ${!isLastRow ? 'border-b border-[#39588a]' : ''}`}
-                >
-                  {/* Attribute Column */}
-                  <div className="w-[242px] flex items-center justify-center px-[10px] border-r border-[#39588a]">
-                    <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-black text-center leading-tight">
-                      {record.attribute}
-                    </p>
-                  </div>
-                  
-                  {/* Value Column */}
-                  <div className="w-[252px] flex items-center justify-center px-[10px] py-[8px] border-r border-[#39588a]">
-                    <div className="font-['Poppins:Regular',sans-serif] text-[16px] text-black text-center">
-                      {record.value}
+              {/* Table Rows */}
+              {mockClinicalRecords.map((record, index) => {
+                const isLastRow = index === mockClinicalRecords.length - 1;
+                const rowHeight = index >= 6 ? 'min-h-[100px]' : 'h-[50px]';
+                
+                return (
+                  <div 
+                    key={index}
+                    className={`flex ${rowHeight} ${!isLastRow ? 'border-b border-[#39588a]' : ''}`}
+                  >
+                    {/* Attribute Column */}
+                    <div className="w-[242px] flex items-center justify-center px-[10px] border-r border-[#39588a]">
+                      <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-black text-center leading-tight">
+                        {record.attribute}
+                      </p>
+                    </div>
+                    
+                    {/* Value Column */}
+                    <div className="w-[252px] flex items-center justify-center px-[10px] py-[8px] border-r border-[#39588a]">
+                      <div className="font-['Poppins:Regular',sans-serif] text-[16px] text-black text-center">
+                        {record.value}
+                      </div>
+                    </div>
+                    
+                    {/* Date Column */}
+                    <div className="flex-1 flex items-center justify-center px-[10px]">
+                      <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-black text-center">
+                        {record.date}
+                      </p>
                     </div>
                   </div>
-                  
-                  {/* Date Column */}
-                  <div className="flex-1 flex items-center justify-center px-[10px]">
-                    <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-black text-center">
-                      {record.date}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         );
 

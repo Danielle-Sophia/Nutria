@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 import { ProfileMenu } from './ProfileMenu';
 import { getUserData, patientAPI } from '../utils/api';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceArea } from 'recharts';
 import imgAvatarsDefaultWithBackdrop from "figma:asset/096952a3ce49665f2e8700549ef936cfae6aca06.png";
 import imgFoodiesMealIngredients from "figma:asset/ab1a1cb53499fd7537e3427b3dd57bc7c74b57ed.png";
 import imgCoolKidsOnWheels from "figma:asset/84a8a89c1913a34f01f581c6a7cd48d9c2cd1445.png";
@@ -332,55 +332,109 @@ export function MenuPrincipalPaciente() {
 
           {/* Evolution Tables Section */}
           <div>
-            <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black mb-[20px]">
-              Tablas de evolución (últimos 14 días)
+            <p className="font-['Poppins:Bold',sans-serif] leading-[normal] not-italic text-[24px] text-[#5e7deb] mb-[20px]">
+              GLUCOSA
             </p>
             
             <div className="flex gap-[30px]">
               {/* Chart Container */}
-              <div className="flex-1 bg-[#d9d9d9] rounded-[20px] p-[20px]">
-                <div className="bg-white rounded-[10px] p-[20px] h-[400px] flex items-center justify-center">
-                  {isLoadingGlucose ? (
-                    <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-500 italic text-center">
-                      Cargando datos...
-                    </p>
-                  ) : (
-                    <ResponsiveContainer width="100%" height="100%">
-                      <LineChart
-                        data={glucoseData}
-                        margin={{
-                          top: 5,
-                          right: 30,
-                          left: 20,
-                          bottom: 5,
-                        }}
-                      >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="fecha" />
-                        <YAxis />
-                        <Tooltip />
-                        <Line 
-                          key="line-glucosa"
-                          type="monotone" 
-                          dataKey="glucosa" 
-                          stroke="#ff8000" 
-                          activeDot={{ r: 8 }} 
-                        />
-                        <Line 
-                          key="line-objetivo"
-                          type="monotone" 
-                          dataKey="objetivo" 
-                          stroke="#00913f" 
-                        />
-                      </LineChart>
-                    </ResponsiveContainer>
+              <div className="flex-1 bg-[#d9d9d9] rounded-[20px] p-[25px]">
+                <div className="bg-white rounded-[10px] p-[20px]">
+                  {/* Chart with color bands */}
+                  <div className="h-[380px] relative">
+                    {isLoadingGlucose ? (
+                      <div className="flex items-center justify-center h-full">
+                        <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-500 italic text-center">
+                          Cargando datos...
+                        </p>
+                      </div>
+                    ) : glucoseData.length > 0 ? (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart
+                          data={glucoseData}
+                          margin={{
+                            top: 10,
+                            right: 10,
+                            left: 10,
+                            bottom: 30,
+                          }}
+                        >
+                          {/* Color bands using ReferenceArea */}
+                          <ReferenceArea y1={250} y2={350} fill="#ff8000" fillOpacity={0.3} />
+                          <ReferenceArea y1={180} y2={250} fill="#f2e307" fillOpacity={0.3} />
+                          <ReferenceArea y1={70} y2={180} fill="#00913f" fillOpacity={0.3} />
+                          <ReferenceArea y1={0} y2={70} fill="#d8b2b2" fillOpacity={0.3} />
+                          
+                          <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
+                          <XAxis 
+                            dataKey="fecha" 
+                            angle={-45}
+                            textAnchor="end"
+                            height={70}
+                            interval={0}
+                            tick={{ fontSize: 11 }}
+                          />
+                          <YAxis 
+                            domain={[0, 350]} 
+                            ticks={[0, 70, 180, 250, 350]}
+                            tick={{ fontSize: 12 }}
+                          />
+                          <Tooltip 
+                            contentStyle={{ 
+                              backgroundColor: 'white', 
+                              border: '1px solid #ccc',
+                              borderRadius: '5px',
+                              fontSize: '13px'
+                            }}
+                          />
+                          
+                          {/* Glucose line */}
+                          <Line 
+                            key="line-glucosa"
+                            type="monotone" 
+                            dataKey="glucosa" 
+                            stroke="#5e7deb" 
+                            strokeWidth={2.5}
+                            dot={{ fill: '#5e7deb', r: 4 }}
+                            activeDot={{ r: 6 }} 
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    ) : (
+                      <div className="flex items-center justify-center h-full">
+                        <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-500 italic text-center">
+                          No hay datos de glucosa registrados
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Average display */}
+                  {!isLoadingGlucose && glucoseData.length > 0 && (
+                    <div className="mt-[15px] text-center">
+                      <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-[#5e7deb]">
+                        Promedio: {average} mg/dL
+                      </p>
+                    </div>
                   )}
                 </div>
               </div>
 
               {/* Glucose Levels Legend */}
-              <div>
-                <p className="font-['Poppins:Bold',sans-serif] text-[18px] text-black mb-[15px]">
+              <div className="flex-shrink-0">
+                <div className="flex items-center gap-[8px] mb-[15px]">
+                  <svg width="16" height="16" viewBox="0 0 16 16" className="text-[#00913f]">
+                    <polygon points="8,0 16,8 8,16" fill="currentColor" />
+                  </svg>
+                  <p className="font-['Poppins:Bold',sans-serif] text-[16px] text-black">
+                    Rango objetivo
+                  </p>
+                </div>
+                <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-600 mb-[20px] ml-[24px]">
+                  70-180 mg/dL
+                </p>
+                
+                <p className="font-['Poppins:Bold',sans-serif] text-[16px] text-black mb-[12px]">
                   Niveles de glucosa
                 </p>
                 <div className="flex gap-[15px]">
@@ -394,13 +448,13 @@ export function MenuPrincipalPaciente() {
                   </div>
                   
                   {/* Labels */}
-                  <div className="flex flex-col justify-between h-[303px] py-[5px]">
+                  <div className="flex flex-col justify-between h-[303px] py-[2px]">
                     {glucoseLevels.map((level, index) => (
-                      <div key={index}>
-                        <p className="font-['Poppins:Bold',sans-serif] text-[18px] text-black leading-tight">
+                      <div key={index} className="flex-shrink-0" style={{ marginBottom: index < glucoseLevels.length - 1 ? '10px' : '0' }}>
+                        <p className="font-['Poppins:Bold',sans-serif] text-[16px] text-black leading-[1.2]">
                           {level.label}
                         </p>
-                        <p className="font-['Poppins:Regular',sans-serif] text-[10px] text-black">
+                        <p className="font-['Poppins:Regular',sans-serif] text-[11px] text-black leading-[1.3]">
                           {level.range}
                         </p>
                       </div>

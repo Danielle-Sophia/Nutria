@@ -154,16 +154,16 @@ export function TablasEvolucion() {
           </div>
 
           {/* Charts Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
+          <div className="flex justify-center">
             {/* Glucose Chart */}
-            <div className="bg-[#f5f5f5] rounded-[20px] p-[20px]">
+            <div className="bg-[#f5f5f5] rounded-[20px] p-[30px] w-full max-w-[1200px]">
               <div className="flex items-center gap-[10px] mb-[20px]">
                 <TrendingUp size={24} className="text-[#39588a]" />
                 <h2 className="font-['Poppins:SemiBold',sans-serif] text-[20px] text-black">
                   Niveles de Glucosa
                 </h2>
               </div>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={500}>
                 <LineChart data={glucoseData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
                   <XAxis 
