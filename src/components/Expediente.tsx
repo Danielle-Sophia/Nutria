@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import { Search, Bell, User } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
+import { ArrowLeft, Search, Bell, User } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { ProfileMenu } from './ProfileMenu';
 import { IdentificacionPaciente } from './expediente/IdentificacionPaciente';
 import { HistoriaClinica } from './expediente/HistoriaClinica';
 import { AnalisisYReportes } from './expediente/AnalisisYReportes';
+import { patientAPI } from '../utils/api';
 
 type SectionType = 'identificacion' | 'historia' | 'bitacora' | 'analisis' | 'seguimiento' | 'documentos' | 'seguridad';
 
@@ -23,48 +25,55 @@ const menuItems: MenuItem[] = [
   { id: 'seguridad', label: 'Seguridad y registro de actividad' },
 ];
 
-// Mock patient data
-const mockPatients = [
-  { 
-    id: 1, 
-    nombre: 'Patricio Castillo Antonio', 
-    folio: '000001',
-    fechaNacimiento: '15/09/1997',
-    sexoBiologico: 'Hombre',
-    telefono: '55-55555555',
-    correo: 'patricio_castillo_97@mail.com',
-    direccion: 'Calle Manzana, Lt. 1, Mz 1. Colonia Bonita colonia. Ciudad Manzana. México. México'
-  },
-  { 
-    id: 2, 
-    nombre: 'Margarita Muñoz López', 
-    folio: '000002',
-    fechaNacimiento: '22/03/2006',
-    sexoBiologico: 'Mujer',
-    telefono: '55-11111111',
-    correo: 'margarita@email.com',
-    direccion: 'Calle Principal 123, Col. Centro, Ciudad de México'
-  },
-  { 
-    id: 3, 
-    nombre: 'Alejandra Cortes Pérez', 
-    folio: '000003',
-    fechaNacimiento: '10/07/1995',
-    sexoBiologico: 'Mujer',
-    telefono: '55-22222222',
-    correo: 'alejandra@email.com',
-    direccion: 'Av. Reforma 456, Col. Juárez, Ciudad de México'
-  },
-];
+interface PatientData {
+  id: string;
+  nombre: string;
+  apellidos: string;
+  folio: string;
+  fechaNacimiento?: string;
+  sexoBiologico?: string;
+  telefono?: string;
+  email?: string;
+  direccion?: string;
+  edad?: number;
+  peso?: number;
+  talla?: number;
+}
 
 export function Expediente() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [activeSection, setActiveSection] = useState<SectionType>('identificacion');
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [patient, setPatient] = useState<PatientData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Get patient data based on ID
-  const patient = mockPatients.find(p => p.id === Number(id)) || mockPatients[0];
+  // Load patient data when component mounts
+  useEffect(() => {
+    if (id) {
+      loadPatientData(id);
+    }
+  }, [id]);
+
+  const loadPatientData = async (patientId: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      const result = await patientAPI.getPatientById(patientId);
+      
+      if (result.success) {
+        setPatient(result.patient);
+      } else {
+        setError(result.error || 'Error al cargar datos del paciente');
+      }
+    } catch (err: any) {
+      console.error('Error loading patient:', err);
+      setError(err.message || 'Error al cargar datos del paciente');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSearch = () => {
     console.log('Búsqueda activada');
@@ -72,10 +81,46 @@ export function Expediente() {
 
   const handleNotifications = () => {
     console.log('Notificaciones activadas');
-    alert('Notificaciones en desarrollo');
+    toast('Notificaciones en desarrollo', {
+      icon: '🔔',
+      duration: 3000,
+      style: {
+        background: '#d1ecf1',
+        color: '#0c5460',
+        border: '1px solid #bee5eb',
+      },
+    });
   };
 
   const renderContent = () => {
+    if (isLoading) {
+      return (
+        <div className="p-[20px] flex items-center justify-center h-full">
+          <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-gray-500">
+            Cargando datos del paciente...
+          </p>
+        </div>
+      );
+    }
+
+    if (error || !patient) {
+      return (
+        <div className="p-[20px] flex items-center justify-center h-full">
+          <div className="text-center">
+            <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-red-600 mb-4">
+              {error || 'No se pudo cargar la información del paciente'}
+            </p>
+            <button
+              onClick={() => navigate('/mis-pacientes')}
+              className="px-6 py-2 bg-[#39588a] text-white rounded-lg hover:bg-[#2d4570] transition-colors"
+            >
+              Volver a Mis Pacientes
+            </button>
+          </div>
+        </div>
+      );
+    }
+
     switch (activeSection) {
       case 'identificacion':
         return <IdentificacionPaciente patient={patient} />;

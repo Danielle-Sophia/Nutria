@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useRef, useEffect } from 'react';
+import { Settings, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router';
-import { LogOut, Settings } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 interface ProfileMenuProps {
   isOpen: boolean;
@@ -31,7 +32,7 @@ export function ProfileMenu({ isOpen, onClose }: ProfileMenuProps) {
 
   const handleConfiguration = () => {
     onClose();
-    alert('Funcionalidad de Configuración en desarrollo');
+    navigate('/configuracion');
   };
 
   const handleLogout = () => {
@@ -39,6 +40,7 @@ export function ProfileMenu({ isOpen, onClose }: ProfileMenuProps) {
     // Confirm logout
     if (window.confirm('¿Estás seguro de que deseas cerrar sesión?')) {
       navigate('/');
+      toast.success('Sesión cerrada exitosamente');
     }
   };
 

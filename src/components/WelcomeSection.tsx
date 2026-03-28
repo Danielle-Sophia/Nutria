@@ -23,12 +23,12 @@ export function WelcomeSection({ nombre, especialidad }: WelcomeSectionProps) {
       </p>
       
       {/* Name */}
-      <p className="absolute font-['Poppins:SemiBold',sans-serif] h-[27px] leading-[normal] left-[253px] not-italic text-[18px] text-black top-[101px] w-[204px] whitespace-pre-wrap">
+      <p className="absolute font-['Poppins:SemiBold',sans-serif] leading-[normal] left-[253px] not-italic text-[18px] text-black top-[101px] whitespace-nowrap overflow-hidden text-ellipsis max-w-[900px]">
         {nombre}
       </p>
       
       {/* Specialty */}
-      <p className="absolute font-['Poppins:Regular',sans-serif] h-[27px] leading-[normal] left-[253px] not-italic text-[18px] text-black top-[137px] w-[320px] whitespace-pre-wrap">
+      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[253px] not-italic text-[18px] text-black top-[137px] whitespace-nowrap overflow-hidden text-ellipsis max-w-[900px]">
         Especialidad: {especialidad}
       </p>
     </div>

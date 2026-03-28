@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import toast from 'react-hot-toast';
 import { ArrowLeft, Calendar, Clock, User, MapPin, FileText } from 'lucide-react';
 
 interface Doctor {
@@ -41,7 +42,7 @@ export function AgendarCita() {
 
   const handleSubmit = () => {
     if (!selectedDoctor || !fecha || !hora) {
-      alert('Por favor completa todos los campos requeridos');
+      toast.error('Por favor completa todos los campos requeridos');
       return;
     }
 
@@ -54,7 +55,7 @@ export function AgendarCita() {
       notas,
     });
 
-    alert(`Cita agendada exitosamente con ${selectedDoctor.nombre} para el ${fecha} a las ${hora}`);
+    toast.success(`Cita agendada exitosamente con ${selectedDoctor.nombre} para el ${fecha} a las ${hora}`);
     navigate('/menu-paciente');
   };
 

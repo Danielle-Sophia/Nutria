@@ -1,9 +1,12 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, ReferenceLine, Area, AreaChart, ReferenceArea } from 'recharts';
+import { useState, useEffect } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, ReferenceLine, ReferenceArea } from 'recharts';
 import imgAvatarsDefaultWithBackdrop from "figma:asset/096952a3ce49665f2e8700549ef936cfae6aca06.png";
+import { patientAPI } from '../../utils/api';
 
 interface PatientData {
-  id: number;
+  id: string;
   nombre: string;
+  apellidos: string;
   folio: string;
 }
 
@@ -20,6 +23,7 @@ interface GlucoseLevel {
 interface ChartData {
   name: string;
   value: number;
+  time?: string;
 }
 
 const glucoseLevels: GlucoseLevel[] = [
@@ -32,43 +36,6 @@ const glucoseLevels: GlucoseLevel[] = [
 
 const legendItems = [
   { label: 'Glucosa', color: '#86A69D' },
-  { label: 'Actividad física (AF)', color: '#FF9933' },
-  { label: 'Estrés', color: '#CC99CC' },
-  { label: 'Estado de ánimo', color: '#FF6666' },
-];
-
-// Fixed glucose data (doesn't change)
-const fixedGlucoseData: ChartData[] = [
-  { name: 'Noche', value: 120 },
-  { name: '', value: 115 },
-  { name: '', value: 110 },
-  { name: '', value: 105 },
-  { name: 'Mañana', value: 130 },
-  { name: '', value: 145 },
-  { name: '', value: 160 },
-  { name: '', value: 175 },
-  { name: 'Tarde', value: 165 },
-  { name: '', value: 150 },
-  { name: '', value: 135 },
-  { name: '', value: 125 },
-  { name: 'Noche', value: 115 },
-];
-
-// Mock data for other charts (these will come from backend)
-const actividadFisicaData: ChartData[] = [
-  { name: 'Noche', value: 5 },
-  { name: '', value: 8 },
-  { name: '', value: 12 },
-  { name: '', value: 18 },
-  { name: 'Mañana', value: 35 },
-  { name: '', value: 28 },
-  { name: '', value: 22 },
-  { name: '', value: 15 },
-  { name: 'Tarde', value: 30 },
-  { name: '', value: 25 },
-  { name: '', value: 18 },
-  { name: '', value: 12 },
-  { name: 'Noche', value: 8 },
 ];
 
 // Custom arrow component for target range markers
@@ -84,6 +51,61 @@ function TargetArrow({ direction }: { direction: 'up' | 'down' }) {
 }
 
 export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
+  const [glucoseData, setGlucoseData] = useState<ChartData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [average, setAverage] = useState<number>(0);
+
+  useEffect(() => {
+    loadGlucoseData();
+  }, [patient.id]);
+
+  const loadGlucoseData = async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const result = await patientAPI.getGlucoseRecords(patient.id);
+      
+      if (result.success && result.records.length > 0) {
+        // Transform records to chart data
+        // Take last 14 records and format them
+        const recentRecords = result.records.slice(0, 14).reverse();
+        
+        const chartData = recentRecords.map((record: any, index: number) => {
+          // Parse date in local timezone (no UTC conversion)
+          const [year, month, day] = record.date.split('-').map(Number);
+          const date = new Date(year, month - 1, day);
+          const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+          const label = `${date.getDate()} ${monthNames[date.getMonth()]}`;
+          
+          return {
+            id: `glucose-${patient.id}-${index}-${record.date}-${record.time}`, // Unique key
+            name: index % 3 === 0 ? label : '', // Show label every 3 points
+            value: record.glucoseValue,
+            time: record.time,
+          };
+        });
+        
+        setGlucoseData(chartData);
+        
+        // Calculate average
+        const sum = recentRecords.reduce((acc: number, record: any) => acc + record.glucoseValue, 0);
+        const avg = Math.round(sum / recentRecords.length);
+        setAverage(avg);
+      } else {
+        // No data - show empty state
+        setGlucoseData([]);
+        setAverage(0);
+      }
+    } catch (err: any) {
+      console.error('Error loading glucose data:', err);
+      setError(err.message || 'Error al cargar datos de glucosa');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="p-[20px]">
       {/* Patient Header */}
@@ -97,7 +119,7 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
         </div>
         <div className="flex-1">
           <p className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black mb-[8px]">
-            {patient.nombre}
+            {patient.nombre} {patient.apellidos}
           </p>
           <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black">
             Folio (identificador): {patient.folio}
@@ -156,111 +178,105 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
         </div>
       </div>
 
-      {/* Glucose Chart (Fixed) */}
+      {/* Glucose Chart (Dynamic) */}
       <div className="mb-[40px]">
         <p className="font-['Poppins:SemiBold',sans-serif] text-[16px] text-[#7f94e2] mb-[15px] uppercase">
           Glucosa
         </p>
         <div className="bg-[#d9d9d9] rounded-[20px] p-[20px]">
           <div className="bg-white rounded-[10px] p-[20px] relative">
-            <ResponsiveContainer width="100%" height={365}>
-              <LineChart data={fixedGlucoseData} margin={{ top: 20, right: 30, left: 60, bottom: 40 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
+            {isLoading ? (
+              <div className="h-[365px] flex items-center justify-center">
+                <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-500">
+                  Cargando datos de glucosa...
+                </p>
+              </div>
+            ) : error ? (
+              <div className="h-[365px] flex items-center justify-center">
+                <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-red-600">
+                  {error}
+                </p>
+              </div>
+            ) : glucoseData.length === 0 ? (
+              <div className="h-[365px] flex items-center justify-center flex-col gap-4">
+                <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-500">
+                  No hay registros de glucosa disponibles
+                </p>
+                <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-400 text-center max-w-[400px]">
+                  El paciente aún no ha registrado mediciones de glucosa. Los datos aparecerán aquí una vez que comience a registrarlos.
+                </p>
+              </div>
+            ) : (
+              <>
+                <ResponsiveContainer width="100%" height={365}>
+                  <LineChart data={glucoseData} margin={{ top: 20, right: 30, left: 60, bottom: 40 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
+                    
+                    {/* Colored zones (background areas) */}
+                    <ReferenceArea y1={250} y2={350} fill="#ff8000" fillOpacity={0.3} />
+                    <ReferenceArea y1={180} y2={250} fill="#f2e307" fillOpacity={0.3} />
+                    <ReferenceArea y1={70} y2={180} fill="#00913f" fillOpacity={0.3} />
+                    <ReferenceArea y1={54} y2={70} fill="#8c0303" fillOpacity={0.3} />
+                    <ReferenceArea y1={0} y2={54} fill="#590202" fillOpacity={0.3} />
+                    
+                    {/* Reference lines for ranges */}
+                    <ReferenceLine y={250} stroke="#000" strokeWidth={1} />
+                    <ReferenceLine y={180} stroke="#00913F" strokeWidth={2} />
+                    <ReferenceLine y={70} stroke="#00913F" strokeWidth={2} />
+                    <ReferenceLine y={54} stroke="#000" strokeWidth={1} />
+                    
+                    <XAxis 
+                      dataKey="name" 
+                      tick={{ fontSize: 10, fontFamily: 'Poppins', fontWeight: 'bold' }}
+                      interval={0}
+                      axisLine={{ stroke: '#000' }}
+                    />
+                    <YAxis 
+                      domain={[0, 350]}
+                      ticks={[0, 54, 70, 180, 250, 350]}
+                      tick={{ fontSize: 10, fontFamily: 'Poppins', fontWeight: 500 }}
+                      axisLine={{ stroke: '#000' }}
+                      label={{ 
+                        value: 'mg/dL', 
+                        angle: -90, 
+                        position: 'insideLeft',
+                        style: { fontSize: 10, fontFamily: 'Poppins' }
+                      }}
+                    />
+                    
+                    {/* Glucose line */}
+                    <Line 
+                      type="monotone" 
+                      dataKey="value" 
+                      stroke="#86A69D" 
+                      strokeWidth={3}
+                      dot={{ fill: '#86A69D', r: 3 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
                 
-                {/* Colored zones (background areas) */}
-                <ReferenceArea y1={250} y2={350} fill="#ff8000" fillOpacity={0.3} />
-                <ReferenceArea y1={180} y2={250} fill="#f2e307" fillOpacity={0.3} />
-                <ReferenceArea y1={70} y2={180} fill="#00913f" fillOpacity={0.3} />
-                <ReferenceArea y1={54} y2={70} fill="#8c0303" fillOpacity={0.3} />
-                <ReferenceArea y1={0} y2={54} fill="#590202" fillOpacity={0.3} />
+                {/* Target range arrows and label (positioned absolutely) */}
+                <div className="absolute left-[35px] top-[155px] flex items-center gap-[5px]">
+                  <TargetArrow direction="up" />
+                  <p className="font-['Poppins:Bold',sans-serif] text-[10px] text-black whitespace-nowrap">
+                    Rango objetivo
+                  </p>
+                </div>
                 
-                {/* Reference lines for ranges */}
-                <ReferenceLine y={250} stroke="#000" strokeWidth={1} />
-                <ReferenceLine y={180} stroke="#00913F" strokeWidth={2} />
-                <ReferenceLine y={70} stroke="#00913F" strokeWidth={2} />
-                <ReferenceLine y={54} stroke="#000" strokeWidth={1} />
-                
-                <XAxis 
-                  dataKey="name" 
-                  tick={{ fontSize: 10, fontFamily: 'Poppins', fontWeight: 'bold' }}
-                  interval={0}
-                  axisLine={{ stroke: '#000' }}
-                />
-                <YAxis 
-                  domain={[0, 350]}
-                  ticks={[0, 54, 70, 180, 250, 350]}
-                  tick={{ fontSize: 10, fontFamily: 'Poppins', fontWeight: 500 }}
-                  axisLine={{ stroke: '#000' }}
-                  label={{ 
-                    value: 'mg/dL', 
-                    angle: -90, 
-                    position: 'insideLeft',
-                    style: { fontSize: 10, fontFamily: 'Poppins' }
-                  }}
-                />
-                
-                {/* Glucose line */}
-                <Line 
-                  type="monotone" 
-                  dataKey="value" 
-                  stroke="#86A69D" 
-                  strokeWidth={3}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-            
-            {/* Target range arrows and label (positioned absolutely) */}
-            <div className="absolute left-[35px] top-[155px] flex items-center gap-[5px]">
-              <TargetArrow direction="up" />
-              <p className="font-['Poppins:Bold',sans-serif] text-[10px] text-black whitespace-nowrap">
-                Rango objetivo
-              </p>
-            </div>
-            
-            <div className="absolute left-[35px] top-[240px] flex items-center gap-[5px]">
-              <TargetArrow direction="up" />
-            </div>
-          </div>
-        </div>
-      </div>
+                <div className="absolute left-[35px] top-[240px] flex items-center gap-[5px]">
+                  <TargetArrow direction="up" />
+                </div>
 
-      {/* Physical Activity Chart (Dynamic) */}
-      <div className="mb-[40px]">
-        <p className="font-['Poppins:SemiBold',sans-serif] text-[16px] text-[#7f94e2] mb-[15px] uppercase">
-          Actividad física (AF)
-        </p>
-        <div className="bg-[#d9d9d9] rounded-[20px] p-[20px]">
-          <div className="bg-white rounded-[10px] p-[20px]">
-            <ResponsiveContainer width="100%" height={250}>
-              <AreaChart data={actividadFisicaData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                <defs>
-                  <linearGradient id="colorActivity" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#FF9933" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#FF9933" stopOpacity={0.1} />
-                  </linearGradient>
-                </defs>
-                
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
-                <XAxis 
-                  dataKey="name" 
-                  tick={{ fontSize: 10, fontFamily: 'Poppins' }}
-                  interval={0}
-                />
-                <YAxis 
-                  domain={[0, 50]}
-                  tick={{ fontSize: 10, fontFamily: 'Poppins' }}
-                />
-                
-                <Area 
-                  type="monotone" 
-                  dataKey="value" 
-                  stroke="#FF9933" 
-                  strokeWidth={2}
-                  fill="url(#colorActivity)"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+                {/* Average display */}
+                {average > 0 && (
+                  <div className="mt-[15px] text-center">
+                    <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600">
+                      Promedio: <span className="font-semibold text-[#39588a]">{average} mg/dL</span>
+                    </p>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>

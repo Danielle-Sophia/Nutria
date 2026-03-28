@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import toast from 'react-hot-toast';
+import { authAPI } from '../utils/api';
 import imgRegistrar from "figma:asset/014a7d00a40d56526e789e2e4f9dde6b606274b4.png";
 import { Header } from "./Header";
 import { Tooltip } from "./Tooltip";
@@ -14,6 +16,7 @@ export function Registro() {
     email: "",
     password: "",
     confirmPassword: "",
+    telefono: "",
   });
 
   const [errors, setErrors] = useState({
@@ -22,7 +25,10 @@ export function Registro() {
     apellidos: "",
     password: "",
     confirmPassword: "",
+    api: "",
   });
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [passwordStrength, setPasswordStrength] = useState({
     score: 0,
@@ -80,6 +86,12 @@ export function Registro() {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
+    }));
+
+    // Clear API error when user types
+    setErrors((prev) => ({
+      ...prev,
+      api: "",
     }));
 
     // Validación en tiempo real para cédula profesional
@@ -170,7 +182,7 @@ export function Registro() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validar todos los campos
@@ -220,9 +232,39 @@ export function Registro() {
 
     if (hasErrors) return;
 
-    console.log("Registration attempt:", formData);
-    alert(`Cuenta creada para: ${formData.email}`);
-    navigate("/");
+    setIsLoading(true);
+
+    try {
+      console.log("Registration attempt:", formData.email);
+      
+      const result = await authAPI.register({
+        email: formData.email,
+        password: formData.password,
+        nombre: formData.nombre,
+        apellidos: formData.apellidos,
+        cedulaProfesional: formData.cedulaProfesional,
+        especialidad: formData.especialidad,
+        telefono: formData.telefono,
+      });
+
+      if (result.success) {
+        toast.success(`¡Cuenta creada exitosamente!\n\nBienvenido/a, ${formData.nombre} ${formData.apellidos}\nTu folio es: ${result.user.folio}\n\nPor favor inicia sesión.`);
+        navigate("/");
+      } else {
+        setErrors((prev) => ({
+          ...prev,
+          api: result.error || 'Error al crear la cuenta',
+        }));
+        setIsLoading(false);
+      }
+    } catch (error: any) {
+      console.error('Registration error:', error);
+      setErrors((prev) => ({
+        ...prev,
+        api: error.message || 'Error al crear la cuenta. Por favor intenta de nuevo.',
+      }));
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -267,6 +309,15 @@ export function Registro() {
             </Link>
           </div>
 
+          {/* API Error Message */}
+          {errors.api && (
+            <div className="absolute left-[74px] top-[220px] w-[492px] bg-red-50 border border-red-300 rounded-[10px] p-3">
+              <p className="text-red-600 text-[14px] font-['Poppins:Regular',sans-serif]">
+                {errors.api}
+              </p>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit}>
             {/* Name and Last Name Fields */}
             <div className="absolute left-[75px] top-[240px] w-[492px]">
@@ -284,7 +335,8 @@ export function Registro() {
                   value={formData.nombre}
                   onChange={handleChange}
                   required
-                  className="bg-[#e1e9f2] h-[40px] w-full rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all"
+                  disabled={isLoading}
+                  className="bg-[#e1e9f2] h-[40px] w-full rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
                   placeholder="Juan"
                 />
                 {errors.nombre && (
@@ -308,7 +360,8 @@ export function Registro() {
                   value={formData.apellidos}
                   onChange={handleChange}
                   required
-                  className="bg-[#e1e9f2] h-[40px] w-full rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all"
+                  disabled={isLoading}
+                  className="bg-[#e1e9f2] h-[40px] w-full rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
                   placeholder="Pérez García"
                 />
                 {errors.apellidos && (
@@ -337,7 +390,8 @@ export function Registro() {
                 value={formData.cedulaProfesional}
                 onChange={handleChange}
                 required
-                className={`absolute bg-[#e1e9f2] h-[40px] left-1/2 -translate-x-1/2 top-[361px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 transition-all ${
+                disabled={isLoading}
+                className={`absolute bg-[#e1e9f2] h-[40px] left-1/2 -translate-x-1/2 top-[361px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 transition-all disabled:opacity-50 ${
                   errors.cedulaProfesional
                     ? "ring-2 ring-red-500"
                     : "focus:ring-[#458dff]"
@@ -369,7 +423,8 @@ export function Registro() {
                 value={formData.especialidad}
                 onChange={handleChange}
                 required
-                className="absolute bg-[#e1e9f2] h-[40px] left-1/2 -translate-x-1/2 top-[461px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all"
+                disabled={isLoading}
+                className="absolute bg-[#e1e9f2] h-[40px] left-1/2 -translate-x-1/2 top-[461px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
                 placeholder="Nutrición clínica"
               />
             </div>
@@ -392,7 +447,8 @@ export function Registro() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="absolute bg-[#e1e9f2] h-[40px] left-1/2 -translate-x-1/2 top-[545px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all"
+                disabled={isLoading}
+                className="absolute bg-[#e1e9f2] h-[40px] left-1/2 -translate-x-1/2 top-[545px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
                 placeholder="tu@email.com"
               />
             </div>
@@ -415,7 +471,8 @@ export function Registro() {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="absolute bg-[#e1e9f2] h-[41px] left-1/2 -translate-x-1/2 top-[625px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all"
+                disabled={isLoading}
+                className="absolute bg-[#e1e9f2] h-[41px] left-1/2 -translate-x-1/2 top-[625px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
                 placeholder="••••••••"
               />
               {passwordStrength.text && !errors.password && (
@@ -461,7 +518,8 @@ export function Registro() {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
-                className={`absolute bg-[#e1e9f2] h-[41px] left-1/2 -translate-x-1/2 top-[732px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 transition-all ${
+                disabled={isLoading}
+                className={`absolute bg-[#e1e9f2] h-[41px] left-1/2 -translate-x-1/2 top-[732px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 transition-all disabled:opacity-50 ${
                   errors.confirmPassword
                     ? "ring-2 ring-red-500"
                     : "focus:ring-[#458dff]"
@@ -478,10 +536,11 @@ export function Registro() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="absolute left-[174px] top-[810px] w-[292px] h-[60px] bg-[#39588a] rounded-[15px] hover:bg-[#2d4570] active:scale-[0.98] transition-all"
+              disabled={isLoading}
+              className="absolute left-[174px] top-[810px] w-[292px] h-[60px] bg-[#39588a] rounded-[15px] hover:bg-[#2d4570] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span className="font-['Poppins:Bold',sans-serif] text-[24px] text-white">
-                Crear cuenta
+                {isLoading ? 'Creando...' : 'Crear cuenta'}
               </span>
             </button>
           </form>

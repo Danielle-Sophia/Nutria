@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import toast from 'react-hot-toast';
 import { ArrowLeft, Search, Plus, Utensils } from 'lucide-react';
 
 interface Alimento {
@@ -51,7 +52,7 @@ export function RegistrarAlimentos() {
 
   const handleSave = () => {
     console.log('Guardando alimentos:', { selectedMeal, selectedAlimentos });
-    alert('Registro de alimentos guardado exitosamente');
+    toast.success('Registro de alimentos guardado exitosamente');
     navigate('/menu-paciente');
   };
 

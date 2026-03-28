@@ -1,14 +1,15 @@
 import imgAvatarsDefaultWithBackdrop from "figma:asset/096952a3ce49665f2e8700549ef936cfae6aca06.png";
 
 interface PatientData {
-  id: number;
+  id: string;
   nombre: string;
+  apellidos: string;
   folio: string;
-  fechaNacimiento: string;
-  sexoBiologico: string;
-  telefono: string;
-  correo: string;
-  direccion: string;
+  fechaNacimiento?: string;
+  sexoBiologico?: string;
+  telefono?: string;
+  email?: string;
+  direccion?: string;
 }
 
 interface IdentificacionPacienteProps {
@@ -29,7 +30,7 @@ export function IdentificacionPaciente({ patient }: IdentificacionPacienteProps)
         </div>
         <div className="flex-1">
           <p className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black mb-[8px]">
-            {patient.nombre}
+            {patient.nombre} {patient.apellidos}
           </p>
           <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black">
             Folio (identificador): {patient.folio}
@@ -48,9 +49,9 @@ export function IdentificacionPaciente({ patient }: IdentificacionPacienteProps)
           <p className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black mb-[8px]">
             Fecha de nacimiento:
           </p>
-          <div className="border-[0.5px] border-black border-solid h-[41px] rounded-[50px] w-[185px] flex items-center px-[20px]">
-            <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black">
-              {patient.fechaNacimiento}
+          <div className="border-[0.5px] border-black border-solid h-[41px] rounded-[50px] inline-flex items-center px-[20px] min-w-[185px]">
+            <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black whitespace-nowrap">
+              {patient.fechaNacimiento || 'No especificado'}
             </p>
           </div>
         </div>
@@ -60,9 +61,9 @@ export function IdentificacionPaciente({ patient }: IdentificacionPacienteProps)
           <p className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black mb-[8px]">
             Sexo biológico:
           </p>
-          <div className="border-[0.5px] border-black border-solid h-[41px] rounded-[50px] w-[185px] flex items-center px-[20px]">
-            <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black">
-              {patient.sexoBiologico}
+          <div className="border-[0.5px] border-black border-solid h-[41px] rounded-[50px] inline-flex items-center px-[20px] min-w-[185px]">
+            <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black whitespace-nowrap">
+              {patient.sexoBiologico || 'No especificado'}
             </p>
           </div>
         </div>
@@ -72,14 +73,14 @@ export function IdentificacionPaciente({ patient }: IdentificacionPacienteProps)
           <p className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black mb-[12px]">
             Información de contacto:
           </p>
-          <div className="flex gap-[40px]">
+          <div className="flex gap-[40px] flex-wrap">
             <div>
               <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black mb-[8px]">
                 Teléfono:
               </p>
-              <div className="border-[0.5px] border-black border-solid h-[41px] rounded-[50px] w-[185px] flex items-center px-[20px]">
-                <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black">
-                  {patient.telefono}
+              <div className="border-[0.5px] border-black border-solid h-[41px] rounded-[50px] inline-flex items-center px-[20px] min-w-[185px]">
+                <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black whitespace-nowrap">
+                  {patient.telefono || 'No especificado'}
                 </p>
               </div>
             </div>
@@ -87,9 +88,9 @@ export function IdentificacionPaciente({ patient }: IdentificacionPacienteProps)
               <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black mb-[8px]">
                 Correo:
               </p>
-              <div className="border-[0.5px] border-black border-solid h-[41px] rounded-[50px] w-[332px] flex items-center px-[20px]">
-                <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black">
-                  {patient.correo}
+              <div className="border-[0.5px] border-black border-solid h-[41px] rounded-[50px] inline-flex items-center px-[20px] min-w-[332px]">
+                <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black whitespace-nowrap overflow-hidden text-ellipsis max-w-[400px]">
+                  {patient.email || 'No especificado'}
                 </p>
               </div>
             </div>
@@ -101,9 +102,9 @@ export function IdentificacionPaciente({ patient }: IdentificacionPacienteProps)
           <p className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black mb-[8px]">
             Dirección:
           </p>
-          <div className="border-[0.5px] border-black border-solid min-h-[89px] rounded-[20px] w-full max-w-[765px] flex items-center px-[20px] py-[15px]">
-            <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black leading-[1.4]">
-              {patient.direccion}
+          <div className="border-[0.5px] border-black border-solid min-h-[41px] rounded-[20px] inline-flex items-center px-[20px] py-[10px] max-w-[765px]">
+            <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black whitespace-nowrap">
+              {patient.direccion || 'No especificado'}
             </p>
           </div>
         </div>

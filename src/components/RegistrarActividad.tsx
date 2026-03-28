@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import toast from 'react-hot-toast';
 import { ArrowLeft, Activity, Clock, Flame } from 'lucide-react';
 
 interface ActividadFisica {
@@ -48,7 +49,7 @@ export function RegistrarActividad() {
 
   const handleSave = () => {
     if (!selectedActividad) {
-      alert('Por favor selecciona una actividad');
+      toast.error('Por favor selecciona una actividad');
       return;
     }
     
@@ -60,7 +61,7 @@ export function RegistrarActividad() {
       caloriasQuemadas: calcularCaloriasTotal(),
     });
     
-    alert('Actividad física registrada exitosamente');
+    toast.success('Actividad física registrada exitosamente');
     navigate('/menu-paciente');
   };
 

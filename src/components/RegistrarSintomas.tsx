@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { ArrowLeft, Heart, Thermometer, Activity, AlertCircle, Frown, Smile } from 'lucide-react';
+import toast from 'react-hot-toast';
+import { ArrowLeft, AlertCircle, Plus, Heart } from 'lucide-react';
 
 interface Sintoma {
   id: string;
@@ -41,16 +42,16 @@ export function RegistrarSintomas() {
   };
 
   const getIntensidadInfo = (valor: number) => {
-    if (valor <= 3) return { texto: 'Leve', color: 'text-green-600', emoji: <Smile className="text-green-600" size={24} /> };
-    if (valor <= 6) return { texto: 'Moderado', color: 'text-yellow-600', emoji: <Activity className="text-yellow-600" size={24} /> };
-    return { texto: 'Severo', color: 'text-red-600', emoji: <Frown className="text-red-600" size={24} /> };
+    if (valor <= 3) return { texto: 'Leve', color: 'text-green-600', emoji: <Plus className="text-green-600" size={24} /> };
+    if (valor <= 6) return { texto: 'Moderado', color: 'text-yellow-600', emoji: <Plus className="text-yellow-600" size={24} /> };
+    return { texto: 'Severo', color: 'text-red-600', emoji: <Plus className="text-red-600" size={24} /> };
   };
 
   const intensidadInfo = getIntensidadInfo(intensidad);
 
   const handleSave = () => {
     if (selectedSintomas.length === 0) {
-      alert('Por favor selecciona al menos un síntoma');
+      toast.error('Por favor selecciona al menos un síntoma');
       return;
     }
 
@@ -64,7 +65,7 @@ export function RegistrarSintomas() {
       descripcion,
     });
 
-    alert('Registro de síntomas guardado exitosamente');
+    toast.success('Registro de síntomas guardado exitosamente');
     navigate('/menu-paciente');
   };
 

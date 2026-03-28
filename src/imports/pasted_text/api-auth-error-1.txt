@@ -1,0 +1,142 @@
+code_components_preview_iframe-c57f661b337ed852.min.js.br:90 API Call - useUserToken: true token exists: true token preview: eyJhbGciOiJFUzI1NiIs...
+code_components_preview_iframe-c57f661b337ed852.min.js.br:90 API Call - endpoint: /professional/patients method: GET
+api.ts:57  GET https://mtwgaruycfyilnssvbap.supabase.co/functions/v1/make-server-deaf8e85/professional/patients 401 (Unauthorized)
+apiCall @ api.ts:57
+getPatients @ api.ts:121
+loadPatients @ MisPacientes.tsx:36
+(anonymous) @ MisPacientes.tsx:30
+TO @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T8 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T7 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T6 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T4 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+S1 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+SQ @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+(anonymous) @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+(anonymous) @ code_components_preview_iframe-c57f661b337ed852.min.js.br:65
+V @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61
+B @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61
+eo @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61Understand this error
+  GET https://mtwgaruycfyilnssvbap.supabase.co/functions/v1/make-server-deaf8e85/professional/patients 401 (Unauthorized)
+apiCall @ app-ycj7hm7vfutv3ofv…?t=1774644323601:38
+getPatients @ app-ycj7hm7vfutv3ofv…?t=1774644323601:80
+loadPatients @ app-ycj7hm7vfutv3ofv…?t=1774644323601:40
+(anonymous) @ app-ycj7hm7vfutv3ofv…?t=1774644323601:35
+TO @ code_components_prev…7ed852.min.js.br:37
+T8 @ code_components_prev…7ed852.min.js.br:37
+T7 @ code_components_prev…7ed852.min.js.br:37
+T6 @ code_components_prev…7ed852.min.js.br:37
+T4 @ code_components_prev…7ed852.min.js.br:37
+S1 @ code_components_prev…7ed852.min.js.br:37
+SQ @ code_components_prev…7ed852.min.js.br:37
+(anonymous) @ code_components_prev…7ed852.min.js.br:37
+(anonymous) @ code_components_prev…7ed852.min.js.br:65
+V @ code_components_prev…7ed852.min.js.br:61
+B @ code_components_prev…7ed852.min.js.br:61
+eo @ code_components_prev…7ed852.min.js.br:61Understand this error
+patients:1  Failed to load resource: the server responded with a status of 401 ()Understand this error
+patients:1  Failed to load resource: the server responded with a status of 401 ()Understand this error
+code_components_preview_iframe-c57f661b337ed852.min.js.br:17 API Call failed: /professional/patients status: 401 data: {code: 401, message: 'Invalid JWT'}
+r @ code_components_preview_iframe-c57f661b337ed852.min.js.br:17
+error @ code_components_preview_iframe-c57f661b337ed852.min.js.br:90
+apiCall @ api.ts:65
+await in apiCall
+getPatients @ api.ts:121
+loadPatients @ MisPacientes.tsx:36
+(anonymous) @ MisPacientes.tsx:30
+TO @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T8 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T7 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T6 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T4 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+S1 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+SQ @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+(anonymous) @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+(anonymous) @ code_components_preview_iframe-c57f661b337ed852.min.js.br:65
+V @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61
+B @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61
+eo @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61Understand this error
+code_components_preview_iframe-c57f661b337ed852.min.js.br:17 Error loading patients: Error: Error en la petición
+    at apiCall (api.ts:66:11)
+    at async Object.getPatients (api.ts:121:12)
+    at async loadPatients (MisPacientes.tsx:36:22)
+r @ code_components_preview_iframe-c57f661b337ed852.min.js.br:17
+error @ code_components_preview_iframe-c57f661b337ed852.min.js.br:90
+loadPatients @ MisPacientes.tsx:45
+await in loadPatients
+(anonymous) @ MisPacientes.tsx:30
+TO @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T8 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T7 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T6 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T4 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+S1 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+SQ @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+(anonymous) @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+(anonymous) @ code_components_preview_iframe-c57f661b337ed852.min.js.br:65
+V @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61
+B @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61
+eo @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61Understand this error
+code_components_preview_iframe-c57f661b337ed852.min.js.br:90 9:00:37 PM [vite] (client) page reload src/supabase/functions/server/index.tsx
+code_components_preview_iframe-c57f661b337ed852.min.js.br:90 API Call - useUserToken: true token exists: true token preview: eyJhbGciOiJFUzI1NiIs...
+code_components_preview_iframe-c57f661b337ed852.min.js.br:90 API Call - endpoint: /professional/patients method: GET
+api.ts:57  GET https://mtwgaruycfyilnssvbap.supabase.co/functions/v1/make-server-deaf8e85/professional/patients 401 (Unauthorized)
+apiCall @ api.ts:57
+getPatients @ api.ts:121
+loadPatients @ MisPacientes.tsx:36
+(anonymous) @ MisPacientes.tsx:30
+TO @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T8 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T7 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T6 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T4 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+S1 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+SQ @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+(anonymous) @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+(anonymous) @ code_components_preview_iframe-c57f661b337ed852.min.js.br:65
+V @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61
+B @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61
+eo @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61Understand this error
+patients:1  Failed to load resource: the server responded with a status of 401 ()Understand this error
+patients:1  Failed to load resource: the server responded with a status of 401 ()Understand this error
+code_components_preview_iframe-c57f661b337ed852.min.js.br:17 API Call failed: /professional/patients status: 401 data: {code: 401, message: 'Invalid JWT'}
+r @ code_components_preview_iframe-c57f661b337ed852.min.js.br:17
+error @ code_components_preview_iframe-c57f661b337ed852.min.js.br:90
+apiCall @ api.ts:65
+await in apiCall
+getPatients @ api.ts:121
+loadPatients @ MisPacientes.tsx:36
+(anonymous) @ MisPacientes.tsx:30
+TO @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T8 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T7 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T6 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T4 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+S1 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+SQ @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+(anonymous) @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+(anonymous) @ code_components_preview_iframe-c57f661b337ed852.min.js.br:65
+V @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61
+B @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61
+eo @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61Understand this error
+code_components_preview_iframe-c57f661b337ed852.min.js.br:17 Error loading patients: Error: Error en la petición
+    at apiCall (api.ts:66:11)
+    at async Object.getPatients (api.ts:121:12)
+    at async loadPatients (MisPacientes.tsx:36:22)
+r @ code_components_preview_iframe-c57f661b337ed852.min.js.br:17
+error @ code_components_preview_iframe-c57f661b337ed852.min.js.br:90
+loadPatients @ MisPacientes.tsx:45
+await in loadPatients
+(anonymous) @ MisPacientes.tsx:30
+TO @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T8 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T7 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T6 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+T4 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+S1 @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+SQ @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+(anonymous) @ code_components_preview_iframe-c57f661b337ed852.min.js.br:37
+(anonymous) @ code_components_preview_iframe-c57f661b337ed852.min.js.br:65
+V @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61
+B @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61
+eo @ code_components_preview_iframe-c57f661b337ed852.min.js.br:61Understand this error

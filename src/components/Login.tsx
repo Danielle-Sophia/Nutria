@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
+import toast from 'react-hot-toast';
+import { authAPI } from '../utils/api';
 import imgIniciarSesion from "figma:asset/54e3689f0316108b9ac0b7ce7baeb6fbcc865e7e.png";
 import { Header } from './Header';
 
@@ -7,18 +9,61 @@ export function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Login attempt:', { email, password });
+    setIsLoading(true);
+    setError('');
     
-    // Navigate to professional menu after successful login
-    navigate('/menu-profesional');
+    try {
+      console.log('Login attempt:', email);
+      
+      // Use backend login API
+      const result = await authAPI.login(email, password);
+
+      if (!result.success) {
+        setError(result.error || 'Credenciales inválidas. Verifica tu correo y contraseña.');
+        setIsLoading(false);
+        return;
+      }
+
+      console.log('Login successful. User type:', result.user.tipo);
+      console.log('Access token received:', result.accessToken ? 'Yes, length:' + result.accessToken.length : 'No');
+      
+      // Verify token was saved
+      const savedToken = localStorage.getItem('accessToken');
+      console.log('Token saved to localStorage:', savedToken ? 'Yes, length:' + savedToken.length : 'No');
+
+      // Redirect based on user type
+      if (result.user.tipo === 'profesional') {
+        navigate('/menu-profesional');
+      } else if (result.user.tipo === 'paciente') {
+        navigate('/menu-paciente');
+      } else {
+        setError('Tipo de usuario no reconocido.');
+        setIsLoading(false);
+      }
+
+    } catch (err: any) {
+      console.error('Login error:', err);
+      setError(err.message || 'Error al iniciar sesión. Por favor intenta de nuevo.');
+      setIsLoading(false);
+    }
   };
 
   const handleForgotPassword = () => {
     console.log('Navigate to forgot password');
-    alert('Recuperación de contraseña...');
+    toast('Funcionalidad en desarrollo. Pronto podrás recuperar tu contraseña.', {
+      icon: 'ℹ️',
+      duration: 4000,
+      style: {
+        background: '#d1ecf1',
+        color: '#0c5460',
+        border: '1px solid #bee5eb',
+      },
+    });
   };
 
   return (
@@ -72,7 +117,8 @@ export function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="absolute bg-[#e1e9f2] h-[41px] left-[83px] top-[236px] w-[474px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all"
+                disabled={isLoading}
+                className="absolute bg-[#e1e9f2] h-[41px] left-[83px] top-[236px] w-[474px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
                 placeholder="tu@email.com"
               />
             </div>
@@ -91,10 +137,18 @@ export function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="absolute bg-[#e1e9f2] h-[41px] left-[83px] top-[326px] w-[474px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all"
+                disabled={isLoading}
+                className="absolute bg-[#e1e9f2] h-[41px] left-[83px] top-[326px] w-[474px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
                 placeholder="••••••••"
               />
             </div>
+            
+            {/* Error Message */}
+            {error && (
+              <p className="absolute left-[83px] top-[375px] text-red-600 text-[14px] font-['Poppins:Regular',sans-serif] w-[474px]">
+                {error}
+              </p>
+            )}
             
             {/* Forgot Password Link */}
             <button
@@ -108,26 +162,14 @@ export function Login() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="absolute left-[164px] top-[442px] w-[312px] h-[60px] bg-[#39588a] rounded-[15px] hover:bg-[#2d4570] active:scale-[0.98] transition-all"
+              disabled={isLoading}
+              className="absolute left-[164px] top-[442px] w-[312px] h-[60px] bg-[#39588a] rounded-[15px] hover:bg-[#2d4570] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span className="font-['Poppins:Bold',sans-serif] text-[24px] text-white">
-                Iniciar sesión
+                {isLoading ? 'Iniciando...' : 'Iniciar sesión'}
               </span>
             </button>
           </form>
-          
-          {/* Patient Menu Link */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-[530px] text-center">
-            <span className="font-['Poppins:Regular',sans-serif] text-[16px] text-black">
-              ¿Eres paciente?{' '}
-            </span>
-            <Link 
-              to="/menu-paciente"
-              className="[text-underline-position:from-font] decoration-solid font-['Poppins:Bold',sans-serif] text-[#458dff] text-[16px] underline hover:text-[#3a7ae0] transition-colors"
-            >
-              Ir al menú de paciente
-            </Link>
-          </div>
         </div>
       </div>
     </div>

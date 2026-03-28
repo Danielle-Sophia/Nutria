@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, Bell, User } from 'lucide-react';
 import { useNavigate } from 'react-router';
+import toast from 'react-hot-toast';
 import { ProfileMenu } from './ProfileMenu';
 import { WelcomeSection } from './WelcomeSection';
+import { getUserData } from '../utils/api';
 import imgLifesaversNewPatient from "figma:asset/8d4c75af8bdd5521ebb3ccb7852724c6e92c2782.png";
 import imgLifesaversUsingComputer from "figma:asset/0f8d6bd54bbc2235127b830c3e7fadd1652447df.png";
 import imgLifesaversStudyOnline from "figma:asset/661e850e5bbc3a2800f0efb364ea3899adfa1b3b.png";
@@ -45,10 +47,28 @@ export function MenuPrincipalProfesional() {
   const navigate = useNavigate();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   
-  const [professionalData] = useState({
-    nombre: 'Dra. Alejandra Triviño',
-    especialidad: 'Nutrición Clínica'
+  const [professionalData, setProfessionalData] = useState({
+    nombre: 'Profesional',
+    apellidos: '',
+    especialidad: 'Nutrición Clínica',
+    folio: '',
   });
+
+  useEffect(() => {
+    // Get user data from localStorage
+    const userData = getUserData();
+    if (userData) {
+      setProfessionalData({
+        nombre: userData.nombre || 'Profesional',
+        apellidos: userData.apellidos || '',
+        especialidad: userData.especialidad || 'Nutrición Clínica',
+        folio: userData.folio || '',
+      });
+    } else {
+      // If no user data, redirect to login
+      navigate('/');
+    }
+  }, [navigate]);
 
   const handleCardClick = (route: string) => {
     navigate(route);
@@ -56,17 +76,35 @@ export function MenuPrincipalProfesional() {
 
   const handleSearch = () => {
     console.log('Búsqueda activada');
-    alert('Función de búsqueda en desarrollo');
+    toast('Función de búsqueda en desarrollo', {
+      icon: '🔍',
+      duration: 3000,
+      style: {
+        background: '#d1ecf1',
+        color: '#0c5460',
+        border: '1px solid #bee5eb',
+      },
+    });
   };
 
   const handleNotifications = () => {
     console.log('Notificaciones activadas');
-    alert('Notificaciones en desarrollo');
+    toast('Notificaciones en desarrollo', {
+      icon: '🔔',
+      duration: 3000,
+      style: {
+        background: '#d1ecf1',
+        color: '#0c5460',
+        border: '1px solid #bee5eb',
+      },
+    });
   };
 
   const toggleProfileMenu = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   };
+
+  const fullName = `${professionalData.nombre} ${professionalData.apellidos}`.trim();
 
   return (
     <div className="bg-[#85aab3] min-h-screen w-full relative">
@@ -122,7 +160,7 @@ export function MenuPrincipalProfesional() {
           {/* Welcome Section */}
           <div className="mb-[60px]">
             <WelcomeSection 
-              nombre={professionalData.nombre}
+              nombre={fullName}
               especialidad={professionalData.especialidad}
             />
           </div>

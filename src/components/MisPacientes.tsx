@@ -1,36 +1,59 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, Bell, User, Phone, Mail } from 'lucide-react';
 import { useNavigate } from 'react-router';
+import toast from 'react-hot-toast';
 import { ProfileMenu } from './ProfileMenu';
+import { AddPatientModal } from './AddPatientModal';
+import { professionalAPI } from '../utils/api';
 import imgLetter from "figma:asset/68645c8d41ac0e552cb9e9f63caabbbc0ee2b1d3.png";
 
 interface Patient {
-  id: number;
+  id: string;
   nombre: string;
+  apellidos: string;
   edad: number;
   sexoBiologico: string;
   correo: string;
   telefono: string;
+  folio: string;
 }
-
-const mockPatients: Patient[] = [
-  { id: 1, nombre: 'Patricio Castillo Antonio', edad: 28, sexoBiologico: 'Hombre', correo: 'patricio@email.com', telefono: '555-0101' },
-  { id: 2, nombre: 'Margarita Muñoz López', edad: 18, sexoBiologico: 'Mujer', correo: 'margarita@email.com', telefono: '555-0102' },
-  { id: 3, nombre: 'Alejandra Cortes Pérez', edad: 29, sexoBiologico: 'Mujer', correo: 'alejandra@email.com', telefono: '555-0103' },
-  { id: 4, nombre: 'Daniel Antonio Salvador', edad: 46, sexoBiologico: 'Hombre', correo: 'daniel@email.com', telefono: '555-0104' },
-  { id: 5, nombre: 'Pablo Pablo Pablo', edad: 20, sexoBiologico: 'Hombre', correo: 'pablo@email.com', telefono: '555-0105' },
-  { id: 6, nombre: 'Alejandro Uno Dos', edad: 19, sexoBiologico: 'Mujer', correo: 'alejandro@email.com', telefono: '555-0106' },
-  { id: 7, nombre: 'Paciente Martita', edad: 17, sexoBiologico: 'Mujer', correo: 'martita@email.com', telefono: '555-0107' },
-];
 
 export function MisPacientes() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [patients, setPatients] = useState<Patient[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  const filteredPatients = mockPatients.filter(patient =>
-    patient.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Load patients on mount
+  useEffect(() => {
+    loadPatients();
+  }, []);
+
+  const loadPatients = async () => {
+    try {
+      setIsLoading(true);
+      const result = await professionalAPI.getPatients();
+      
+      if (result.success) {
+        setPatients(result.patients);
+      } else {
+        console.error('Error loading patients:', result.error);
+        toast.error('Error al cargar pacientes: ' + result.error);
+      }
+    } catch (error: any) {
+      console.error('Error loading patients:', error);
+      toast.error('Error al cargar pacientes');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const filteredPatients = patients.filter(patient => {
+    const fullName = `${patient.nombre} ${patient.apellidos}`.toLowerCase();
+    return fullName.includes(searchTerm.toLowerCase());
+  });
 
   const handleSearch = () => {
     console.log('Búsqueda activada');
@@ -38,12 +61,19 @@ export function MisPacientes() {
 
   const handleNotifications = () => {
     console.log('Notificaciones activadas');
-    alert('Notificaciones en desarrollo');
+    toast('Notificaciones en desarrollo', {
+      icon: '🔔',
+      duration: 3000,
+      style: {
+        background: '#d1ecf1',
+        color: '#0c5460',
+        border: '1px solid #bee5eb',
+      },
+    });
   };
 
   const handleAddPatient = () => {
-    console.log('Agregar paciente');
-    alert('Función de agregar paciente en desarrollo');
+    setIsAddModalOpen(true);
   };
 
   const handlePatientClick = (patient: Patient) => {
@@ -63,17 +93,45 @@ export function MisPacientes() {
   const handleConfiguracion = () => {
     setIsProfileMenuOpen(false);
     console.log('Navegando a Configuración');
-    alert('Navegando a Configuración de cuenta');
+    navigate('/configuracion');
   };
 
   const handleCerrarSesion = () => {
     setIsProfileMenuOpen(false);
     console.log('Cerrando sesión');
-    if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-      alert('Sesión cerrada');
-      // Aquí iría la lógica para cerrar sesión
-      navigate('/login');
-    }
+    
+    toast((t) => (
+      <div>
+        <p className="font-semibold mb-2">¿Estás seguro de que deseas cerrar sesión?</p>
+        <div className="flex gap-2">
+          <button
+            onClick={() => {
+              toast.dismiss(t.id);
+              // Aquí iría la lógica para cerrar sesión
+              localStorage.removeItem('accessToken');
+              toast.success('Sesión cerrada exitosamente');
+              navigate('/');
+            }}
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium text-sm"
+          >
+            Sí, cerrar sesión
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium text-sm"
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    ), {
+      duration: Infinity,
+      style: {
+        background: '#fff',
+        color: '#333',
+        minWidth: '300px',
+      },
+    });
   };
 
   return (
@@ -172,74 +230,100 @@ export function MisPacientes() {
             </div>
           </div>
 
-          {/* Table Header */}
-          <div className="bg-[rgba(217,215,216,0.8)] h-[63px] rounded-[10px] mb-[15px] flex items-center px-[37px]">
-            <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black w-[260px]">
-              Nombre
-            </p>
-            <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black w-[100px]">
-              Edad
-            </p>
-            <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black w-[200px]">
-              Sexo biológico
-            </p>
-            <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black flex-1">
-              Contacto
-            </p>
-          </div>
-
-          {/* Patient List */}
-          <div className="space-y-[6px]">
-            {filteredPatients.map((patient) => (
-              <div
-                key={patient.id}
-                onClick={() => handlePatientClick(patient)}
-                className="border-[0.5px] border-black border-solid h-[55px] rounded-[50px] w-full flex items-center px-[37px] hover:bg-[#f5f8fa] transition-colors cursor-pointer"
-              >
-                {/* Name */}
-                <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black w-[260px] text-left">
-                  {patient.nombre}
+          {/* Loading State */}
+          {isLoading ? (
+            <div className="flex justify-center items-center h-[400px]">
+              <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-gray-500">
+                Cargando pacientes...
+              </p>
+            </div>
+          ) : (
+            <>
+              {/* Table Header */}
+              <div className="bg-[rgba(217,215,216,0.8)] h-[63px] rounded-[10px] mb-[15px] flex items-center px-[37px]">
+                <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black w-[260px]">
+                  Nombre
                 </p>
-
-                {/* Age */}
-                <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black w-[100px] text-left">
-                  {patient.edad}
+                <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black w-[100px]">
+                  Edad
                 </p>
-
-                {/* Sex */}
-                <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black w-[200px] text-left">
-                  {patient.sexoBiologico}
+                <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black w-[200px]">
+                  Sexo biológico
                 </p>
-
-                {/* Contact */}
-                <div className="flex items-center gap-[45px] flex-1">
-                  {/* Email */}
-                  <div className="flex items-center gap-[8px]">
-                    <img src={imgLetter} alt="Email" className="size-[37px]" />
-                    <button
-                      onClick={(e) => handleContactClick('email', patient.correo, e)}
-                      className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black underline hover:text-[#3457bf] transition-colors"
-                    >
-                      Correo
-                    </button>
-                  </div>
-
-                  {/* Phone */}
-                  <div className="flex items-center gap-[8px]">
-                    <Phone size={30} className="text-[#1E1E1E]" strokeWidth={2} />
-                    <button
-                      onClick={(e) => handleContactClick('phone', patient.telefono, e)}
-                      className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black underline hover:text-[#3457bf] transition-colors"
-                    >
-                      Teléfono
-                    </button>
-                  </div>
-                </div>
+                <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black flex-1">
+                  Contacto
+                </p>
               </div>
-            ))}
-          </div>
+
+              {/* Patient List */}
+              {filteredPatients.length === 0 ? (
+                <div className="flex justify-center items-center h-[300px]">
+                  <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-gray-500">
+                    {searchTerm ? 'No se encontraron pacientes' : 'No tienes pacientes registrados'}
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-[6px]">
+                  {filteredPatients.map((patient) => (
+                    <div
+                      key={patient.id}
+                      onClick={() => handlePatientClick(patient)}
+                      className="border-[0.5px] border-black border-solid h-[55px] rounded-[50px] w-full flex items-center px-[37px] hover:bg-[#f5f8fa] transition-colors cursor-pointer"
+                    >
+                      {/* Name */}
+                      <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black w-[260px] text-left">
+                        {patient.nombre} {patient.apellidos}
+                      </p>
+
+                      {/* Age */}
+                      <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black w-[100px] text-left">
+                        {patient.edad}
+                      </p>
+
+                      {/* Sex */}
+                      <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black w-[200px] text-left">
+                        {patient.sexoBiologico}
+                      </p>
+
+                      {/* Contact */}
+                      <div className="flex items-center gap-[45px] flex-1">
+                        {/* Email */}
+                        <div className="flex items-center gap-[8px]">
+                          <img src={imgLetter} alt="Email" className="size-[37px]" />
+                          <button
+                            onClick={(e) => handleContactClick('email', patient.correo, e)}
+                            className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black underline hover:text-[#3457bf] transition-colors"
+                          >
+                            Correo
+                          </button>
+                        </div>
+
+                        {/* Phone */}
+                        <div className="flex items-center gap-[8px]">
+                          <Phone size={30} className="text-[#1E1E1E]" strokeWidth={2} />
+                          <button
+                            onClick={(e) => handleContactClick('phone', patient.telefono, e)}
+                            className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black underline hover:text-[#3457bf] transition-colors"
+                          >
+                            Teléfono
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
         </div>
       </div>
+
+      {/* Add Patient Modal */}
+      <AddPatientModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSuccess={loadPatients}
+      />
     </div>
   );
 }

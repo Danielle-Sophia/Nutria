@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ArrowLeft, Droplet, AlertCircle } from 'lucide-react';
+import { patientAPI } from '../utils/api';
+import { CustomAlert } from './CustomAlert';
 
 export function RegistrarGlucosa() {
   const navigate = useNavigate();
@@ -9,6 +11,13 @@ export function RegistrarGlucosa() {
   const [hora, setHora] = useState(new Date().toTimeString().slice(0, 5));
   const [momento, setMomento] = useState('ayunas');
   const [notas, setNotas] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+  const [alertState, setAlertState] = useState<{
+    show: boolean;
+    message: string;
+    type: 'success' | 'error' | 'warning' | 'info';
+    title?: string;
+  }>({ show: false, message: '', type: 'info' });
 
   const getNivelGlucosa = (valor: number) => {
     if (valor < 54) return { nivel: 'Muy baja', color: 'bg-[#590202] text-white', mensaje: '¡Atención! Nivel peligrosamente bajo' };
@@ -21,22 +30,57 @@ export function RegistrarGlucosa() {
   const valorGlucosa = parseFloat(glucosa);
   const nivelInfo = valorGlucosa > 0 ? getNivelGlucosa(valorGlucosa) : null;
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!glucosa || valorGlucosa <= 0) {
-      alert('Por favor ingresa un valor de glucosa válido');
+      setAlertState({
+        show: true,
+        message: 'Por favor ingresa un valor de glucosa válido',
+        type: 'warning',
+        title: 'Campo requerido'
+      });
       return;
     }
 
-    console.log('Guardando registro de glucosa:', {
-      glucosa: valorGlucosa,
-      fecha,
-      hora,
-      momento,
-      notas,
-    });
+    setIsSaving(true);
 
-    alert('Registro de glucosa guardado exitosamente');
-    navigate('/menu-paciente');
+    try {
+      const result = await patientAPI.saveGlucoseRecord({
+        glucoseValue: valorGlucosa,
+        date: fecha,
+        time: hora,
+        notes: `${momento}: ${notas}`.trim(),
+      });
+
+      if (result.success) {
+        setAlertState({
+          show: true,
+          message: 'Tu registro de glucosa ha sido guardado exitosamente',
+          type: 'success',
+          title: 'Registro guardado'
+        });
+        // Navigate after closing alert
+        setTimeout(() => {
+          navigate('/menu-paciente');
+        }, 500);
+      } else {
+        setAlertState({
+          show: true,
+          message: result.error || 'Ocurrió un error al intentar guardar el registro',
+          type: 'error',
+          title: 'Error al guardar'
+        });
+      }
+    } catch (error: any) {
+      console.error('Error saving glucose:', error);
+      setAlertState({
+        show: true,
+        message: error.message || 'Ocurrió un error inesperado. Por favor intenta de nuevo',
+        type: 'error',
+        title: 'Error al guardar'
+      });
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -207,18 +251,29 @@ export function RegistrarGlucosa() {
           <div className="flex justify-end mt-[30px]">
             <button
               onClick={handleSave}
-              disabled={!glucosa || valorGlucosa <= 0}
+              disabled={!glucosa || valorGlucosa <= 0 || isSaving}
               className={`rounded-[15px] px-[40px] py-[15px] font-['Poppins:Bold',sans-serif] text-[18px] transition-all ${
-                !glucosa || valorGlucosa <= 0
+                !glucosa || valorGlucosa <= 0 || isSaving
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   : 'bg-[#39588a] hover:bg-[#2d4570] text-white active:scale-95'
               }`}
             >
-              Guardar registro
+              {isSaving ? 'Guardando...' : 'Guardar registro'}
             </button>
           </div>
         </div>
       </div>
+
+      {/* Alert */}
+      {alertState.show && (
+        <CustomAlert
+          show={alertState.show}
+          message={alertState.message}
+          type={alertState.type}
+          title={alertState.title}
+          onClose={() => setAlertState({ show: false, message: '', type: 'info' })}
+        />
+      )}
     </div>
   );
 }

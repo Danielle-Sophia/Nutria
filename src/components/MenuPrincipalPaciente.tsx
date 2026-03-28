@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, Bell, User, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router';
+import toast from 'react-hot-toast';
 import { ProfileMenu } from './ProfileMenu';
+import { getUserData, patientAPI } from '../utils/api';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import imgAvatarsDefaultWithBackdrop from "figma:asset/096952a3ce49665f2e8700549ef936cfae6aca06.png";
 import imgFoodiesMealIngredients from "figma:asset/ab1a1cb53499fd7537e3427b3dd57bc7c74b57ed.png";
 import imgCoolKidsOnWheels from "figma:asset/84a8a89c1913a34f01f581c6a7cd48d9c2cd1445.png";
@@ -59,11 +62,79 @@ const glucoseLevels: GlucoseLevel[] = [
 export function MenuPrincipalPaciente() {
   const navigate = useNavigate();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [glucoseData, setGlucoseData] = useState<any[]>([]);
+  const [isLoadingGlucose, setIsLoadingGlucose] = useState(false);
+  const [average, setAverage] = useState<number>(0);
   
-  const [patientData] = useState({
-    nombre: 'Patricio Castillo Antonio',
-    folio: '000001'
+  const [patientData, setPatientData] = useState({
+    nombre: 'Paciente',
+    apellidos: '',
+    folio: '',
+    id: ''
   });
+
+  useEffect(() => {
+    // Get user data from localStorage
+    const userData = getUserData();
+    if (userData) {
+      setPatientData({
+        nombre: userData.nombre || 'Paciente',
+        apellidos: userData.apellidos || '',
+        folio: userData.folio || '',
+        id: userData.id || '',
+      });
+      
+      // Load glucose data for patient
+      if (userData.id) {
+        loadGlucoseData(userData.id);
+      }
+    } else {
+      // If no user data, redirect to login
+      navigate('/');
+    }
+  }, [navigate]);
+
+  const loadGlucoseData = async (patientId: string) => {
+    try {
+      setIsLoadingGlucose(true);
+      const result = await patientAPI.getGlucoseRecords(patientId);
+      
+      if (result.success && result.records.length > 0) {
+        // Take last 14 records and format them
+        const recentRecords = result.records.slice(0, 14).reverse();
+        
+        const chartData = recentRecords.map((record: any, index: number) => {
+          // Parse date in local timezone (no UTC conversion)
+          const [year, month, day] = record.date.split('-').map(Number);
+          const date = new Date(year, month - 1, day);
+          const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+          const label = `${date.getDate()} ${monthNames[date.getMonth()]}`;
+          
+          return {
+            id: `glucose-${index}-${record.date}-${record.time}`, // Unique key
+            fecha: label,
+            glucosa: record.glucoseValue,
+            objetivo: 140,
+          };
+        });
+        
+        setGlucoseData(chartData);
+        
+        // Calculate average
+        const sum = recentRecords.reduce((acc: number, record: any) => acc + record.glucoseValue, 0);
+        const avg = Math.round(sum / recentRecords.length);
+        setAverage(avg);
+      } else {
+        setGlucoseData([]);
+        setAverage(0);
+      }
+    } catch (error) {
+      console.error('Error loading glucose data:', error);
+      setGlucoseData([]);
+    } finally {
+      setIsLoadingGlucose(false);
+    }
+  };
 
   const handleCardClick = (route: string) => {
     navigate(route);
@@ -75,17 +146,35 @@ export function MenuPrincipalPaciente() {
 
   const handleSearch = () => {
     console.log('Búsqueda activada');
-    alert('Función de búsqueda en desarrollo');
+    toast('Función de búsqueda en desarrollo', {
+      icon: '🔍',
+      duration: 3000,
+      style: {
+        background: '#d1ecf1',
+        color: '#0c5460',
+        border: '1px solid #bee5eb',
+      },
+    });
   };
 
   const handleNotifications = () => {
     console.log('Notificaciones activadas');
-    alert('Notificaciones en desarrollo');
+    toast('Notificaciones en desarrollo', {
+      icon: '🔔',
+      duration: 3000,
+      style: {
+        background: '#d1ecf1',
+        color: '#0c5460',
+        border: '1px solid #bee5eb',
+      },
+    });
   };
 
   const toggleProfileMenu = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   };
+
+  const fullName = `${patientData.nombre} ${patientData.apellidos}`.trim();
 
   return (
     <div className="bg-[#85aab3] min-h-screen w-full relative">
@@ -147,7 +236,7 @@ export function MenuPrincipalPaciente() {
                 ¡Bienvenido!
               </p>
               <p className="font-['Poppins:SemiBold',sans-serif] leading-[normal] not-italic text-[18px] text-black mb-[8px]">
-                {patientData.nombre}
+                {fullName}
               </p>
               <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black">
                 Folio: {patientData.folio}
@@ -209,7 +298,7 @@ export function MenuPrincipalPaciente() {
             {/* AI Insulin Calculator - Special Button */}
             <div className="flex justify-center">
               <button
-                onClick={() => handleCardClick('/calcular-insulina')}
+                onClick={() => window.open('https://huggingface.co/spaces/Lu1sHF/NIAXG', '_blank')}
                 className="group cursor-pointer transition-all hover:scale-105 active:scale-95"
               >
                 <div className="relative w-[550px]">
@@ -251,11 +340,41 @@ export function MenuPrincipalPaciente() {
               {/* Chart Container */}
               <div className="flex-1 bg-[#d9d9d9] rounded-[20px] p-[20px]">
                 <div className="bg-white rounded-[10px] p-[20px] h-[400px] flex items-center justify-center">
-                  <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-500 italic text-center">
-                    Gráfica de evolución de glucosa
-                    <br />
-                    (Datos en desarrollo)
-                  </p>
+                  {isLoadingGlucose ? (
+                    <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-500 italic text-center">
+                      Cargando datos...
+                    </p>
+                  ) : (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart
+                        data={glucoseData}
+                        margin={{
+                          top: 5,
+                          right: 30,
+                          left: 20,
+                          bottom: 5,
+                        }}
+                      >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="fecha" />
+                        <YAxis />
+                        <Tooltip />
+                        <Line 
+                          key="line-glucosa"
+                          type="monotone" 
+                          dataKey="glucosa" 
+                          stroke="#ff8000" 
+                          activeDot={{ r: 8 }} 
+                        />
+                        <Line 
+                          key="line-objetivo"
+                          type="monotone" 
+                          dataKey="objetivo" 
+                          stroke="#00913f" 
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  )}
                 </div>
               </div>
 

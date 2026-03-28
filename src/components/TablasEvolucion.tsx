@@ -1,34 +1,101 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { ArrowLeft, Calendar, TrendingUp } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area, AreaChart } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { professionalAPI, patientAPI } from '../utils/api';
 
-const glucoseData = [
-  { fecha: '13 Feb', glucosa: 120, objetivo: 140 },
-  { fecha: '14 Feb', glucosa: 145, objetivo: 140 },
-  { fecha: '15 Feb', glucosa: 132, objetivo: 140 },
-  { fecha: '16 Feb', glucosa: 128, objetivo: 140 },
-  { fecha: '17 Feb', glucosa: 138, objetivo: 140 },
-  { fecha: '18 Feb', glucosa: 125, objetivo: 140 },
-  { fecha: '19 Feb', glucosa: 130, objetivo: 140 },
-  { fecha: '20 Feb', glucosa: 142, objetivo: 140 },
-  { fecha: '21 Feb', glucosa: 135, objetivo: 140 },
-  { fecha: '22 Feb', glucosa: 127, objetivo: 140 },
-  { fecha: '23 Feb', glucosa: 133, objetivo: 140 },
-  { fecha: '24 Feb', glucosa: 129, objetivo: 140 },
-  { fecha: '25 Feb', glucosa: 136, objetivo: 140 },
-  { fecha: '26 Feb', glucosa: 131, objetivo: 140 },
-];
+interface Patient {
+  id: string;
+  nombre: string;
+  apellidos: string;
+  folio: string;
+}
 
-const weightData = [
-  { fecha: '13 Feb', peso: 78.5 },
-  { fecha: '16 Feb', peso: 78.2 },
-  { fecha: '19 Feb', peso: 77.9 },
-  { fecha: '22 Feb', peso: 77.6 },
-  { fecha: '25 Feb', peso: 77.3 },
-];
+interface GlucoseDataPoint {
+  fecha: string;
+  glucosa: number;
+  objetivo: number;
+}
 
 export function TablasEvolucion() {
   const navigate = useNavigate();
+  const [selectedPatientId, setSelectedPatientId] = useState<string>('');
+  const [patients, setPatients] = useState<Patient[]>([]);
+  const [glucoseData, setGlucoseData] = useState<GlucoseDataPoint[]>([]);
+  const [isLoadingPatients, setIsLoadingPatients] = useState(true);
+  const [isLoadingData, setIsLoadingData] = useState(false);
+  const [average, setAverage] = useState<number>(0);
+
+  // Load patients on mount
+  useEffect(() => {
+    loadPatients();
+  }, []);
+
+  // Load glucose data when patient changes
+  useEffect(() => {
+    if (selectedPatientId) {
+      loadGlucoseData(selectedPatientId);
+    }
+  }, [selectedPatientId]);
+
+  const loadPatients = async () => {
+    try {
+      setIsLoadingPatients(true);
+      const result = await professionalAPI.getPatients();
+      
+      if (result.success && result.patients.length > 0) {
+        setPatients(result.patients);
+        // Auto-select first patient
+        setSelectedPatientId(result.patients[0].id);
+      }
+    } catch (error) {
+      console.error('Error loading patients:', error);
+    } finally {
+      setIsLoadingPatients(false);
+    }
+  };
+
+  const loadGlucoseData = async (patientId: string) => {
+    try {
+      setIsLoadingData(true);
+      const result = await patientAPI.getGlucoseRecords(patientId);
+      
+      if (result.success && result.records.length > 0) {
+        // Take last 14 records and format them
+        const recentRecords = result.records.slice(0, 14).reverse();
+        
+        const chartData = recentRecords.map((record: any, index: number) => {
+          // Parse date in local timezone (no UTC conversion)
+          const [year, month, day] = record.date.split('-').map(Number);
+          const date = new Date(year, month - 1, day);
+          const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+          const label = `${date.getDate()} ${monthNames[date.getMonth()]}`;
+          
+          return {
+            id: `glucose-${patientId}-${index}-${record.date}`, // Unique key
+            fecha: label,
+            glucosa: record.glucoseValue,
+            objetivo: 140, // Target value
+          };
+        });
+        
+        setGlucoseData(chartData);
+        
+        // Calculate average
+        const sum = recentRecords.reduce((acc: number, record: any) => acc + record.glucoseValue, 0);
+        const avg = Math.round(sum / recentRecords.length);
+        setAverage(avg);
+      } else {
+        setGlucoseData([]);
+        setAverage(0);
+      }
+    } catch (error) {
+      console.error('Error loading glucose data:', error);
+      setGlucoseData([]);
+    } finally {
+      setIsLoadingData(false);
+    }
+  };
 
   return (
     <div className="bg-[#85aab3] min-h-screen w-full">
@@ -72,11 +139,17 @@ export function TablasEvolucion() {
               </select>
             </div>
             
-            <select className="bg-[#e1e9f2] rounded-[10px] px-[20px] py-[10px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]">
-              <option>Todos los pacientes</option>
-              <option>Patricio Castillo Antonio</option>
-              <option>María González López</option>
-              <option>Juan Pérez Martínez</option>
+            <select 
+              className="bg-[#e1e9f2] rounded-[10px] px-[20px] py-[10px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
+              value={selectedPatientId}
+              onChange={(e) => setSelectedPatientId(e.target.value)}
+            >
+              <option value="">Todos los pacientes</option>
+              {patients.map(patient => (
+                <option key={patient.id} value={patient.id}>
+                  {patient.nombre} {patient.apellidos}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -132,120 +205,8 @@ export function TablasEvolucion() {
               </ResponsiveContainer>
               <div className="mt-[15px] text-center">
                 <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600">
-                  Promedio: <span className="font-semibold text-[#39588a]">132 mg/dL</span>
+                  Promedio: <span className="font-semibold text-[#39588a]">{average} mg/dL</span>
                 </p>
-              </div>
-            </div>
-
-            {/* Weight Chart */}
-            <div className="bg-[#f5f5f5] rounded-[20px] p-[20px]">
-              <div className="flex items-center gap-[10px] mb-[20px]">
-                <TrendingUp size={24} className="text-[#39588a]" />
-                <h2 className="font-['Poppins:SemiBold',sans-serif] text-[20px] text-black">
-                  Evolución de Peso
-                </h2>
-              </div>
-              <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={weightData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
-                  <XAxis 
-                    dataKey="fecha" 
-                    tick={{ fontSize: 12 }}
-                    stroke="#666"
-                  />
-                  <YAxis 
-                    tick={{ fontSize: 12 }}
-                    stroke="#666"
-                    domain={[76, 80]}
-                  />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: 'white', 
-                      border: '1px solid #ccc',
-                      borderRadius: '8px'
-                    }}
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="peso" 
-                    stroke="#7f94e2" 
-                    fill="#7f94e2"
-                    fillOpacity={0.3}
-                    strokeWidth={2}
-                    name="Peso (kg)"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-              <div className="mt-[15px] text-center">
-                <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600">
-                  Cambio: <span className="font-semibold text-green-600">-1.2 kg</span> en 14 días
-                </p>
-              </div>
-            </div>
-
-            {/* Activity Summary */}
-            <div className="bg-[#f5f5f5] rounded-[20px] p-[20px]">
-              <h2 className="font-['Poppins:SemiBold',sans-serif] text-[20px] text-black mb-[20px]">
-                Resumen de Actividad Física
-              </h2>
-              <div className="space-y-[15px]">
-                <div className="bg-white rounded-[10px] p-[15px]">
-                  <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[5px]">
-                    Promedio de pasos diarios
-                  </p>
-                  <p className="font-['Poppins:Bold',sans-serif] text-[28px] text-[#39588a]">
-                    8,450
-                  </p>
-                </div>
-                <div className="bg-white rounded-[10px] p-[15px]">
-                  <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[5px]">
-                    Minutos de ejercicio/semana
-                  </p>
-                  <p className="font-['Poppins:Bold',sans-serif] text-[28px] text-[#39588a]">
-                    180 min
-                  </p>
-                </div>
-                <div className="bg-white rounded-[10px] p-[15px]">
-                  <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[5px]">
-                    Calorías quemadas/día
-                  </p>
-                  <p className="font-['Poppins:Bold',sans-serif] text-[28px] text-[#39588a]">
-                    420 kcal
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Nutrition Summary */}
-            <div className="bg-[#f5f5f5] rounded-[20px] p-[20px]">
-              <h2 className="font-['Poppins:SemiBold',sans-serif] text-[20px] text-black mb-[20px]">
-                Resumen Nutricional
-              </h2>
-              <div className="space-y-[15px]">
-                <div className="bg-white rounded-[10px] p-[15px]">
-                  <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[5px]">
-                    Calorías promedio/día
-                  </p>
-                  <p className="font-['Poppins:Bold',sans-serif] text-[28px] text-[#39588a]">
-                    1,850 kcal
-                  </p>
-                </div>
-                <div className="bg-white rounded-[10px] p-[15px]">
-                  <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[5px]">
-                    Carbohidratos
-                  </p>
-                  <p className="font-['Poppins:Bold',sans-serif] text-[28px] text-[#39588a]">
-                    210 g/día
-                  </p>
-                </div>
-                <div className="bg-white rounded-[10px] p-[15px]">
-                  <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[5px]">
-                    Proteínas
-                  </p>
-                  <p className="font-['Poppins:Bold',sans-serif] text-[28px] text-[#39588a]">
-                    95 g/día
-                  </p>
-                </div>
               </div>
             </div>
           </div>
