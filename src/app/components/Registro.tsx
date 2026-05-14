@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import toast from 'react-hot-toast';
+import { motion } from 'motion/react';
 import { authAPI } from '../utils/api';
 import imgRegistrar from "figma:asset/014a7d00a40d56526e789e2e4f9dde6b606274b4.png";
 import { Header } from "./Header";
@@ -270,18 +271,26 @@ export function Registro() {
   return (
     <div className="relative w-full min-h-screen flex items-center justify-center pt-16 pb-10">
       {/* Background Image */}
-      <img
+      <motion.img
         alt=""
         className="fixed inset-0 max-w-none object-cover pointer-events-none w-full h-full"
         src={imgRegistrar}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
       />
 
       {/* Header */}
       <Header />
 
       {/* Registration Form Container */}
-      <div className="relative w-[640px] h-[940px] z-10 my-6">
-        <div className="absolute bg-[rgba(255,255,255,0.85)] inset-0 rounded-[20px]" />
+      <motion.div
+        className="relative w-[640px] h-[940px] z-10 my-6"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <div className="absolute bg-[rgba(255,255,255,0.85)] backdrop-blur-sm inset-0 rounded-[20px] shadow-2xl" />
 
         {/* Form Content */}
         <div className="relative w-full h-full">
@@ -311,11 +320,16 @@ export function Registro() {
 
           {/* API Error Message */}
           {errors.api && (
-            <div className="absolute left-[74px] top-[220px] w-[492px] bg-red-50 border border-red-300 rounded-[10px] p-3">
+            <motion.div
+              className="absolute left-[74px] top-[220px] w-[492px] bg-red-50 border border-red-300 rounded-[10px] p-3"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
+            >
               <p className="text-red-600 text-[14px] font-['Poppins:Regular',sans-serif]">
                 {errors.api}
               </p>
-            </div>
+            </motion.div>
           )}
 
           <form onSubmit={handleSubmit}>
@@ -476,9 +490,17 @@ export function Registro() {
                 placeholder="••••••••"
               />
               {passwordStrength.text && !errors.password && (
-                <div className="absolute left-[75px] top-[670px] flex items-center gap-2">
-                  <div
+                <motion.div
+                  className="absolute left-[75px] top-[670px] flex items-center gap-2"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <motion.div
                     className={`h-2 w-[100px] rounded-full ${passwordStrength.color}`}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.5 }}
                   />
                   <span
                     className={`text-[14px] font-['Poppins:Regular',sans-serif] ${
@@ -491,7 +513,7 @@ export function Registro() {
                   >
                     Contraseña {passwordStrength.text}
                   </span>
-                </div>
+                </motion.div>
               )}
               {errors.password && (
                 <p className="absolute left-[75px] top-[670px] text-red-500 text-[14px] font-['Poppins:Regular',sans-serif]">
@@ -534,18 +556,31 @@ export function Registro() {
             </div>
 
             {/* Submit Button */}
-            <button
+            <motion.button
               type="submit"
               disabled={isLoading}
-              className="absolute left-[174px] top-[810px] w-[292px] h-[60px] bg-[#39588a] rounded-[15px] hover:bg-[#2d4570] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="absolute left-[174px] top-[810px] w-[292px] h-[60px] bg-[#39588a] rounded-[15px] hover:bg-[#2d4570] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <span className="font-['Poppins:Bold',sans-serif] text-[24px] text-white">
-                {isLoading ? 'Creando...' : 'Crear cuenta'}
+              <span className="font-['Poppins:Bold',sans-serif] text-[24px] text-white flex items-center justify-center gap-2">
+                {isLoading ? (
+                  <>
+                    <motion.div
+                      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    />
+                    Creando...
+                  </>
+                ) : (
+                  'Crear cuenta'
+                )}
               </span>
-            </button>
+            </motion.button>
           </form>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

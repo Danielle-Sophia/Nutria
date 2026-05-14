@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Search, Bell, User } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
+import { motion } from 'motion/react';
 import { ProfileMenu } from './ProfileMenu';
 import { WelcomeSection } from './WelcomeSection';
 import { getUserData } from '../utils/api';
@@ -14,32 +15,42 @@ interface MenuCardProps {
   title: string;
   image: string;
   onClick?: () => void;
+  index: number;
 }
 
-function MenuCard({ title, image, onClick }: MenuCardProps) {
+function MenuCard({ title, image, onClick, index }: MenuCardProps) {
   return (
-    <button
+    <motion.button
       onClick={onClick}
-      className="h-[262px] w-[266px] group cursor-pointer transition-transform hover:scale-105 active:scale-95"
+      className="h-[262px] w-[266px] group cursor-pointer"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      whileHover={{ scale: 1.05, y: -5 }}
+      whileTap={{ scale: 0.95 }}
     >
       <div className="relative h-full w-full">
         {/* Gray background card */}
-        <div className="absolute bg-[#e1e9f2] h-[241px] left-0 rounded-[10px] top-[21px] w-[266px] group-hover:bg-[#d0dde8] transition-colors" />
-        
-        {/* Blue header bar */}
+        <div className="absolute bg-[#e1e9f2] h-[241px] left-0 rounded-[10px] top-[21px] w-[266px] group-hover:bg-[#d0dde8] transition-colors shadow-md group-hover:shadow-xl" />
+
+        {/* Blue header bar with gradient */}
         <div className="absolute left-0 top-0 w-[266px]">
-          <div className="bg-[#3457bf] h-[41px] rounded-[5px] w-full group-hover:bg-[#2a46a0] transition-colors" />
-          <p className="absolute -translate-x-1/2 font-['Poppins:Regular',sans-serif] leading-[normal] left-[133px] not-italic text-[18px] text-center text-white text-nowrap top-[8px]">
+          <div className="bg-gradient-to-r from-[#3457bf] to-[#2a46a0] h-[41px] rounded-[5px] w-full group-hover:from-[#2a46a0] group-hover:to-[#1e347a] transition-all shadow-md" />
+          <p className="absolute -translate-x-1/2 font-['Poppins:Medium',sans-serif] leading-[normal] left-[133px] not-italic text-[18px] text-center text-white text-nowrap top-[8px]">
             {title}
           </p>
         </div>
-        
+
         {/* Image container - centered in gray card */}
-        <div className="absolute h-[173px] left-[20px] top-[59px] w-[225px] flex items-center justify-center">
+        <motion.div
+          className="absolute h-[173px] left-[20px] top-[59px] w-[225px] flex items-center justify-center"
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.3 }}
+        >
           <img alt={title} className="max-w-full max-h-full object-contain pointer-events-none" src={image} />
-        </div>
+        </motion.div>
       </div>
-    </button>
+    </motion.button>
   );
 }
 
@@ -52,6 +63,7 @@ export function MenuPrincipalProfesional() {
     apellidos: '',
     especialidad: 'Nutrición Clínica',
     folio: '',
+    profilePicture: '',
   });
 
   useEffect(() => {
@@ -63,6 +75,7 @@ export function MenuPrincipalProfesional() {
         apellidos: userData.apellidos || '',
         especialidad: userData.especialidad || 'Nutrición Clínica',
         folio: userData.folio || '',
+        profilePicture: userData.profilePicture || '',
       });
     } else {
       // If no user data, redirect to login
@@ -107,10 +120,15 @@ export function MenuPrincipalProfesional() {
   const fullName = `${professionalData.nombre} ${professionalData.apellidos}`.trim();
 
   return (
-    <div className="bg-[#85aab3] min-h-screen w-full relative">
+    <motion.div
+      className="bg-gradient-to-br from-[#85aab3] to-[#6a8f98] min-h-screen w-full relative"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       {/* Header */}
       <div className="fixed left-0 top-0 w-full z-50">
-        <div className="bg-[#193073] h-[60px] w-full flex items-center justify-between px-[60px]">
+        <div className="bg-gradient-to-r from-[#193073] to-[#2a4580] h-[60px] w-full flex items-center justify-between px-[60px] shadow-lg">
           {/* Logo */}
           <button 
             onClick={() => navigate('/menu-profesional')}
@@ -129,39 +147,54 @@ export function MenuPrincipalProfesional() {
           
           {/* Icons */}
           <div className="flex items-center gap-[25px]">
-            <button 
+            <motion.button
               onClick={handleSearch}
               className="text-white hover:text-[#8db9f2] transition-colors cursor-pointer"
               aria-label="Buscar"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileTap={{ scale: 0.95 }}
             >
               <Search size={30} strokeWidth={2.5} />
-            </button>
-            <button 
+            </motion.button>
+            <motion.button
               onClick={handleNotifications}
-              className="text-white hover:text-[#8db9f2] transition-colors cursor-pointer"
+              className="text-white hover:text-[#8db9f2] transition-colors cursor-pointer relative"
               aria-label="Notificaciones"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              animate={{ rotate: [0, -10, 10, -10, 0] }}
+              transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 5 }}
             >
               <Bell size={30} strokeWidth={2.5} />
-            </button>
-            <button 
+            </motion.button>
+            <motion.button
               onClick={toggleProfileMenu}
               className="text-white hover:text-[#8db9f2] transition-colors cursor-pointer"
               aria-label="Perfil de usuario"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
               <User size={30} strokeWidth={2.5} />
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
       <div className="pt-[80px] pb-[40px] flex justify-center items-center min-h-screen">
-        <div className="bg-white rounded-[40px] w-[90%] max-w-[1225px] p-[40px] relative">
+        <motion.div
+          className="bg-white rounded-[40px] w-[90%] max-w-[1225px] p-[40px] relative shadow-2xl"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           {/* Welcome Section */}
           <div className="mb-[60px]">
-            <WelcomeSection 
+            <WelcomeSection
               nombre={fullName}
               especialidad={professionalData.especialidad}
+              folio={professionalData.folio}
+              profilePicture={professionalData.profilePicture}
             />
           </div>
           
@@ -173,36 +206,40 @@ export function MenuPrincipalProfesional() {
             
             {/* Menu Cards Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[17px] justify-items-center">
-              <MenuCard 
-                title="Px registrados" 
+              <MenuCard
+                title="Px registrados"
                 image={imgLifesaversNewPatient}
                 onClick={() => handleCardClick('/mis-pacientes')}
+                index={0}
               />
-              <MenuCard 
-                title="Expedientes" 
+              <MenuCard
+                title="Expedientes"
                 image={imgLifesaversUsingComputer}
                 onClick={() => handleCardClick('/expedientes')}
+                index={1}
               />
-              <MenuCard 
-                title="Tablas de evolución" 
+              <MenuCard
+                title="Tablas de evolución"
                 image={imgLifesaversStudyOnline}
                 onClick={() => handleCardClick('/tablas-evolucion')}
+                index={2}
               />
-              <MenuCard 
-                title="Configuración" 
+              <MenuCard
+                title="Configuración"
                 image={imgLifesaversCardId}
                 onClick={() => handleCardClick('/configuracion')}
+                index={3}
               />
             </div>
           </div>
-        </div>
+        </motion.div>
         
         {/* Profile Menu */}
-        <ProfileMenu 
-          isOpen={isProfileMenuOpen} 
-          onClose={() => setIsProfileMenuOpen(false)} 
+        <ProfileMenu
+          isOpen={isProfileMenuOpen}
+          onClose={() => setIsProfileMenuOpen(false)}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -38,6 +38,7 @@ interface PatientData {
   edad?: number;
   peso?: number;
   talla?: number;
+  profilePicture?: string;
 }
 
 export function Expediente() {

@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
-import { ArrowLeft, User, Bell, Lock, Globe, Palette } from 'lucide-react';
+import { ArrowLeft, User, Bell, Lock, Globe, Palette, UserCircle, Camera } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { motion } from 'motion/react';
 import { getUserData, userAPI } from '../utils/api';
+import { ConfirmDialog } from './ConfirmDialog';
 
 export function Configuracion() {
   const navigate = useNavigate();
@@ -26,12 +28,23 @@ export function Configuracion() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+  const [passwordError, setPasswordError] = useState('');
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [profilePictureUrl, setProfilePictureUrl] = useState<string | null>(null);
+  const [isUploadingPicture, setIsUploadingPicture] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     // Load user data
     setIsLoading(true);
     const userData = getUserData();
-    
+
     if (userData) {
       setConfig(prev => ({
         ...prev,
@@ -46,11 +59,12 @@ export function Configuracion() {
         direccion: userData.direccion || '',
         fechaNacimiento: userData.fechaNacimiento || '',
       }));
+      setProfilePictureUrl(userData.profilePicture || null);
     } else {
       // No user data, redirect to login
       navigate('/');
     }
-    
+
     setIsLoading(false);
   }, [navigate]);
 
@@ -61,9 +75,74 @@ export function Configuracion() {
     }));
   };
 
+  const handleProfilePictureClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error('Por favor selecciona una imagen válida');
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('La imagen debe ser menor a 5MB');
+      return;
+    }
+
+    setIsUploadingPicture(true);
+
+    try {
+      // Convert file to base64
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64String = reader.result as string;
+
+        try {
+          const result = await userAPI.uploadProfilePicture(base64String, file.name);
+
+          if (result.success) {
+            setProfilePictureUrl(result.profilePictureUrl);
+            toast.success('Foto de perfil actualizada exitosamente', {
+              duration: 3000,
+              style: {
+                background: 'linear-gradient(135deg, #d4edda 0%, #e8f5e9 100%)',
+                color: '#155724',
+                border: '1px solid #c3e6cb',
+              },
+            });
+          } else {
+            toast.error('Error al actualizar la foto: ' + result.error);
+          }
+        } catch (error: any) {
+          console.error('Upload error:', error);
+          toast.error('Error al subir la foto de perfil');
+        } finally {
+          setIsUploadingPicture(false);
+        }
+      };
+
+      reader.onerror = () => {
+        toast.error('Error al leer el archivo');
+        setIsUploadingPicture(false);
+      };
+
+      reader.readAsDataURL(file);
+    } catch (error: any) {
+      console.error('File handling error:', error);
+      toast.error('Error al procesar la imagen');
+      setIsUploadingPicture(false);
+    }
+  };
+
   const handleSave = async () => {
     setIsSaving(true);
-    
+
     try {
       const updates: any = {
         nombre: config.nombre,
@@ -94,6 +173,64 @@ export function Configuracion() {
       toast.error('Error al guardar la configuración: ' + error.message);
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleChangePassword = async () => {
+    setPasswordError('');
+
+    // Validations
+    if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
+      setPasswordError('Todos los campos son requeridos');
+      return;
+    }
+
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setPasswordError('Las contraseñas nuevas no coinciden');
+      return;
+    }
+
+    if (passwordData.newPassword.length < 8) {
+      setPasswordError('La nueva contraseña debe tener al menos 8 caracteres');
+      return;
+    }
+
+    if (passwordData.newPassword === passwordData.currentPassword) {
+      setPasswordError('La nueva contraseña debe ser diferente a la actual');
+      return;
+    }
+
+    setIsChangingPassword(true);
+
+    try {
+      const result = await userAPI.changePassword(
+        passwordData.currentPassword,
+        passwordData.newPassword
+      );
+
+      if (result.success) {
+        toast.success('Contraseña cambiada exitosamente', {
+          duration: 3000,
+          style: {
+            background: 'linear-gradient(135deg, #d4edda 0%, #e8f5e9 100%)',
+            color: '#155724',
+            border: '1px solid #c3e6cb',
+          },
+        });
+        setShowPasswordDialog(false);
+        setPasswordData({
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: '',
+        });
+      } else {
+        setPasswordError(result.error || 'Error al cambiar la contraseña');
+      }
+    } catch (error: any) {
+      console.error('Change password error:', error);
+      setPasswordError(error.message || 'Error al cambiar la contraseña');
+    } finally {
+      setIsChangingPassword(false);
     }
   };
 
@@ -145,8 +282,51 @@ export function Configuracion() {
                 {config.tipo === 'profesional' ? 'Perfil Profesional' : 'Perfil de Paciente'}
               </h2>
             </div>
-            
+
             <div className="bg-[#f5f5f5] rounded-[20px] p-[25px] space-y-[20px]">
+              {/* Profile Picture */}
+              <div className="flex items-center gap-[20px] mb-[20px]">
+                <div className="relative">
+                  <div className="w-[120px] h-[120px] rounded-full bg-gradient-to-br from-[#39588a] to-[#5e7deb] flex items-center justify-center shadow-lg overflow-hidden">
+                    {profilePictureUrl ? (
+                      <img
+                        src={profilePictureUrl}
+                        alt="Foto de perfil"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <UserCircle size={80} className="text-white" strokeWidth={1.5} />
+                    )}
+                  </div>
+                  <motion.button
+                    onClick={handleProfilePictureClick}
+                    disabled={isUploadingPicture}
+                    className="absolute bottom-0 right-0 bg-white rounded-full p-2 shadow-lg border-2 border-[#39588a] hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <Camera size={20} className="text-[#39588a]" />
+                  </motion.button>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="hidden"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-['Poppins:SemiBold',sans-serif] text-[20px] text-black">
+                    {config.nombre} {config.apellidos}
+                  </h3>
+                  <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600">
+                    {config.tipo === 'profesional' ? config.especialidad : 'Paciente'} • {config.folio}
+                  </p>
+                  <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-500 mt-1">
+                    {isUploadingPicture ? 'Subiendo foto...' : 'Haz clic en el botón de cámara para cambiar tu foto'}
+                  </p>
+                </div>
+              </div>
               <div>
                 <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
                   Folio
@@ -360,22 +540,19 @@ export function Configuracion() {
                 Seguridad
               </h2>
             </div>
-            
+
             <div className="bg-[#f5f5f5] rounded-[20px] p-[25px]">
-              <button
-                onClick={() => toast('Funcionalidad de cambio de contraseña en desarrollo', {
-                  icon: '🔒',
-                  duration: 3000,
-                  style: {
-                    background: '#d1ecf1',
-                    color: '#0c5460',
-                    border: '1px solid #bee5eb',
-                  },
-                })}
-                className="w-full bg-[#39588a] hover:bg-[#2d4570] text-white rounded-[10px] px-[20px] py-[12px] font-['Poppins:Medium',sans-serif] text-[16px] transition-colors"
+              <motion.button
+                onClick={() => setShowPasswordDialog(true)}
+                className="w-full bg-gradient-to-r from-[#39588a] to-[#2d4570] hover:from-[#2d4570] hover:to-[#1e3350] text-white rounded-[10px] px-[20px] py-[12px] font-['Poppins:Medium',sans-serif] text-[16px] transition-all shadow-md hover:shadow-lg"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                Cambiar contraseña
-              </button>
+                🔒 Cambiar contraseña
+              </motion.button>
+              <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-500 mt-2 text-center">
+                Se recomienda cambiar la contraseña periódicamente por seguridad
+              </p>
             </div>
           </div>
 
@@ -433,6 +610,138 @@ export function Configuracion() {
           </div>
         </div>
       </div>
+
+      {/* Password Change Modal */}
+      {showPasswordDialog && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            className="fixed inset-0 bg-black/50 z-[100] backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => {
+              setShowPasswordDialog(false);
+              setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+              setPasswordError('');
+            }}
+          />
+
+          {/* Dialog */}
+          <div className="fixed inset-0 z-[101] flex items-center justify-center p-4">
+            <motion.div
+              className="bg-white rounded-[20px] shadow-2xl max-w-[500px] w-full p-[35px]"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Icon */}
+              <div className="flex justify-center mb-[20px]">
+                <div className="w-[70px] h-[70px] rounded-full bg-gradient-to-br from-[#39588a] to-[#5e7deb] flex items-center justify-center">
+                  <Lock size={36} className="text-white" />
+                </div>
+              </div>
+
+              {/* Title */}
+              <h3 className="font-['Poppins:Bold',sans-serif] text-[26px] text-center text-black mb-[10px]">
+                Cambiar contraseña
+              </h3>
+
+              {/* Subtitle */}
+              <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-center text-gray-600 mb-[25px]">
+                Introduce tu contraseña actual y la nueva contraseña
+              </p>
+
+              {/* Form */}
+              <div className="space-y-[18px] mb-[25px]">
+                <div>
+                  <label className="font-['Poppins:Medium',sans-serif] text-[14px] text-black block mb-[8px]">
+                    Contraseña actual
+                  </label>
+                  <input
+                    type="password"
+                    value={passwordData.currentPassword}
+                    onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
+                    disabled={isChangingPassword}
+                    className="w-full bg-gray-50 rounded-[10px] px-[18px] py-[12px] font-['Poppins:Regular',sans-serif] text-[15px] outline-none focus:ring-2 focus:ring-[#458dff] border border-gray-200 disabled:opacity-50"
+                    placeholder="••••••••"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-['Poppins:Medium',sans-serif] text-[14px] text-black block mb-[8px]">
+                    Nueva contraseña
+                  </label>
+                  <input
+                    type="password"
+                    value={passwordData.newPassword}
+                    onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
+                    disabled={isChangingPassword}
+                    className="w-full bg-gray-50 rounded-[10px] px-[18px] py-[12px] font-['Poppins:Regular',sans-serif] text-[15px] outline-none focus:ring-2 focus:ring-[#458dff] border border-gray-200 disabled:opacity-50"
+                    placeholder="Mínimo 8 caracteres"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-['Poppins:Medium',sans-serif] text-[14px] text-black block mb-[8px]">
+                    Confirmar nueva contraseña
+                  </label>
+                  <input
+                    type="password"
+                    value={passwordData.confirmPassword}
+                    onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
+                    disabled={isChangingPassword}
+                    className="w-full bg-gray-50 rounded-[10px] px-[18px] py-[12px] font-['Poppins:Regular',sans-serif] text-[15px] outline-none focus:ring-2 focus:ring-[#458dff] border border-gray-200 disabled:opacity-50"
+                    placeholder="Repite la nueva contraseña"
+                  />
+                </div>
+              </div>
+
+              {/* Error Message */}
+              {passwordError && (
+                <motion.div
+                  className="bg-red-50 border border-red-200 rounded-[10px] p-[12px] mb-[20px]"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-red-600 text-center">
+                    {passwordError}
+                  </p>
+                </motion.div>
+              )}
+
+              {/* Buttons */}
+              <div className="flex gap-[15px]">
+                <motion.button
+                  onClick={() => {
+                    setShowPasswordDialog(false);
+                    setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+                    setPasswordError('');
+                  }}
+                  disabled={isChangingPassword}
+                  className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[10px] py-[13px] font-['Poppins:Medium',sans-serif] text-[16px] transition-colors disabled:opacity-50"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Cancelar
+                </motion.button>
+
+                <motion.button
+                  onClick={handleChangePassword}
+                  disabled={isChangingPassword}
+                  className="flex-1 bg-gradient-to-r from-[#39588a] to-[#2d4570] hover:from-[#2d4570] hover:to-[#1e3350] text-white rounded-[10px] py-[13px] font-['Poppins:Medium',sans-serif] text-[16px] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {isChangingPassword ? 'Cambiando...' : 'Cambiar contraseña'}
+                </motion.button>
+              </div>
+            </motion.div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import imgAvatarsDefaultWithBackdrop from "figma:asset/096952a3ce49665f2e8700549ef936cfae6aca06.png";
+import { UserCircle } from 'lucide-react';
 
 interface PatientData {
   id: string;
@@ -10,6 +10,7 @@ interface PatientData {
   telefono?: string;
   email?: string;
   direccion?: string;
+  profilePicture?: string;
 }
 
 interface IdentificacionPacienteProps {
@@ -21,12 +22,16 @@ export function IdentificacionPaciente({ patient }: IdentificacionPacienteProps)
     <div className="p-[20px]">
       {/* Patient Header */}
       <div className="flex items-center gap-[30px] mb-[40px]">
-        <div className="h-[121px] w-[130px] flex-shrink-0">
-          <img 
-            alt="Avatar paciente" 
-            className="w-full h-full object-contain" 
-            src={imgAvatarsDefaultWithBackdrop} 
-          />
+        <div className="w-[120px] h-[120px] rounded-full bg-gradient-to-br from-[#39588a] to-[#5e7deb] flex items-center justify-center shadow-xl overflow-hidden flex-shrink-0">
+          {patient.profilePicture ? (
+            <img
+              src={patient.profilePicture}
+              alt="Foto de perfil"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <UserCircle size={80} className="text-white" strokeWidth={1.5} />
+          )}
         </div>
         <div className="flex-1">
           <p className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black mb-[8px]">

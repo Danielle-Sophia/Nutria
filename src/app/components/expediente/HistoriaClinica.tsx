@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Sparkles, AlertCircle, ClipboardList, Pill } from 'lucide-react';
-import imgAvatarsDefaultWithBackdrop from "figma:asset/096952a3ce49665f2e8700549ef936cfae6aca06.png";
+import { Sparkles, AlertCircle, ClipboardList, Pill, UserCircle } from 'lucide-react';
 
 type TabType = 'datos-generales' | 'diagnostico' | 'tratamiento';
 
@@ -14,6 +13,7 @@ interface PatientData {
   id: number;
   nombre: string;
   folio: string;
+  profilePicture?: string;
 }
 
 interface HistoriaClinicaProps {
@@ -351,12 +351,16 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
     <div className="p-[20px]">
       {/* Patient Header */}
       <div className="flex items-center gap-[30px] mb-[30px]">
-        <div className="h-[121px] w-[130px] flex-shrink-0">
-          <img 
-            alt="Avatar paciente" 
-            className="w-full h-full object-contain" 
-            src={imgAvatarsDefaultWithBackdrop} 
-          />
+        <div className="w-[120px] h-[120px] rounded-full bg-gradient-to-br from-[#39588a] to-[#5e7deb] flex items-center justify-center shadow-xl overflow-hidden flex-shrink-0">
+          {patient.profilePicture ? (
+            <img
+              src={patient.profilePicture}
+              alt="Foto de perfil"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <UserCircle size={80} className="text-white" strokeWidth={1.5} />
+          )}
         </div>
         <div className="flex-1">
           <p className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black mb-[8px]">

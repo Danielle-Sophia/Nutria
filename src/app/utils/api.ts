@@ -52,19 +52,38 @@ async function apiCall(endpoint: string, options: RequestInit = {}, useUserToken
 
   console.log('API Call - endpoint:', endpoint, 'method:', options.method || 'GET');
 
-  const response = await fetch(`${API_BASE}${endpoint}`, {
-    ...options,
-    headers,
-  });
+  try {
+    const response = await fetch(`${API_BASE}${endpoint}`, {
+      ...options,
+      headers,
+    });
 
-  const data = await response.json();
+    // Check content type before parsing
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      const text = await response.text();
+      console.error('Non-JSON response received:', text.substring(0, 200));
+      throw new Error('El servidor no está respondiendo correctamente. Verifica tu conexión.');
+    }
 
-  if (!response.ok) {
-    console.error('API Call failed:', endpoint, 'status:', response.status, 'data:', data);
-    throw new Error(data.error || 'Error en la petición');
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('API Call failed:', endpoint, 'status:', response.status, 'data:', data);
+      throw new Error(data.error || 'Error en la petición');
+    }
+
+    return data;
+  } catch (error: any) {
+    // If it's already our custom error, re-throw it
+    if (error.message && !error.message.includes('JSON')) {
+      throw error;
+    }
+
+    // Handle JSON parsing errors or network errors
+    console.error('API Call error:', error);
+    throw new Error('Error de comunicación con el servidor. Por favor, intenta de nuevo.');
   }
-
-  return data;
 }
 
 // Auth API
@@ -106,6 +125,20 @@ export const authAPI = {
 
   async getCurrentUser() {
     return await apiCall('/auth/me');
+  },
+
+  async requestPasswordReset(email: string) {
+    return await apiCall('/auth/request-password-reset', {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    }, false);
+  },
+
+  async resetPassword(email: string, code: string, newPassword: string) {
+    return await apiCall('/auth/reset-password', {
+      method: 'POST',
+      body: JSON.stringify({ email, code, newPassword }),
+    }, false);
   },
 
   logout() {
@@ -159,10 +192,47 @@ export const patientAPI = {
   async getGlucoseRecords(patientId: string) {
     return await apiCall(`/patient/${patientId}/glucose`);
   },
+
+  async saveFoodRecord(recordData: {
+    foodName: string;
+    foodGroup?: string;
+    quantity: number;
+    unit: string;
+    mealType: string;
+    location: string;
+    preparedBy: string;
+    consumptionOrder?: string;
+    date: string;
+    time: string;
+    nutritionalInfo?: any;
+    patientId?: string;
+  }) {
+    return await apiCall('/patient/food', {
+      method: 'POST',
+      body: JSON.stringify(recordData),
+    });
+  },
+
+  async getFoodRecords(patientId: string) {
+    return await apiCall(`/patient/${patientId}/food`);
+  },
 };
 
 // User API
 export const userAPI = {
+  async uploadProfilePicture(imageBase64: string, fileName: string) {
+    const data = await apiCall('/user/profile-picture', {
+      method: 'POST',
+      body: JSON.stringify({ imageBase64, fileName }),
+    });
+
+    if (data.success) {
+      setUserData(data.user);
+    }
+
+    return data;
+  },
+
   async updateProfile(updates: {
     nombre?: string;
     apellidos?: string;
@@ -175,11 +245,20 @@ export const userAPI = {
       method: 'PUT',
       body: JSON.stringify(updates),
     });
-    
+
     if (data.success) {
       setUserData(data.user);
     }
-    
+
+    return data;
+  },
+
+  async changePassword(currentPassword: string, newPassword: string) {
+    const data = await apiCall('/user/change-password', {
+      method: 'POST',
+      body: JSON.stringify({ currentPassword, newPassword }),
+    });
+
     return data;
   },
 };

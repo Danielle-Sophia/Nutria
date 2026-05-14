@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
+import { motion } from 'motion/react';
 import { authAPI } from '../utils/api';
+import { projectId, publicAnonKey } from '../utils/supabase/info';
 import imgIniciarSesion from "figma:asset/54e3689f0316108b9ac0b7ce7baeb6fbcc865e7e.png";
 import { Header } from './Header';
 
@@ -11,6 +13,28 @@ export function Login() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Initialize demo users on mount
+  useEffect(() => {
+    const initDemoUsers = async () => {
+      try {
+        await fetch(
+          `https://${projectId}.supabase.co/functions/v1/make-server-deaf8e85/init-demo`,
+          {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${publicAnonKey}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+      } catch (error) {
+        console.error('Failed to initialize demo users:', error);
+      }
+    };
+
+    initDemoUsers();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,33 +78,32 @@ export function Login() {
   };
 
   const handleForgotPassword = () => {
-    console.log('Navigate to forgot password');
-    toast('Funcionalidad en desarrollo. Pronto podrás recuperar tu contraseña.', {
-      icon: 'ℹ️',
-      duration: 4000,
-      style: {
-        background: '#d1ecf1',
-        color: '#0c5460',
-        border: '1px solid #bee5eb',
-      },
-    });
+    navigate('/recuperar-contrasena');
   };
 
   return (
     <div className="relative w-full min-h-screen flex items-center justify-center pt-16 pb-10">
       {/* Background Image */}
-      <img 
-        alt="" 
-        className="fixed inset-0 max-w-none object-cover pointer-events-none w-full h-full" 
-        src={imgIniciarSesion} 
+      <motion.img
+        alt=""
+        className="fixed inset-0 max-w-none object-cover pointer-events-none w-full h-full"
+        src={imgIniciarSesion}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
       />
-      
+
       {/* Header */}
       <Header />
-      
+
       {/* Login Form Container */}
-      <div className="relative w-[640px] h-[703px] z-10 my-6">
-        <div className="absolute bg-[rgba(255,255,255,0.85)] inset-0 rounded-[20px]" />
+      <motion.div
+        className="relative w-[640px] h-[703px] z-10 my-6"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <div className="absolute bg-[rgba(255,255,255,0.85)] backdrop-blur-sm inset-0 rounded-[20px] shadow-2xl" />
         
         {/* Form Content */}
         <div className="relative w-full h-full">
@@ -94,7 +117,7 @@ export function Login() {
             <span className="font-['Poppins:Regular',sans-serif] text-[18px] text-black">
               ¿Eres nuevo aquí?{' '}
             </span>
-            <Link 
+            <Link
               to="/registro"
               className="[text-underline-position:from-font] decoration-solid font-['Poppins:Bold',sans-serif] text-[#458dff] text-[18px] underline hover:text-[#3a7ae0] transition-colors"
             >
@@ -145,9 +168,14 @@ export function Login() {
             
             {/* Error Message */}
             {error && (
-              <p className="absolute left-[83px] top-[375px] text-red-600 text-[14px] font-['Poppins:Regular',sans-serif] w-[474px]">
+              <motion.p
+                className="absolute left-[83px] top-[375px] text-red-600 text-[14px] font-['Poppins:Regular',sans-serif] w-[474px]"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3 }}
+              >
                 {error}
-              </p>
+              </motion.p>
             )}
             
             {/* Forgot Password Link */}
@@ -160,18 +188,31 @@ export function Login() {
             </button>
             
             {/* Submit Button */}
-            <button
+            <motion.button
               type="submit"
               disabled={isLoading}
-              className="absolute left-[164px] top-[442px] w-[312px] h-[60px] bg-[#39588a] rounded-[15px] hover:bg-[#2d4570] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="absolute left-[164px] top-[442px] w-[312px] h-[60px] bg-[#39588a] rounded-[15px] hover:bg-[#2d4570] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <span className="font-['Poppins:Bold',sans-serif] text-[24px] text-white">
-                {isLoading ? 'Iniciando...' : 'Iniciar sesión'}
+              <span className="font-['Poppins:Bold',sans-serif] text-[24px] text-white flex items-center justify-center gap-2">
+                {isLoading ? (
+                  <>
+                    <motion.div
+                      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    />
+                    Iniciando...
+                  </>
+                ) : (
+                  'Iniciar sesión'
+                )}
               </span>
-            </button>
+            </motion.button>
           </form>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

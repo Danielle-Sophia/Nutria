@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, ReferenceLine, ReferenceArea } from 'recharts';
-import imgAvatarsDefaultWithBackdrop from "figma:asset/096952a3ce49665f2e8700549ef936cfae6aca06.png";
+import { UserCircle } from 'lucide-react';
 import { patientAPI } from '../../utils/api';
 
 interface PatientData {
@@ -8,6 +8,7 @@ interface PatientData {
   nombre: string;
   apellidos: string;
   folio: string;
+  profilePicture?: string;
 }
 
 interface AnalisisYReportesProps {
@@ -21,7 +22,9 @@ interface GlucoseLevel {
 }
 
 interface ChartData {
+  id: string;
   name: string;
+  displayName: string;
   value: number;
   time?: string;
 }
@@ -78,10 +81,11 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
           const date = new Date(year, month - 1, day);
           const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
           const label = `${date.getDate()} ${monthNames[date.getMonth()]}`;
-          
+
           return {
-            id: `glucose-${patient.id}-${index}-${record.date}-${record.time}`, // Unique key
-            name: label, // Show all labels
+            id: `glucose-analisis-${patient.id}-${record.id || index}-${record.date}-${record.time}`, // Unique key
+            name: `${label}-${index}`, // Make name unique by adding index
+            displayName: label, // For display purposes
             value: record.glucoseValue,
             time: record.time,
           };
@@ -110,12 +114,16 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
     <div className="p-[20px]">
       {/* Patient Header */}
       <div className="flex items-center gap-[30px] mb-[40px]">
-        <div className="h-[121px] w-[130px] flex-shrink-0">
-          <img 
-            alt="Avatar paciente" 
-            className="w-full h-full object-contain" 
-            src={imgAvatarsDefaultWithBackdrop} 
-          />
+        <div className="w-[120px] h-[120px] rounded-full bg-gradient-to-br from-[#39588a] to-[#5e7deb] flex items-center justify-center shadow-xl overflow-hidden flex-shrink-0">
+          {patient.profilePicture ? (
+            <img
+              src={patient.profilePicture}
+              alt="Foto de perfil"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <UserCircle size={80} className="text-white" strokeWidth={1.5} />
+          )}
         </div>
         <div className="flex-1">
           <p className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black mb-[8px]">
@@ -229,49 +237,60 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
                   </div>
 
                   <ResponsiveContainer width="100%" height={500}>
-                    <LineChart data={glucoseData} margin={{ top: 20, right: 30, left: 80, bottom: 60 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
-                      
+                    <LineChart
+                      data={glucoseData.map(d => ({ ...d, key: d.id }))}
+                      margin={{ top: 20, right: 30, left: 80, bottom: 60 }}
+                      id="glucose-chart-analisis"
+                    >
+                      <CartesianGrid key="grid-analisis" strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
+
                       {/* Colored zones (background areas) */}
-                      <ReferenceArea y1={250} y2={350} fill="#ff8000" fillOpacity={0.3} />
-                      <ReferenceArea y1={180} y2={250} fill="#f2e307" fillOpacity={0.3} />
-                      <ReferenceArea y1={70} y2={180} fill="#00913f" fillOpacity={0.3} />
-                      <ReferenceArea y1={54} y2={70} fill="#8c0303" fillOpacity={0.3} />
-                      <ReferenceArea y1={0} y2={54} fill="#590202" fillOpacity={0.3} />
-                      
+                      <ReferenceArea key="area-very-high" y1={250} y2={350} fill="#ff8000" fillOpacity={0.3} />
+                      <ReferenceArea key="area-high" y1={180} y2={250} fill="#f2e307" fillOpacity={0.3} />
+                      <ReferenceArea key="area-target" y1={70} y2={180} fill="#00913f" fillOpacity={0.3} />
+                      <ReferenceArea key="area-low" y1={54} y2={70} fill="#8c0303" fillOpacity={0.3} />
+                      <ReferenceArea key="area-very-low" y1={0} y2={54} fill="#590202" fillOpacity={0.3} />
+
                       {/* Reference lines for ranges */}
-                      <ReferenceLine y={250} stroke="#000" strokeWidth={1} />
-                      <ReferenceLine y={180} stroke="#00913F" strokeWidth={2} />
-                      <ReferenceLine y={70} stroke="#00913F" strokeWidth={2} />
-                      <ReferenceLine y={54} stroke="#000" strokeWidth={1} />
+                      <ReferenceLine key="line-250" y={250} stroke="#000" strokeWidth={1} />
+                      <ReferenceLine key="line-180" y={180} stroke="#00913F" strokeWidth={2} />
+                      <ReferenceLine key="line-70" y={70} stroke="#00913F" strokeWidth={2} />
+                      <ReferenceLine key="line-54" y={54} stroke="#000" strokeWidth={1} />
                       
-                      <XAxis 
-                        dataKey="name" 
+                      <XAxis
+                        key="xaxis-analisis"
+                        dataKey="name"
                         angle={-45}
                         textAnchor="end"
                         height={70}
                         tick={{ fontSize: 10, fontFamily: 'Poppins', fontWeight: 'bold' }}
                         interval={0}
                         axisLine={{ stroke: '#000' }}
+                        tickFormatter={(value, index) => {
+                          const item = glucoseData[index];
+                          return item?.displayName || value.split('-')[0];
+                        }}
                       />
-                      <YAxis 
+                      <YAxis
+                        key="yaxis-analisis"
                         domain={[0, 350]}
                         ticks={[0, 54, 70, 180, 250, 350]}
                         tick={{ fontSize: 10, fontFamily: 'Poppins', fontWeight: 500 }}
                         axisLine={{ stroke: '#000' }}
-                        label={{ 
-                          value: 'mg/dL', 
-                          angle: -90, 
+                        label={{
+                          value: 'mg/dL',
+                          angle: -90,
                           position: 'insideLeft',
                           style: { fontSize: 10, fontFamily: 'Poppins' }
                         }}
                       />
                       
                       {/* Glucose line */}
-                      <Line 
-                        type="monotone" 
-                        dataKey="value" 
-                        stroke="#5e7deb" 
+                      <Line
+                        key="line-glucose-value"
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#5e7deb"
                         strokeWidth={2.5}
                         dot={{ fill: '#5e7deb', r: 4 }}
                       />

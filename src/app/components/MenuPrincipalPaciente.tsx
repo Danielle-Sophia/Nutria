@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Search, Bell, User, Sparkles } from 'lucide-react';
+import { Search, Bell, User, Sparkles, UserCircle } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
+import { motion } from 'motion/react';
 import { ProfileMenu } from './ProfileMenu';
 import { getUserData, patientAPI } from '../utils/api';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceArea } from 'recharts';
-import imgAvatarsDefaultWithBackdrop from "figma:asset/096952a3ce49665f2e8700549ef936cfae6aca06.png";
+import { LoadingChart, EmptyChart } from './LoadingChart';
 import imgFoodiesMealIngredients from "figma:asset/ab1a1cb53499fd7537e3427b3dd57bc7c74b57ed.png";
 import imgCoolKidsOnWheels from "figma:asset/84a8a89c1913a34f01f581c6a7cd48d9c2cd1445.png";
 import imgLifesaversHand from "figma:asset/a359c166e3c6c52ae6fba315f1afeac60968b39e.png";
@@ -16,32 +17,42 @@ interface MenuCardProps {
   title: string;
   image: string;
   onClick?: () => void;
+  index: number;
 }
 
-function MenuCard({ title, image, onClick }: MenuCardProps) {
+function MenuCard({ title, image, onClick, index }: MenuCardProps) {
   return (
-    <button
+    <motion.button
       onClick={onClick}
-      className="h-[182px] w-[266px] group cursor-pointer transition-transform hover:scale-105 active:scale-95"
+      className="h-[182px] w-[266px] group cursor-pointer"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.08 }}
+      whileHover={{ scale: 1.05, y: -5 }}
+      whileTap={{ scale: 0.95 }}
     >
       <div className="relative h-full w-full">
         {/* Gray background card */}
-        <div className="absolute bg-[#f2f2f2] h-[141px] left-0 rounded-[10px] top-[41px] w-[266px] group-hover:bg-[#e5e5e5] transition-colors" />
-        
-        {/* Blue header bar */}
+        <div className="absolute bg-[#f2f2f2] h-[141px] left-0 rounded-[10px] top-[41px] w-[266px] group-hover:bg-[#e5e5e5] transition-colors shadow-md group-hover:shadow-xl" />
+
+        {/* Blue header bar with gradient (warmer tones for patient) */}
         <div className="absolute left-0 top-0 w-[266px]">
-          <div className="bg-[#3457bf] h-[41px] rounded-[5px] w-full group-hover:bg-[#2a46a0] transition-colors" />
-          <p className="absolute -translate-x-1/2 font-['Poppins:Regular',sans-serif] leading-[normal] left-[132px] not-italic text-[16px] text-center text-white top-[9px] whitespace-nowrap px-2">
+          <div className="bg-gradient-to-r from-[#5e7deb] to-[#7aa8e1] h-[41px] rounded-[5px] w-full group-hover:from-[#4d6bd9] group-hover:to-[#6997d0] transition-all shadow-md" />
+          <p className="absolute -translate-x-1/2 font-['Poppins:Medium',sans-serif] leading-[normal] left-[132px] not-italic text-[16px] text-center text-white top-[9px] whitespace-nowrap px-2">
             {title}
           </p>
         </div>
-        
+
         {/* Image container - centered in gray card */}
-        <div className="absolute h-[127px] left-[50px] top-[48px] w-[165px] flex items-center justify-center">
+        <motion.div
+          className="absolute h-[127px] left-[50px] top-[48px] w-[165px] flex items-center justify-center"
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.3 }}
+        >
           <img alt={title} className="max-w-full max-h-full object-contain pointer-events-none" src={image} />
-        </div>
+        </motion.div>
       </div>
-    </button>
+    </motion.button>
   );
 }
 
@@ -70,7 +81,8 @@ export function MenuPrincipalPaciente() {
     nombre: 'Paciente',
     apellidos: '',
     folio: '',
-    id: ''
+    id: '',
+    profilePicture: '',
   });
 
   useEffect(() => {
@@ -82,8 +94,9 @@ export function MenuPrincipalPaciente() {
         apellidos: userData.apellidos || '',
         folio: userData.folio || '',
         id: userData.id || '',
+        profilePicture: userData.profilePicture || '',
       });
-      
+
       // Load glucose data for patient
       if (userData.id) {
         loadGlucoseData(userData.id);
@@ -109,10 +122,11 @@ export function MenuPrincipalPaciente() {
           const date = new Date(year, month - 1, day);
           const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
           const label = `${date.getDate()} ${monthNames[date.getMonth()]}`;
-          
+
           return {
-            id: `glucose-${index}-${record.date}-${record.time}`, // Unique key
-            fecha: label,
+            id: `glucose-menu-${patientId}-${record.id || index}-${record.date}-${record.time}`,
+            fecha: `${label}-${index}`, // Make unique
+            displayFecha: label, // For display
             glucosa: record.glucoseValue,
             objetivo: 140,
           };
@@ -177,10 +191,15 @@ export function MenuPrincipalPaciente() {
   const fullName = `${patientData.nombre} ${patientData.apellidos}`.trim();
 
   return (
-    <div className="bg-[#85aab3] min-h-screen w-full relative">
+    <motion.div
+      className="bg-gradient-to-br from-[#85aab3] via-[#95b8c0] to-[#a5c6cd] min-h-screen w-full relative"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       {/* Header */}
       <div className="fixed left-0 top-0 w-full z-50">
-        <div className="bg-[#193073] h-[60px] w-full flex items-center justify-between px-[60px]">
+        <div className="bg-gradient-to-r from-[#193073] via-[#2a4580] to-[#3a5a8d] h-[60px] w-full flex items-center justify-between px-[60px] shadow-lg">
           {/* Logo */}
           <button 
             onClick={() => navigate('/menu-paciente')}
@@ -191,79 +210,132 @@ export function MenuPrincipalPaciente() {
           
           {/* Icons */}
           <div className="flex items-center gap-[30px]">
-            <button 
+            <motion.button
               onClick={handleSearch}
               className="text-white hover:text-[#8db9f2] transition-colors cursor-pointer"
               aria-label="Buscar"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileTap={{ scale: 0.95 }}
             >
               <Search size={30} strokeWidth={2.5} />
-            </button>
-            <button 
+            </motion.button>
+            <motion.button
               onClick={handleNotifications}
-              className="text-white hover:text-[#8db9f2] transition-colors cursor-pointer"
+              className="text-white hover:text-[#8db9f2] transition-colors cursor-pointer relative"
               aria-label="Notificaciones"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              animate={{ rotate: [0, -10, 10, -10, 0] }}
+              transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 5 }}
             >
               <Bell size={30} strokeWidth={2.5} />
-            </button>
-            <button 
+            </motion.button>
+            <motion.button
               onClick={toggleProfileMenu}
               className="text-white hover:text-[#8db9f2] transition-colors cursor-pointer"
               aria-label="Perfil de usuario"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
               <User size={30} strokeWidth={2.5} />
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
       <div className="pt-[100px] pb-[40px] flex justify-center items-start min-h-screen">
-        <div className="bg-white rounded-[40px] w-[90%] max-w-[1225px] p-[40px] relative">
+        <motion.div
+          className="bg-white rounded-[40px] w-[90%] max-w-[1225px] p-[40px] relative shadow-2xl"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           {/* Welcome Section */}
-          <div className="flex items-center gap-[35px] mb-[30px]">
-            {/* Avatar */}
-            <div className="h-[208px] w-[221px] flex-shrink-0">
-              <img 
-                alt="Avatar paciente" 
-                className="w-full h-full object-contain" 
-                src={imgAvatarsDefaultWithBackdrop} 
-              />
-            </div>
-            
+          <motion.div
+            className="flex items-center gap-[35px] mb-[30px]"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            {/* Profile Picture with Gradient Background */}
+            <motion.div
+              className="flex-shrink-0"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <div className="w-[160px] h-[160px] rounded-full bg-gradient-to-br from-[#39588a] to-[#5e7deb] flex items-center justify-center shadow-xl overflow-hidden">
+                {patientData.profilePicture ? (
+                  <img
+                    src={patientData.profilePicture}
+                    alt="Foto de perfil"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <UserCircle size={110} className="text-white" strokeWidth={1.5} />
+                )}
+              </div>
+            </motion.div>
+
             {/* Info */}
             <div className="flex-1">
-              <p className="font-['Poppins:Bold',sans-serif] leading-[normal] not-italic text-[#7f94e2] text-[32px] mb-[20px]">
+              <motion.p
+                className="font-['Poppins:Bold',sans-serif] leading-[normal] not-italic text-[#7f94e2] text-[32px] mb-[20px]"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
                 ¡Bienvenido!
-              </p>
-              <p className="font-['Poppins:SemiBold',sans-serif] leading-[normal] not-italic text-[18px] text-black mb-[8px]">
+              </motion.p>
+              <motion.p
+                className="font-['Poppins:SemiBold',sans-serif] leading-[normal] not-italic text-[18px] text-black mb-[8px]"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+              >
                 {fullName}
-              </p>
-              <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black">
+              </motion.p>
+              <motion.p
+                className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+              >
                 Folio: {patientData.folio}
-              </p>
+              </motion.p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Important Actions Section */}
-          <div className="mb-[25px]">
+          <motion.div
+            className="mb-[25px]"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.9 }}
+          >
             <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black mb-[15px]">
               Acciones importantes:
             </p>
             <div className="flex gap-[18px]">
-              <button
+              <motion.button
                 onClick={() => handleActionClick('/sincronizar-sensor')}
-                className="bg-[#39588a] hover:bg-[#2a4266] transition-colors h-[37px] rounded-[15px] px-[30px] font-['Poppins:Regular',sans-serif] text-[18px] text-white"
+                className="bg-gradient-to-r from-[#39588a] to-[#2a4266] hover:from-[#2a4266] hover:to-[#1e3350] transition-all h-[37px] rounded-[15px] px-[30px] font-['Poppins:Regular',sans-serif] text-[18px] text-white shadow-md hover:shadow-lg"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 Sincronizar sensor
-              </button>
-              <button
+              </motion.button>
+              <motion.button
                 onClick={() => handleActionClick('/agendar-cita')}
-                className="bg-[#39588a] hover:bg-[#2a4266] transition-colors h-[37px] rounded-[15px] px-[30px] font-['Poppins:Regular',sans-serif] text-[18px] text-white"
+                className="bg-gradient-to-r from-[#39588a] to-[#2a4266] hover:from-[#2a4266] hover:to-[#1e3350] transition-all h-[37px] rounded-[15px] px-[30px] font-['Poppins:Regular',sans-serif] text-[18px] text-white shadow-md hover:shadow-lg"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 Agendar cita
-              </button>
+              </motion.button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Registration Section */}
           <div className="mb-[30px]">
@@ -273,52 +345,66 @@ export function MenuPrincipalPaciente() {
             
             {/* Menu Cards Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[17px] justify-items-center mb-[30px]">
-              <MenuCard 
-                title="Alimentos" 
+              <MenuCard
+                title="Alimentos"
                 image={imgFoodiesMealIngredients}
                 onClick={() => handleCardClick('/alimentos')}
+                index={0}
               />
-              <MenuCard 
-                title="Actividad física" 
+              <MenuCard
+                title="Actividad física"
                 image={imgCoolKidsOnWheels}
                 onClick={() => handleCardClick('/actividad-fisica')}
+                index={1}
               />
-              <MenuCard 
-                title="Glucosa" 
+              <MenuCard
+                title="Glucosa"
                 image={imgLifesaversHand}
                 onClick={() => handleCardClick('/glucosa')}
+                index={2}
               />
-              <MenuCard 
-                title="Síntomas" 
+              <MenuCard
+                title="Síntomas"
                 image={imgCoolKidsAloneTime}
                 onClick={() => handleCardClick('/sintomas')}
+                index={3}
               />
             </div>
 
             {/* AI Insulin Calculator - Special Button */}
             <div className="flex justify-center">
-              <button
+              <motion.button
                 onClick={() => window.open('https://huggingface.co/spaces/Lu1sHF/NIAXG', '_blank')}
-                className="group cursor-pointer transition-all hover:scale-105 active:scale-95"
+                className="group cursor-pointer"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <div className="relative w-[550px]">
                   {/* Header Bar with gradient */}
                   <div className="relative h-[50px] rounded-t-[10px] bg-gradient-to-r from-[#5e7deb] to-[#8db9f2] group-hover:from-[#4d6bd9] group-hover:to-[#7aa8e1] transition-all shadow-md">
                     <div className="absolute inset-0 flex items-center justify-center gap-[10px]">
-                      <Sparkles size={24} className="text-white" />
+                      <motion.div
+                        animate={{ rotate: [0, 15, -15, 0] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      >
+                        <Sparkles size={24} className="text-white" />
+                      </motion.div>
                       <p className="font-['Poppins:Bold',sans-serif] text-[22px] text-white">
                         Calcular dosis de insulina con IA
                       </p>
                     </div>
                   </div>
-                  
+
                   {/* Content Area */}
                   <div className="bg-[#f2f2f2] rounded-b-[10px] p-[20px] group-hover:bg-[#e8e8e8] transition-colors shadow-lg">
                     <div className="flex items-center justify-center h-[140px]">
-                      <img 
-                        alt="Calcular dosis IA" 
-                        className="max-h-full object-contain pointer-events-none" 
-                        src={imgHappyBunchChat} 
+                      <img
+                        alt="Calcular dosis IA"
+                        className="max-h-full object-contain pointer-events-none"
+                        src={imgHappyBunchChat}
                       />
                     </div>
                     <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-center text-gray-600 mt-[10px]">
@@ -326,12 +412,16 @@ export function MenuPrincipalPaciente() {
                     </p>
                   </div>
                 </div>
-              </button>
+              </motion.button>
             </div>
           </div>
 
           {/* Evolution Tables Section */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
             <p className="font-['Poppins:Bold',sans-serif] leading-[normal] not-italic text-[24px] text-[#5e7deb] mb-[20px]">
               GLUCOSA
             </p>
@@ -343,69 +433,69 @@ export function MenuPrincipalPaciente() {
                   {/* Chart with color bands */}
                   <div className="h-[380px] relative">
                     {isLoadingGlucose ? (
-                      <div className="flex items-center justify-center h-full">
-                        <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-500 italic text-center">
-                          Cargando datos...
-                        </p>
-                      </div>
+                      <LoadingChart />
                     ) : glucoseData.length > 0 ? (
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart
-                          data={glucoseData}
+                          data={glucoseData.map(d => ({ ...d, key: d.id }))}
                           margin={{
                             top: 10,
                             right: 10,
                             left: 10,
                             bottom: 30,
                           }}
+                          id="glucose-chart-menu"
                         >
                           {/* Color bands using ReferenceArea */}
-                          <ReferenceArea y1={250} y2={350} fill="#ff8000" fillOpacity={0.3} />
-                          <ReferenceArea y1={180} y2={250} fill="#f2e307" fillOpacity={0.3} />
-                          <ReferenceArea y1={70} y2={180} fill="#00913f" fillOpacity={0.3} />
-                          <ReferenceArea y1={0} y2={70} fill="#d8b2b2" fillOpacity={0.3} />
-                          
-                          <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
-                          <XAxis 
-                            dataKey="fecha" 
+                          <ReferenceArea key="menu-area-very-high" y1={250} y2={350} fill="#ff8000" fillOpacity={0.3} />
+                          <ReferenceArea key="menu-area-high" y1={180} y2={250} fill="#f2e307" fillOpacity={0.3} />
+                          <ReferenceArea key="menu-area-target" y1={70} y2={180} fill="#00913f" fillOpacity={0.3} />
+                          <ReferenceArea key="menu-area-low" y1={0} y2={70} fill="#d8b2b2" fillOpacity={0.3} />
+
+                          <CartesianGrid key="grid-menu" strokeDasharray="3 3" stroke="#ccc" />
+                          <XAxis
+                            key="xaxis-menu"
+                            dataKey="fecha"
                             angle={-45}
                             textAnchor="end"
                             height={70}
                             interval={0}
                             tick={{ fontSize: 11 }}
+                            tickFormatter={(value, index) => {
+                              const item = glucoseData[index];
+                              return item?.displayFecha || value.split('-')[0];
+                            }}
                           />
-                          <YAxis 
-                            domain={[0, 350]} 
+                          <YAxis
+                            key="yaxis-menu"
+                            domain={[0, 350]}
                             ticks={[0, 70, 180, 250, 350]}
                             tick={{ fontSize: 12 }}
                           />
-                          <Tooltip 
-                            contentStyle={{ 
-                              backgroundColor: 'white', 
+                          <Tooltip
+                            key="tooltip-menu"
+                            contentStyle={{
+                              backgroundColor: 'white',
                               border: '1px solid #ccc',
                               borderRadius: '5px',
                               fontSize: '13px'
                             }}
                           />
-                          
+
                           {/* Glucose line */}
-                          <Line 
-                            key="line-glucosa"
-                            type="monotone" 
-                            dataKey="glucosa" 
-                            stroke="#5e7deb" 
+                          <Line
+                            key="line-glucosa-menu"
+                            type="monotone"
+                            dataKey="glucosa"
+                            stroke="#5e7deb"
                             strokeWidth={2.5}
                             dot={{ fill: '#5e7deb', r: 4 }}
-                            activeDot={{ r: 6 }} 
+                            activeDot={{ r: 6 }}
                           />
                         </LineChart>
                       </ResponsiveContainer>
                     ) : (
-                      <div className="flex items-center justify-center h-full">
-                        <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-500 italic text-center">
-                          No hay datos de glucosa registrados
-                        </p>
-                      </div>
+                      <EmptyChart message="No hay datos de glucosa registrados" />
                     )}
                   </div>
                   
@@ -463,15 +553,15 @@ export function MenuPrincipalPaciente() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
         
         {/* Profile Menu */}
-        <ProfileMenu 
-          isOpen={isProfileMenuOpen} 
-          onClose={() => setIsProfileMenuOpen(false)} 
+        <ProfileMenu
+          isOpen={isProfileMenuOpen}
+          onClose={() => setIsProfileMenuOpen(false)}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }
