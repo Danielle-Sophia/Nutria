@@ -96,7 +96,7 @@ function Text({ text }: TextProps) {
   return (
     <div className="absolute contents left-0 top-0">
       <div className="absolute bg-[#3457bf] h-[41px] left-0 rounded-[5px] top-0 w-[266px]" />
-      <p className="-translate-x-1/2 absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[132.5px] not-italic text-[20px] text-center text-white top-[6px]">{text}</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-normal leading-[normal] left-[132.5px] not-italic text-[20px] text-center text-white top-[6px]">{text}</p>
     </div>
   );
 }
@@ -141,26 +141,26 @@ export default function MenuPrincipalPaciente() {
       <div className="absolute bg-white h-[1040px] left-[107px] rounded-[40px] top-[148px] w-[1225px]" />
       <div className="absolute bg-[#39588a] h-[37px] left-[447px] rounded-[15px] top-[397px] w-[240px]" />
       <div className="absolute bg-[#39588a] h-[37px] left-[705px] rounded-[15px] top-[397px] w-[240px]" />
-      <p className="-translate-x-1/2 absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[566px] not-italic text-[18px] text-center text-white top-[402px]">Sincronizar sensor</p>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[824.5px] not-italic text-[18px] text-center text-white top-[402px]">Agendar cita</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-normal leading-[normal] left-[566px] not-italic text-[18px] text-center text-white top-[402px]">Sincronizar sensor</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-normal leading-[normal] left-[824.5px] not-italic text-[18px] text-center text-white top-[402px]">Agendar cita</p>
       <div className="absolute contents left-[172px] top-[167px]">
         <div className="absolute h-[208px] left-[172px] top-[167px] w-[221px]" data-name="Avatars Default with Backdrop">
           <img alt="" className="absolute inset-0 max-w-none object-contain pointer-events-none size-full" src={imgAvatarsDefaultWithBackdrop} />
         </div>
         <div className="absolute contents leading-[normal] left-[428px] not-italic top-[211px]">
-          <p className="absolute font-['Poppins:SemiBold',sans-serif] left-[428px] text-[18px] text-black top-[268px]">Patricio Castillo Antonio</p>
-          <p className="absolute font-['Poppins:Regular',sans-serif] h-[27px] left-[428px] text-[18px] text-black top-[304px] w-[320px] whitespace-pre-wrap">Folio: 000001</p>
-          <p className="absolute font-['Poppins:Bold',sans-serif] left-[calc(50%-292px)] text-[#7f94e2] text-[32px] top-[211px]">¡Bienvenido!</p>
+          <p className="absolute font-[Poppins] font-semibold left-[428px] text-[18px] text-black top-[268px]">Patricio Castillo Antonio</p>
+          <p className="absolute font-[Poppins] font-normal h-[27px] left-[428px] text-[18px] text-black top-[304px] w-[320px] whitespace-pre-wrap">Folio: 000001</p>
+          <p className="absolute font-[Poppins] font-bold left-[calc(50%-292px)] text-[#7f94e2] text-[32px] top-[211px]">¡Bienvenido!</p>
         </div>
       </div>
-      <p className="absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[172px] not-italic text-[20px] text-black top-[456px]">¿Tienes algo que registrar hoy?</p>
-      <p className="absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[172px] not-italic text-[20px] text-black top-[712px]">{`Tablas de evolución  (últimos 14 días)`}</p>
-      <p className="absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[172px] not-italic text-[20px] text-black top-[401px]">{`Acciones importantes: `}</p>
+      <p className="absolute font-[Poppins] font-medium leading-[normal] left-[172px] not-italic text-[20px] text-black top-[456px]">¿Tienes algo que registrar hoy?</p>
+      <p className="absolute font-[Poppins] font-medium leading-[normal] left-[172px] not-italic text-[20px] text-black top-[712px]">{`Tablas de evolución  (últimos 14 días)`}</p>
+      <p className="absolute font-[Poppins] font-medium leading-[normal] left-[172px] not-italic text-[20px] text-black top-[401px]">{`Acciones importantes: `}</p>
       <div className="absolute h-[182px] left-[162px] top-[508px] w-[266px]" data-name="Component 6">
         <div className="absolute bg-[#f2f2f2] h-[141px] left-0 rounded-[10px] top-[41px] w-[266px]" />
         <div className="absolute contents left-0 top-0">
           <div className="absolute bg-[#3457bf] h-[41px] left-0 rounded-[5px] top-0 w-[266px]" />
-          <p className="-translate-x-1/2 absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[132px] not-italic text-[20px] text-center text-white top-[6px]">Alimentos</p>
+          <p className="-translate-x-1/2 absolute font-[Poppins] font-normal leading-[normal] left-[132px] not-italic text-[20px] text-center text-white top-[6px]">Alimentos</p>
         </div>
         <div className="absolute h-[173px] left-[20px] top-[55px] w-[225px]" data-name="Lifesavers Study Online" />
         <div className="absolute h-[127px] left-[50px] top-[48px] w-[165px]" data-name="Foodies Meal Ingredients">
@@ -191,7 +191,7 @@ export default function MenuPrincipalPaciente() {
           <img alt="" className="absolute inset-0 max-w-none object-contain pointer-events-none size-full" src={imgCoolKidsAloneTime} />
         </div>
       </div>
-      <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[1016px] not-italic text-[18px] text-black top-[764px]">Niveles de glucosa</p>
+      <p className="absolute font-[Poppins] font-bold leading-[normal] left-[1016px] not-italic text-[18px] text-black top-[764px]">Niveles de glucosa</p>
       <div className="absolute contents left-[1016px] top-[801px]">
         <div className="absolute bg-[#ff8000] h-[30px] left-[1016px] rounded-tl-[10px] rounded-tr-[10px] top-[813px] w-[98px]" />
         <div className="absolute bg-[#f2e307] h-[70px] left-[1016px] top-[855px] w-[98px]" />
@@ -199,28 +199,28 @@ export default function MenuPrincipalPaciente() {
         <div className="absolute bg-[#8c0303] h-[16px] left-[1016px] top-[1059px] w-[98px]" />
         <div className="absolute bg-[#590202] h-[16px] left-[1016px] rounded-bl-[10px] rounded-br-[10px] top-[1087px] w-[98px]" />
         <div className="absolute contents left-[1133px] top-[801px]">
-          <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[1133px] not-italic text-[10px] text-black top-[828px]">{`>250 mg/dL`}</p>
-          <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[1133px] not-italic text-[18px] text-black top-[801px]">Muy alto</p>
+          <p className="absolute font-[Poppins] font-normal leading-[normal] left-[1133px] not-italic text-[10px] text-black top-[828px]">{`>250 mg/dL`}</p>
+          <p className="absolute font-[Poppins] font-bold leading-[normal] left-[1133px] not-italic text-[18px] text-black top-[801px]">Muy alto</p>
           <Helper additionalClassNames="top-[845px]" />
         </div>
         <div className="absolute contents left-[1133px] top-[868px]">
-          <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[1133px] not-italic text-[10px] text-black top-[895px]">181 - 249 mg/dL</p>
-          <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[1133px] not-italic text-[18px] text-black top-[868px]">Alta</p>
+          <p className="absolute font-[Poppins] font-normal leading-[normal] left-[1133px] not-italic text-[10px] text-black top-[895px]">181 - 249 mg/dL</p>
+          <p className="absolute font-[Poppins] font-bold leading-[normal] left-[1133px] not-italic text-[18px] text-black top-[868px]">Alta</p>
           <Helper additionalClassNames="top-[912px]" />
         </div>
         <div className="absolute contents left-[1133px] top-[970px]">
-          <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[1133px] not-italic text-[10px] text-black top-[997px]">181 - 249 mg/dL</p>
-          <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[1133px] not-italic text-[18px] text-black top-[970px]">Rango objetivo</p>
+          <p className="absolute font-[Poppins] font-normal leading-[normal] left-[1133px] not-italic text-[10px] text-black top-[997px]">181 - 249 mg/dL</p>
+          <p className="absolute font-[Poppins] font-bold leading-[normal] left-[1133px] not-italic text-[18px] text-black top-[970px]">Rango objetivo</p>
           <Helper additionalClassNames="top-[1014px]" />
         </div>
         <div className="absolute contents left-[1133px] top-[1031px]">
-          <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[1133px] not-italic text-[10px] text-black top-[1058px]">54 - 69 mg/dL</p>
-          <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[1133px] not-italic text-[18px] text-black top-[1031px]">Baja</p>
+          <p className="absolute font-[Poppins] font-normal leading-[normal] left-[1133px] not-italic text-[10px] text-black top-[1058px]">54 - 69 mg/dL</p>
+          <p className="absolute font-[Poppins] font-bold leading-[normal] left-[1133px] not-italic text-[18px] text-black top-[1031px]">Baja</p>
           <Helper additionalClassNames="top-[1075px]" />
         </div>
         <div className="absolute contents left-[1133px] top-[1087px]">
-          <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[1133px] not-italic text-[10px] text-black top-[1114px]">{`< 54 mg/dL`}</p>
-          <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[1133px] not-italic text-[18px] text-black top-[1087px]">Muy baja</p>
+          <p className="absolute font-[Poppins] font-normal leading-[normal] left-[1133px] not-italic text-[10px] text-black top-[1114px]">{`< 54 mg/dL`}</p>
+          <p className="absolute font-[Poppins] font-bold leading-[normal] left-[1133px] not-italic text-[18px] text-black top-[1087px]">Muy baja</p>
           <Helper additionalClassNames="top-[1131px]" />
         </div>
       </div>
@@ -228,18 +228,18 @@ export default function MenuPrincipalPaciente() {
         <div className="absolute bg-[#d9d9d9] h-[462px] left-[162px] rounded-[20px] top-[764px] w-[827px]" />
         <div className="absolute bg-white h-[401px] left-[198px] rounded-[10px] top-[787px] w-[756px]" />
         <Group20Helper additionalClassNames="top-[960px]" />
-        <div className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[306px] not-italic text-[0px] text-black text-right top-[815px] whitespace-nowrap">
+        <div className="-translate-x-full absolute font-[Poppins] font-medium leading-[normal] left-[306px] not-italic text-[0px] text-black text-right top-[815px] whitespace-nowrap">
           <p className="mb-0 text-[10px]">350</p>
           <p className="text-[5px]">mg/dL</p>
         </div>
-        <p className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[306px] not-italic text-[10px] text-black text-right top-[884px]">250</p>
-        <p className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[306px] not-italic text-[10px] text-black text-right top-[949px]">180</p>
-        <p className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[306px] not-italic text-[10px] text-black text-right top-[1036px]">70</p>
-        <p className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[306px] not-italic text-[10px] text-black text-right top-[1067px]">54</p>
-        <p className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[306px] not-italic text-[10px] text-black text-right top-[1113px]">0</p>
+        <p className="-translate-x-full absolute font-[Poppins] font-medium leading-[normal] left-[306px] not-italic text-[10px] text-black text-right top-[884px]">250</p>
+        <p className="-translate-x-full absolute font-[Poppins] font-medium leading-[normal] left-[306px] not-italic text-[10px] text-black text-right top-[949px]">180</p>
+        <p className="-translate-x-full absolute font-[Poppins] font-medium leading-[normal] left-[306px] not-italic text-[10px] text-black text-right top-[1036px]">70</p>
+        <p className="-translate-x-full absolute font-[Poppins] font-medium leading-[normal] left-[306px] not-italic text-[10px] text-black text-right top-[1067px]">54</p>
+        <p className="-translate-x-full absolute font-[Poppins] font-medium leading-[normal] left-[306px] not-italic text-[10px] text-black text-right top-[1113px]">0</p>
         <Group20Helper1 additionalClassNames="top-[947px]" />
         <Group20Helper1 additionalClassNames="top-[1034px]" />
-        <p className="-translate-x-full absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[475px] not-italic text-[12px] text-black text-right top-[1116px]">Rango objetivo</p>
+        <p className="-translate-x-full absolute font-[Poppins] font-bold leading-[normal] left-[475px] not-italic text-[12px] text-black text-right top-[1116px]">Rango objetivo</p>
         <div className="absolute bg-[#d9d9d9] h-[21px] left-[321px] top-[1113px] w-[216px]" />
         <div className="absolute bg-[#d9d9d9] h-[21px] left-[537px] top-[1113px] w-[72px]" />
         <div className="absolute bg-[#d9d9d9] h-[21px] left-[609px] top-[1113px] w-[144px]" />
@@ -247,11 +247,11 @@ export default function MenuPrincipalPaciente() {
         <Group20Helper2 additionalClassNames="left-[609px]" />
         <Group20Helper2 additionalClassNames="left-[537px]" />
         <Group20Helper2 additionalClassNames="left-[753px]" />
-        <p className="-translate-x-1/2 absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[428.5px] not-italic text-[10px] text-black text-center top-[1117px]">Durante la noche</p>
-        <p className="-translate-x-full absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[306px] not-italic text-[10px] text-black text-right top-[996px]">Rango objetivo</p>
-        <p className="-translate-x-1/2 absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[573px] not-italic text-[10px] text-black text-center top-[1117px]">Mañana</p>
-        <p className="-translate-x-1/2 absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[681px] not-italic text-[10px] text-black text-center top-[1117px]">Tarde</p>
-        <p className="-translate-x-1/2 absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[825.5px] not-italic text-[10px] text-black text-center top-[1117px]">Noche</p>
+        <p className="-translate-x-1/2 absolute font-[Poppins] font-bold leading-[normal] left-[428.5px] not-italic text-[10px] text-black text-center top-[1117px]">Durante la noche</p>
+        <p className="-translate-x-full absolute font-[Poppins] font-bold leading-[normal] left-[306px] not-italic text-[10px] text-black text-right top-[996px]">Rango objetivo</p>
+        <p className="-translate-x-1/2 absolute font-[Poppins] font-bold leading-[normal] left-[573px] not-italic text-[10px] text-black text-center top-[1117px]">Mañana</p>
+        <p className="-translate-x-1/2 absolute font-[Poppins] font-bold leading-[normal] left-[681px] not-italic text-[10px] text-black text-center top-[1117px]">Tarde</p>
+        <p className="-translate-x-1/2 absolute font-[Poppins] font-bold leading-[normal] left-[825.5px] not-italic text-[10px] text-black text-center top-[1117px]">Noche</p>
         <div className="absolute border border-[rgba(0,0,0,0.1)] border-dashed left-[321px] size-[72px] top-[1041px]" />
         <div className="absolute border border-[rgba(0,0,0,0.1)] border-dashed left-[321px] size-[72px] top-[970px]" />
         <div className="absolute border border-[rgba(0,0,0,0.1)] border-dashed left-[392px] size-[72px] top-[1041px]" />

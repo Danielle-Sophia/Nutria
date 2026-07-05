@@ -82,7 +82,7 @@ export function RegistrarActividad() {
             className="flex items-center gap-2 text-white hover:text-[#8db9f2] transition-colors"
           >
             <ArrowLeft size={24} />
-            <span className="font-['Poppins:Regular',sans-serif] text-[18px]">Volver al menú</span>
+            <span className="font-[Poppins] font-normal text-[18px]">Volver al menú</span>
           </button>
         </div>
       </div>
@@ -93,7 +93,7 @@ export function RegistrarActividad() {
           {/* Title */}
           <div className="flex items-center gap-[15px] mb-[30px]">
             <Activity size={36} className="text-[#39588a]" />
-            <h1 className="font-['Poppins:Bold',sans-serif] text-[36px] text-[#193073]">
+            <h1 className="font-[Poppins] font-bold text-[36px] text-[#193073]">
               Registrar Actividad Física
             </h1>
           </div>
@@ -101,7 +101,7 @@ export function RegistrarActividad() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
             {/* Activities Selection */}
             <div>
-              <h2 className="font-['Poppins:SemiBold',sans-serif] text-[20px] text-black mb-[20px]">
+              <h2 className="font-[Poppins] font-semibold text-[20px] text-black mb-[20px]">
                 Selecciona una actividad
               </h2>
               
@@ -117,7 +117,7 @@ export function RegistrarActividad() {
                     }`}
                   >
                     <div className="text-[40px] mb-[10px]">{actividad.icon}</div>
-                    <p className="font-['Poppins:SemiBold',sans-serif] text-[16px] mb-[5px]">
+                    <p className="font-[Poppins] font-semibold text-[16px] mb-[5px]">
                       {actividad.nombre}
                     </p>
                     <p className={`text-[12px] px-[10px] py-[3px] rounded-full inline-block ${
@@ -134,27 +134,27 @@ export function RegistrarActividad() {
 
             {/* Activity Details */}
             <div>
-              <h2 className="font-['Poppins:SemiBold',sans-serif] text-[20px] text-black mb-[20px]">
+              <h2 className="font-[Poppins] font-semibold text-[20px] text-black mb-[20px]">
                 Detalles de la actividad
               </h2>
               
               <div className="space-y-[20px]">
                 {/* Fecha */}
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                  <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                     Fecha
                   </label>
                   <input
                     type="date"
                     value={fecha}
                     onChange={(e) => setFecha(e.target.value)}
-                    className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
+                    className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
                   />
                 </div>
 
                 {/* Duración */}
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                  <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                     <Clock size={18} className="inline mr-2" />
                     Duración (minutos)
                   </label>
@@ -168,13 +168,13 @@ export function RegistrarActividad() {
                     className="w-full h-2 bg-[#e1e9f2] rounded-lg appearance-none cursor-pointer accent-[#39588a]"
                   />
                   <div className="flex justify-between mt-[5px]">
-                    <span className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600">
+                    <span className="font-[Poppins] font-normal text-[14px] text-gray-600">
                       5 min
                     </span>
-                    <span className="font-['Poppins:Bold',sans-serif] text-[18px] text-[#39588a]">
+                    <span className="font-[Poppins] font-bold text-[18px] text-[#39588a]">
                       {duracion} min
                     </span>
-                    <span className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600">
+                    <span className="font-[Poppins] font-normal text-[14px] text-gray-600">
                       180 min
                     </span>
                   </div>
@@ -182,7 +182,7 @@ export function RegistrarActividad() {
 
                 {/* Notas */}
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                  <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                     Notas (opcional)
                   </label>
                   <textarea
@@ -190,7 +190,7 @@ export function RegistrarActividad() {
                     onChange={(e) => setNotas(e.target.value)}
                     placeholder="¿Cómo te sentiste? ¿Algo que destacar?"
                     rows={4}
-                    className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] resize-none"
+                    className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] resize-none"
                   />
                 </div>
 
@@ -199,18 +199,18 @@ export function RegistrarActividad() {
                   <div className="bg-[#39588a] rounded-[20px] p-[25px] text-white">
                     <div className="flex items-center gap-[10px] mb-[15px]">
                       <Flame size={24} />
-                      <h3 className="font-['Poppins:Bold',sans-serif] text-[20px]">
+                      <h3 className="font-[Poppins] font-bold text-[20px]">
                         Calorías quemadas estimadas
                       </h3>
                     </div>
-                    <p className="font-['Poppins:Bold',sans-serif] text-[48px] text-center">
+                    <p className="font-[Poppins] font-bold text-[48px] text-center">
                       {calcularCaloriasTotal()}
                     </p>
-                    <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-center opacity-90">
+                    <p className="font-[Poppins] font-normal text-[16px] text-center opacity-90">
                       kilocalorías
                     </p>
                     <div className="mt-[15px] pt-[15px] border-t border-white border-opacity-20">
-                      <p className="font-['Poppins:Regular',sans-serif] text-[14px] opacity-90">
+                      <p className="font-[Poppins] font-normal text-[14px] opacity-90">
                         {selectedActividad.nombre} • {duracion} minutos
                       </p>
                     </div>
@@ -225,7 +225,7 @@ export function RegistrarActividad() {
             <button
               onClick={handleSave}
               disabled={!selectedActividad}
-              className={`rounded-[15px] px-[40px] py-[15px] font-['Poppins:Bold',sans-serif] text-[18px] transition-all ${
+              className={`rounded-[15px] px-[40px] py-[15px] font-[Poppins] font-bold text-[18px] transition-all ${
                 !selectedActividad
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   : 'bg-[#39588a] hover:bg-[#2d4570] text-white active:scale-95'

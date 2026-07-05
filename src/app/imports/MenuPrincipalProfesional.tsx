@@ -45,7 +45,7 @@ function Group5() {
   return (
     <div className="absolute contents left-0 top-0">
       <div className="absolute bg-[#193073] h-[80px] left-0 top-0 w-[1440px]" />
-      <p className="-translate-x-1/2 absolute font-['Poppins:Medium',sans-serif] h-[28px] leading-[normal] left-[1026.5px] not-italic text-[18px] text-center text-white top-[27px] w-[193px] whitespace-pre-wrap">Mis pacientes</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-medium h-[28px] leading-[normal] left-[1026.5px] not-italic text-[18px] text-center text-white top-[27px] w-[193px] whitespace-pre-wrap">Mis pacientes</p>
       <User />
       <Search />
       <Bell />
@@ -63,9 +63,9 @@ function Group4() {
       <div className="absolute h-[208px] left-[172px] top-[167px] w-[221px]" data-name="Avatars Default with Backdrop">
         <img alt="" className="absolute inset-0 max-w-none object-contain pointer-events-none size-full" src={imgAvatarsDefaultWithBackdrop} />
       </div>
-      <p className="absolute font-['Poppins:SemiBold',sans-serif] h-[27px] leading-[normal] left-[425px] not-italic text-[18px] text-black top-[268px] w-[204px] whitespace-pre-wrap">Dra. Alejandra Triviño</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] h-[27px] leading-[normal] left-[425px] not-italic text-[18px] text-black top-[304px] w-[320px] whitespace-pre-wrap">Especialidad: Especialidad</p>
-      <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[calc(50%-295px)] not-italic text-[#7f94e2] text-[32px] top-[211px]">¡Bienvenida!</p>
+      <p className="absolute font-[Poppins] font-semibold h-[27px] leading-[normal] left-[425px] not-italic text-[18px] text-black top-[268px] w-[204px] whitespace-pre-wrap">Dra. Alejandra Triviño</p>
+      <p className="absolute font-[Poppins] font-normal h-[27px] leading-[normal] left-[425px] not-italic text-[18px] text-black top-[304px] w-[320px] whitespace-pre-wrap">Especialidad: Especialidad</p>
+      <p className="absolute font-[Poppins] font-bold leading-[normal] left-[calc(50%-295px)] not-italic text-[#7f94e2] text-[32px] top-[211px]">¡Bienvenida!</p>
     </div>
   );
 }
@@ -74,7 +74,7 @@ function Group() {
   return (
     <div className="absolute contents left-0 top-0">
       <div className="absolute bg-[#3457bf] h-[41px] left-0 rounded-[5px] top-0 w-[266px]" />
-      <p className="-translate-x-1/2 absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[132.5px] not-italic text-[20px] text-center text-white top-[6px]">Px registrados</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-normal leading-[normal] left-[132.5px] not-italic text-[20px] text-center text-white top-[6px]">Px registrados</p>
     </div>
   );
 }
@@ -95,7 +95,7 @@ function Group1() {
   return (
     <div className="absolute contents left-0 top-0">
       <div className="absolute bg-[#3457bf] h-[41px] left-0 rounded-[5px] top-0 w-[266px]" />
-      <p className="-translate-x-1/2 absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[132px] not-italic text-[20px] text-center text-white top-[6px]">Expedientes</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-normal leading-[normal] left-[132px] not-italic text-[20px] text-center text-white top-[6px]">Expedientes</p>
     </div>
   );
 }
@@ -116,7 +116,7 @@ function Group2() {
   return (
     <div className="absolute contents left-0 top-0">
       <div className="absolute bg-[#3457bf] h-[41px] left-0 rounded-[5px] top-0 w-[266px]" />
-      <p className="-translate-x-1/2 absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[132.5px] not-italic text-[20px] text-center text-white top-[6px]">Tablas de evolución</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-normal leading-[normal] left-[132.5px] not-italic text-[20px] text-center text-white top-[6px]">Tablas de evolución</p>
     </div>
   );
 }
@@ -137,7 +137,7 @@ function Group3() {
   return (
     <div className="absolute contents left-0 top-0">
       <div className="absolute bg-[#3457bf] h-[41px] left-0 rounded-[5px] top-0 w-[266px]" />
-      <p className="-translate-x-1/2 absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[132.5px] not-italic text-[20px] text-center text-white top-[6px]">Configuración</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-normal leading-[normal] left-[132.5px] not-italic text-[20px] text-center text-white top-[6px]">Configuración</p>
     </div>
   );
 }
@@ -160,7 +160,7 @@ export default function MenuPrincipalProfesional() {
       <Group5 />
       <div className="absolute bg-white h-[758px] left-[107px] rounded-[40px] top-[148px] w-[1225px]" />
       <Group4 />
-      <p className="absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[172px] not-italic text-[20px] text-black top-[417px]">¿Qué deseas consultar hoy?</p>
+      <p className="absolute font-[Poppins] font-medium leading-[normal] left-[172px] not-italic text-[20px] text-black top-[417px]">¿Qué deseas consultar hoy?</p>
       <Component />
       <Component1 />
       <Component2 />

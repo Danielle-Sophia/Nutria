@@ -5,7 +5,7 @@ function Group1() {
   return (
     <div className="absolute contents left-0 top-0">
       <div className="absolute bg-[#193073] h-[80px] left-0 top-0 w-[1440px]" />
-      <button className="-translate-x-1/2 absolute block cursor-pointer font-['Poppins:Medium',sans-serif] h-[28px] leading-[0] left-[1026.5px] not-italic text-[18px] text-center text-white top-[27px] w-[193px]">
+      <button className="-translate-x-1/2 absolute block cursor-pointer font-[Poppins] font-medium h-[28px] leading-[0] left-[1026.5px] not-italic text-[18px] text-center text-white top-[27px] w-[193px]">
         <p className="leading-[normal] whitespace-pre-wrap">Mis pacientes</p>
       </button>
       <div className="absolute left-[1333px] overflow-clip size-[30px] top-[25px]" data-name="User">
@@ -56,7 +56,7 @@ function Group() {
           </div>
         </div>
       </div>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[802px] not-italic text-[18px] text-[rgba(0,0,0,0.6)] top-[323px]">Buscar paciente</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[802px] not-italic text-[18px] text-[rgba(0,0,0,0.6)] top-[323px]">Buscar paciente</p>
     </div>
   );
 }
@@ -66,52 +66,52 @@ export default function MisPacientesInicio() {
     <div className="bg-[#85aab3] relative size-full" data-name="Mis pacientes - inicio">
       <Group1 />
       <div className="absolute bg-white h-[1040px] left-[107px] rounded-[40px] top-[148px] w-[1225px]" />
-      <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[159px] not-italic text-[30px] text-black top-[193px]">Mis pacientes</p>
+      <p className="absolute font-[Poppins] font-bold leading-[normal] left-[159px] not-italic text-[30px] text-black top-[193px]">Mis pacientes</p>
       <div className="absolute bg-[rgba(217,215,216,0.8)] h-[63px] left-[159px] rounded-[10px] top-[405px] w-[1129px]" />
-      <p className="absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[196px] not-italic text-[20px] text-black top-[422px]">Nombre</p>
-      <button className="absolute block cursor-pointer font-['Poppins:Medium',sans-serif] leading-[0] left-[455px] not-italic text-[20px] text-black text-left top-[422px] whitespace-nowrap">
+      <p className="absolute font-[Poppins] font-medium leading-[normal] left-[196px] not-italic text-[20px] text-black top-[422px]">Nombre</p>
+      <button className="absolute block cursor-pointer font-[Poppins] font-medium leading-[0] left-[455px] not-italic text-[20px] text-black text-left top-[422px] whitespace-nowrap">
         <p className="leading-[normal]">Edad</p>
       </button>
-      <p className="absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[581px] not-italic text-[20px] text-black top-[422px]">Sexo biológico</p>
-      <p className="absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[798px] not-italic text-[20px] text-black top-[422px]">Contacto</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[176px] not-italic text-[18px] text-black top-[506px]">Patricio Castillo Antonio</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[calc(50%-561px)] not-italic text-[18px] text-black top-[259px] w-[1123px] whitespace-pre-wrap">Accede rapidamente a la información de tus pacientes, dando clic en el recuadro accede a diversas funciones</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[176px] not-italic text-[18px] text-black top-[567px]">Margarita Muñoz López</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[176px] not-italic text-[18px] text-black top-[628px]">Alejandra Cortes Pérez</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[176px] not-italic text-[18px] text-black top-[689px]">Daniel Antonio Salvador</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[176px] not-italic text-[18px] text-black top-[750px]">Pablo Pablo Pablo</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[176px] not-italic text-[18px] text-black top-[811px]">Alejandro Uno Dos</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[176px] not-italic text-[18px] text-black top-[872px]">Paciente Martita</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] h-[27px] leading-[normal] left-[455px] not-italic text-[18px] text-black top-[506px] w-[22px] whitespace-pre-wrap">28</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[455px] not-italic text-[18px] text-black top-[567px]">18</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[455px] not-italic text-[18px] text-black top-[628px]">29</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[455px] not-italic text-[18px] text-black top-[689px]">46</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[455px] not-italic text-[18px] text-black top-[750px]">20</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[455px] not-italic text-[18px] text-black top-[811px]">19</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[455px] not-italic text-[18px] text-black top-[872px]">17</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] h-[27px] leading-[normal] left-[581px] not-italic text-[18px] text-black top-[506px] w-[73px] whitespace-pre-wrap">Hombre</p>
-      <p className="absolute decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] left-[840px] not-italic text-[18px] text-black top-[506px] underline">Correo</p>
-      <p className="absolute decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] left-[840px] not-italic text-[18px] text-black top-[567px] underline">Correo</p>
-      <p className="absolute decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] left-[840px] not-italic text-[18px] text-black top-[628px] underline">Correo</p>
-      <p className="absolute decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] left-[840px] not-italic text-[18px] text-black top-[689px] underline">Correo</p>
-      <p className="absolute decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] left-[840px] not-italic text-[18px] text-black top-[750px] underline">Correo</p>
-      <p className="absolute decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] left-[840px] not-italic text-[18px] text-black top-[811px] underline">Correo</p>
-      <p className="absolute decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] left-[840px] not-italic text-[18px] text-black top-[872px] underline">Correo</p>
-      <p className="absolute decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] left-[991px] not-italic text-[18px] text-black top-[506px] underline">Teléfono</p>
-      <p className="absolute decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] left-[991px] not-italic text-[18px] text-black top-[567px] underline">Teléfono</p>
-      <p className="absolute decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] left-[991px] not-italic text-[18px] text-black top-[628px] underline">Teléfono</p>
-      <p className="absolute decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] left-[991px] not-italic text-[18px] text-black top-[689px] underline">Teléfono</p>
-      <p className="absolute decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] left-[991px] not-italic text-[18px] text-black top-[750px] underline">Teléfono</p>
-      <p className="absolute decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] left-[991px] not-italic text-[18px] text-black top-[811px] underline">Teléfono</p>
-      <p className="absolute decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] left-[991px] not-italic text-[18px] text-black top-[872px] underline">Teléfono</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[581px] not-italic text-[18px] text-black top-[567px]">Mujer</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[581px] not-italic text-[18px] text-black top-[628px]">Mujer</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[581px] not-italic text-[18px] text-black top-[689px]">Hombre</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[581px] not-italic text-[18px] text-black top-[750px]">Hombre</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[581px] not-italic text-[18px] text-black top-[811px]">Mujer</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[581px] not-italic text-[18px] text-black top-[872px]">Mujer</p>
+      <p className="absolute font-[Poppins] font-medium leading-[normal] left-[581px] not-italic text-[20px] text-black top-[422px]">Sexo biológico</p>
+      <p className="absolute font-[Poppins] font-medium leading-[normal] left-[798px] not-italic text-[20px] text-black top-[422px]">Contacto</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[176px] not-italic text-[18px] text-black top-[506px]">Patricio Castillo Antonio</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[calc(50%-561px)] not-italic text-[18px] text-black top-[259px] w-[1123px] whitespace-pre-wrap">Accede rapidamente a la información de tus pacientes, dando clic en el recuadro accede a diversas funciones</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[176px] not-italic text-[18px] text-black top-[567px]">Margarita Muñoz López</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[176px] not-italic text-[18px] text-black top-[628px]">Alejandra Cortes Pérez</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[176px] not-italic text-[18px] text-black top-[689px]">Daniel Antonio Salvador</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[176px] not-italic text-[18px] text-black top-[750px]">Pablo Pablo Pablo</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[176px] not-italic text-[18px] text-black top-[811px]">Alejandro Uno Dos</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[176px] not-italic text-[18px] text-black top-[872px]">Paciente Martita</p>
+      <p className="absolute font-[Poppins] font-normal h-[27px] leading-[normal] left-[455px] not-italic text-[18px] text-black top-[506px] w-[22px] whitespace-pre-wrap">28</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[455px] not-italic text-[18px] text-black top-[567px]">18</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[455px] not-italic text-[18px] text-black top-[628px]">29</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[455px] not-italic text-[18px] text-black top-[689px]">46</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[455px] not-italic text-[18px] text-black top-[750px]">20</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[455px] not-italic text-[18px] text-black top-[811px]">19</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[455px] not-italic text-[18px] text-black top-[872px]">17</p>
+      <p className="absolute font-[Poppins] font-normal h-[27px] leading-[normal] left-[581px] not-italic text-[18px] text-black top-[506px] w-[73px] whitespace-pre-wrap">Hombre</p>
+      <p className="absolute decoration-solid font-[Poppins] font-normal leading-[normal] left-[840px] not-italic text-[18px] text-black top-[506px] underline">Correo</p>
+      <p className="absolute decoration-solid font-[Poppins] font-normal leading-[normal] left-[840px] not-italic text-[18px] text-black top-[567px] underline">Correo</p>
+      <p className="absolute decoration-solid font-[Poppins] font-normal leading-[normal] left-[840px] not-italic text-[18px] text-black top-[628px] underline">Correo</p>
+      <p className="absolute decoration-solid font-[Poppins] font-normal leading-[normal] left-[840px] not-italic text-[18px] text-black top-[689px] underline">Correo</p>
+      <p className="absolute decoration-solid font-[Poppins] font-normal leading-[normal] left-[840px] not-italic text-[18px] text-black top-[750px] underline">Correo</p>
+      <p className="absolute decoration-solid font-[Poppins] font-normal leading-[normal] left-[840px] not-italic text-[18px] text-black top-[811px] underline">Correo</p>
+      <p className="absolute decoration-solid font-[Poppins] font-normal leading-[normal] left-[840px] not-italic text-[18px] text-black top-[872px] underline">Correo</p>
+      <p className="absolute decoration-solid font-[Poppins] font-normal leading-[normal] left-[991px] not-italic text-[18px] text-black top-[506px] underline">Teléfono</p>
+      <p className="absolute decoration-solid font-[Poppins] font-normal leading-[normal] left-[991px] not-italic text-[18px] text-black top-[567px] underline">Teléfono</p>
+      <p className="absolute decoration-solid font-[Poppins] font-normal leading-[normal] left-[991px] not-italic text-[18px] text-black top-[628px] underline">Teléfono</p>
+      <p className="absolute decoration-solid font-[Poppins] font-normal leading-[normal] left-[991px] not-italic text-[18px] text-black top-[689px] underline">Teléfono</p>
+      <p className="absolute decoration-solid font-[Poppins] font-normal leading-[normal] left-[991px] not-italic text-[18px] text-black top-[750px] underline">Teléfono</p>
+      <p className="absolute decoration-solid font-[Poppins] font-normal leading-[normal] left-[991px] not-italic text-[18px] text-black top-[811px] underline">Teléfono</p>
+      <p className="absolute decoration-solid font-[Poppins] font-normal leading-[normal] left-[991px] not-italic text-[18px] text-black top-[872px] underline">Teléfono</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[581px] not-italic text-[18px] text-black top-[567px]">Mujer</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[581px] not-italic text-[18px] text-black top-[628px]">Mujer</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[581px] not-italic text-[18px] text-black top-[689px]">Hombre</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[581px] not-italic text-[18px] text-black top-[750px]">Hombre</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[581px] not-italic text-[18px] text-black top-[811px]">Mujer</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[581px] not-italic text-[18px] text-black top-[872px]">Mujer</p>
       <div className="absolute bg-[#39588a] h-[37px] left-[511px] rounded-[15px] top-[318px] w-[240px]" />
-      <p className="absolute font-['Poppins:Regular',sans-serif] h-[27px] leading-[normal] left-[551px] not-italic text-[18px] text-white top-[323px] w-[159px] whitespace-pre-wrap">Agregar paciente</p>
+      <p className="absolute font-[Poppins] font-normal h-[27px] leading-[normal] left-[551px] not-italic text-[18px] text-white top-[323px] w-[159px] whitespace-pre-wrap">Agregar paciente</p>
       <Group />
       <div className="absolute left-[949px] overflow-clip size-[30px] top-[566px]" data-name="Phone">
         <div className="absolute inset-[8.33%_8.33%_8.63%_8.8%]" data-name="Icon">

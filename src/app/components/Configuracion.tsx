@@ -237,7 +237,7 @@ export function Configuracion() {
   if (isLoading) {
     return (
       <div className="bg-[#85aab3] min-h-screen w-full flex items-center justify-center">
-        <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-white">
+        <p className="font-[Poppins] font-normal text-[18px] text-white">
           Cargando...
         </p>
       </div>
@@ -261,7 +261,7 @@ export function Configuracion() {
             className="flex items-center gap-2 text-white hover:text-[#8db9f2] transition-colors"
           >
             <ArrowLeft size={24} />
-            <span className="font-['Poppins:Regular',sans-serif] text-[18px]">Volver al menú</span>
+            <span className="font-[Poppins] font-normal text-[18px]">Volver al menú</span>
           </button>
         </div>
       </div>
@@ -270,7 +270,7 @@ export function Configuracion() {
       <div className="pt-[80px] pb-[40px] px-[60px]">
         <div className="bg-white rounded-[40px] p-[40px] max-w-[1000px] mx-auto">
           {/* Title */}
-          <h1 className="font-['Poppins:Bold',sans-serif] text-[36px] text-[#193073] mb-[30px]">
+          <h1 className="font-[Poppins] font-bold text-[36px] text-[#193073] mb-[30px]">
             Configuración
           </h1>
 
@@ -278,7 +278,7 @@ export function Configuracion() {
           <div className="mb-[30px]">
             <div className="flex items-center gap-[10px] mb-[20px]">
               <User size={24} className="text-[#39588a]" />
-              <h2 className="font-['Poppins:SemiBold',sans-serif] text-[24px] text-black">
+              <h2 className="font-[Poppins] font-semibold text-[24px] text-black">
                 {config.tipo === 'profesional' ? 'Perfil Profesional' : 'Perfil de Paciente'}
               </h2>
             </div>
@@ -316,32 +316,32 @@ export function Configuracion() {
                   />
                 </div>
                 <div>
-                  <h3 className="font-['Poppins:SemiBold',sans-serif] text-[20px] text-black">
+                  <h3 className="font-[Poppins] font-semibold text-[20px] text-black">
                     {config.nombre} {config.apellidos}
                   </h3>
-                  <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600">
+                  <p className="font-[Poppins] font-normal text-[14px] text-gray-600">
                     {config.tipo === 'profesional' ? config.especialidad : 'Paciente'} • {config.folio}
                   </p>
-                  <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-500 mt-1">
+                  <p className="font-[Poppins] font-normal text-[12px] text-gray-500 mt-1">
                     {isUploadingPicture ? 'Subiendo foto...' : 'Haz clic en el botón de cámara para cambiar tu foto'}
                   </p>
                 </div>
               </div>
               <div>
-                <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                   Folio
                 </label>
                 <input
                   type="text"
                   value={config.folio}
                   disabled
-                  className="w-full bg-gray-200 rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] text-gray-600 cursor-not-allowed"
+                  className="w-full bg-gray-200 rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] text-gray-600 cursor-not-allowed"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-[20px]">
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                  <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                     Nombre(s)
                   </label>
                   <input
@@ -349,12 +349,12 @@ export function Configuracion() {
                     value={config.nombre}
                     onChange={(e) => handleChange('nombre', e.target.value)}
                     disabled={isSaving}
-                    className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] disabled:opacity-50"
+                    className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] disabled:opacity-50"
                   />
                 </div>
 
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                  <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                     Apellidos
                   </label>
                   <input
@@ -362,22 +362,22 @@ export function Configuracion() {
                     value={config.apellidos}
                     onChange={(e) => handleChange('apellidos', e.target.value)}
                     disabled={isSaving}
-                    className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] disabled:opacity-50"
+                    className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] disabled:opacity-50"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                   Correo electrónico
                 </label>
                 <input
                   type="email"
                   value={config.email}
                   disabled
-                  className="w-full bg-gray-200 rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] text-gray-600 cursor-not-allowed"
+                  className="w-full bg-gray-200 rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] text-gray-600 cursor-not-allowed"
                 />
-                <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-500 mt-[5px]">
+                <p className="font-[Poppins] font-normal text-[12px] text-gray-500 mt-[5px]">
                   El correo electrónico no puede ser modificado
                 </p>
               </div>
@@ -385,7 +385,7 @@ export function Configuracion() {
               {config.tipo === 'profesional' && (
                 <>
                   <div>
-                    <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                    <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                       Especialidad
                     </label>
                     <input
@@ -393,21 +393,21 @@ export function Configuracion() {
                       value={config.especialidad}
                       onChange={(e) => handleChange('especialidad', e.target.value)}
                       disabled={isSaving}
-                      className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] disabled:opacity-50"
+                      className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] disabled:opacity-50"
                     />
                   </div>
 
                   <div>
-                    <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                    <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                       Cédula profesional
                     </label>
                     <input
                       type="text"
                       value={config.cedulaProfesional}
                       disabled
-                      className="w-full bg-gray-200 rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] text-gray-600 cursor-not-allowed"
+                      className="w-full bg-gray-200 rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] text-gray-600 cursor-not-allowed"
                     />
-                    <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-500 mt-[5px]">
+                    <p className="font-[Poppins] font-normal text-[12px] text-gray-500 mt-[5px]">
                       La cédula profesional no puede ser modificada
                     </p>
                   </div>
@@ -417,7 +417,7 @@ export function Configuracion() {
               {config.tipo === 'paciente' && (
                 <>
                   <div>
-                    <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                    <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                       Fecha de nacimiento
                     </label>
                     <input
@@ -425,12 +425,12 @@ export function Configuracion() {
                       value={config.fechaNacimiento || ''}
                       onChange={(e) => handleChange('fechaNacimiento', e.target.value)}
                       disabled={isSaving}
-                      className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] disabled:opacity-50"
+                      className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] disabled:opacity-50"
                     />
                   </div>
 
                   <div>
-                    <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                    <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                       Dirección
                     </label>
                     <textarea
@@ -438,7 +438,7 @@ export function Configuracion() {
                       onChange={(e) => handleChange('direccion', e.target.value)}
                       disabled={isSaving}
                       rows={3}
-                      className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] disabled:opacity-50 resize-none"
+                      className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] disabled:opacity-50 resize-none"
                       placeholder="Calle, número, colonia, ciudad..."
                     />
                   </div>
@@ -446,7 +446,7 @@ export function Configuracion() {
               )}
 
               <div>
-                <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                   Teléfono
                 </label>
                 <input
@@ -454,7 +454,7 @@ export function Configuracion() {
                   value={config.telefono}
                   onChange={(e) => handleChange('telefono', e.target.value)}
                   disabled={isSaving}
-                  className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] disabled:opacity-50"
+                  className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] disabled:opacity-50"
                 />
               </div>
             </div>
@@ -464,7 +464,7 @@ export function Configuracion() {
           <div className="mb-[30px]">
             <div className="flex items-center gap-[10px] mb-[20px]">
               <Bell size={24} className="text-[#39588a]" />
-              <h2 className="font-['Poppins:SemiBold',sans-serif] text-[24px] text-black">
+              <h2 className="font-[Poppins] font-semibold text-[24px] text-black">
                 Notificaciones
               </h2>
             </div>
@@ -472,10 +472,10 @@ export function Configuracion() {
             <div className="bg-[#f5f5f5] rounded-[20px] p-[25px] space-y-[15px]">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-black">
+                  <p className="font-[Poppins] font-medium text-[16px] text-black">
                     Activar notificaciones
                   </p>
-                  <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600">
+                  <p className="font-[Poppins] font-normal text-[14px] text-gray-600">
                     Recibir todas las notificaciones del sistema
                   </p>
                 </div>
@@ -492,10 +492,10 @@ export function Configuracion() {
 
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-black">
+                  <p className="font-[Poppins] font-medium text-[16px] text-black">
                     Notificaciones por correo
                   </p>
-                  <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600">
+                  <p className="font-[Poppins] font-normal text-[14px] text-gray-600">
                     Recibir actualizaciones por email
                   </p>
                 </div>
@@ -512,10 +512,10 @@ export function Configuracion() {
 
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-black">
+                  <p className="font-[Poppins] font-medium text-[16px] text-black">
                     Notificaciones push
                   </p>
-                  <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600">
+                  <p className="font-[Poppins] font-normal text-[14px] text-gray-600">
                     Recibir notificaciones en el navegador
                   </p>
                 </div>
@@ -536,7 +536,7 @@ export function Configuracion() {
           <div className="mb-[30px]">
             <div className="flex items-center gap-[10px] mb-[20px]">
               <Lock size={24} className="text-[#39588a]" />
-              <h2 className="font-['Poppins:SemiBold',sans-serif] text-[24px] text-black">
+              <h2 className="font-[Poppins] font-semibold text-[24px] text-black">
                 Seguridad
               </h2>
             </div>
@@ -544,13 +544,13 @@ export function Configuracion() {
             <div className="bg-[#f5f5f5] rounded-[20px] p-[25px]">
               <motion.button
                 onClick={() => setShowPasswordDialog(true)}
-                className="w-full bg-gradient-to-r from-[#39588a] to-[#2d4570] hover:from-[#2d4570] hover:to-[#1e3350] text-white rounded-[10px] px-[20px] py-[12px] font-['Poppins:Medium',sans-serif] text-[16px] transition-all shadow-md hover:shadow-lg"
+                className="w-full bg-gradient-to-r from-[#39588a] to-[#2d4570] hover:from-[#2d4570] hover:to-[#1e3350] text-white rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-medium text-[16px] transition-all shadow-md hover:shadow-lg"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 🔒 Cambiar contraseña
               </motion.button>
-              <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-500 mt-2 text-center">
+              <p className="font-[Poppins] font-normal text-[12px] text-gray-500 mt-2 text-center">
                 Se recomienda cambiar la contraseña periódicamente por seguridad
               </p>
             </div>
@@ -560,21 +560,21 @@ export function Configuracion() {
           <div className="mb-[30px]">
             <div className="flex items-center gap-[10px] mb-[20px]">
               <Palette size={24} className="text-[#39588a]" />
-              <h2 className="font-['Poppins:SemiBold',sans-serif] text-[24px] text-black">
+              <h2 className="font-[Poppins] font-semibold text-[24px] text-black">
                 Preferencias
               </h2>
             </div>
             
             <div className="bg-[#f5f5f5] rounded-[20px] p-[25px] space-y-[20px]">
               <div>
-                <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                   <Globe size={18} className="inline mr-2" />
                   Idioma
                 </label>
                 <select
                   value={config.idioma}
                   onChange={(e) => handleChange('idioma', e.target.value)}
-                  className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
+                  className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
                 >
                   <option value="es">Español</option>
                   <option value="en">English</option>
@@ -582,13 +582,13 @@ export function Configuracion() {
               </div>
 
               <div>
-                <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                   Tema
                 </label>
                 <select
                   value={config.tema}
                   onChange={(e) => handleChange('tema', e.target.value)}
-                  className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
+                  className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
                 >
                   <option value="light">Claro</option>
                   <option value="dark">Oscuro</option>
@@ -603,7 +603,7 @@ export function Configuracion() {
             <button
               onClick={handleSave}
               disabled={isSaving}
-              className="bg-[#39588a] hover:bg-[#2d4570] text-white rounded-[15px] px-[40px] py-[15px] font-['Poppins:Bold',sans-serif] text-[18px] transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-[#39588a] hover:bg-[#2d4570] text-white rounded-[15px] px-[40px] py-[15px] font-[Poppins] font-bold text-[18px] transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSaving ? 'Guardando...' : 'Guardar cambios'}
             </button>
@@ -645,19 +645,19 @@ export function Configuracion() {
               </div>
 
               {/* Title */}
-              <h3 className="font-['Poppins:Bold',sans-serif] text-[26px] text-center text-black mb-[10px]">
+              <h3 className="font-[Poppins] font-bold text-[26px] text-center text-black mb-[10px]">
                 Cambiar contraseña
               </h3>
 
               {/* Subtitle */}
-              <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-center text-gray-600 mb-[25px]">
+              <p className="font-[Poppins] font-normal text-[14px] text-center text-gray-600 mb-[25px]">
                 Introduce tu contraseña actual y la nueva contraseña
               </p>
 
               {/* Form */}
               <div className="space-y-[18px] mb-[25px]">
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[14px] text-black block mb-[8px]">
+                  <label className="font-[Poppins] font-medium text-[14px] text-black block mb-[8px]">
                     Contraseña actual
                   </label>
                   <input
@@ -665,13 +665,13 @@ export function Configuracion() {
                     value={passwordData.currentPassword}
                     onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
                     disabled={isChangingPassword}
-                    className="w-full bg-gray-50 rounded-[10px] px-[18px] py-[12px] font-['Poppins:Regular',sans-serif] text-[15px] outline-none focus:ring-2 focus:ring-[#458dff] border border-gray-200 disabled:opacity-50"
+                    className="w-full bg-gray-50 rounded-[10px] px-[18px] py-[12px] font-[Poppins] font-normal text-[15px] outline-none focus:ring-2 focus:ring-[#458dff] border border-gray-200 disabled:opacity-50"
                     placeholder="••••••••"
                   />
                 </div>
 
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[14px] text-black block mb-[8px]">
+                  <label className="font-[Poppins] font-medium text-[14px] text-black block mb-[8px]">
                     Nueva contraseña
                   </label>
                   <input
@@ -679,13 +679,13 @@ export function Configuracion() {
                     value={passwordData.newPassword}
                     onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
                     disabled={isChangingPassword}
-                    className="w-full bg-gray-50 rounded-[10px] px-[18px] py-[12px] font-['Poppins:Regular',sans-serif] text-[15px] outline-none focus:ring-2 focus:ring-[#458dff] border border-gray-200 disabled:opacity-50"
+                    className="w-full bg-gray-50 rounded-[10px] px-[18px] py-[12px] font-[Poppins] font-normal text-[15px] outline-none focus:ring-2 focus:ring-[#458dff] border border-gray-200 disabled:opacity-50"
                     placeholder="Mínimo 8 caracteres"
                   />
                 </div>
 
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[14px] text-black block mb-[8px]">
+                  <label className="font-[Poppins] font-medium text-[14px] text-black block mb-[8px]">
                     Confirmar nueva contraseña
                   </label>
                   <input
@@ -693,7 +693,7 @@ export function Configuracion() {
                     value={passwordData.confirmPassword}
                     onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
                     disabled={isChangingPassword}
-                    className="w-full bg-gray-50 rounded-[10px] px-[18px] py-[12px] font-['Poppins:Regular',sans-serif] text-[15px] outline-none focus:ring-2 focus:ring-[#458dff] border border-gray-200 disabled:opacity-50"
+                    className="w-full bg-gray-50 rounded-[10px] px-[18px] py-[12px] font-[Poppins] font-normal text-[15px] outline-none focus:ring-2 focus:ring-[#458dff] border border-gray-200 disabled:opacity-50"
                     placeholder="Repite la nueva contraseña"
                   />
                 </div>
@@ -706,7 +706,7 @@ export function Configuracion() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-red-600 text-center">
+                  <p className="font-[Poppins] font-normal text-[14px] text-red-600 text-center">
                     {passwordError}
                   </p>
                 </motion.div>
@@ -721,7 +721,7 @@ export function Configuracion() {
                     setPasswordError('');
                   }}
                   disabled={isChangingPassword}
-                  className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[10px] py-[13px] font-['Poppins:Medium',sans-serif] text-[16px] transition-colors disabled:opacity-50"
+                  className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[10px] py-[13px] font-[Poppins] font-medium text-[16px] transition-colors disabled:opacity-50"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -731,7 +731,7 @@ export function Configuracion() {
                 <motion.button
                   onClick={handleChangePassword}
                   disabled={isChangingPassword}
-                  className="flex-1 bg-gradient-to-r from-[#39588a] to-[#2d4570] hover:from-[#2d4570] hover:to-[#1e3350] text-white rounded-[10px] py-[13px] font-['Poppins:Medium',sans-serif] text-[16px] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-gradient-to-r from-[#39588a] to-[#2d4570] hover:from-[#2d4570] hover:to-[#1e3350] text-white rounded-[10px] py-[13px] font-[Poppins] font-medium text-[16px] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

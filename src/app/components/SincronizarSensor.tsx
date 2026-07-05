@@ -103,7 +103,7 @@ export function SincronizarSensor() {
             className="flex items-center gap-2 text-white hover:text-[#8db9f2] transition-colors"
           >
             <ArrowLeft size={24} />
-            <span className="font-['Poppins:Regular',sans-serif] text-[18px]">Volver al menú</span>
+            <span className="font-[Poppins] font-normal text-[18px]">Volver al menú</span>
           </button>
         </div>
       </div>
@@ -114,38 +114,38 @@ export function SincronizarSensor() {
           {/* Title */}
           <div className="flex items-center gap-[15px] mb-[30px]">
             <Bluetooth size={36} className="text-[#39588a]" />
-            <h1 className="font-['Poppins:Bold',sans-serif] text-[36px] text-[#193073]">
+            <h1 className="font-[Poppins] font-bold text-[36px] text-[#193073]">
               Sincronizar Sensor
             </h1>
           </div>
 
           {/* Sensor Info Card */}
           <div className="bg-[#f5f5f5] rounded-[20px] p-[25px] mb-[30px]">
-            <h2 className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black mb-[20px]">
+            <h2 className="font-[Poppins] font-semibold text-[18px] text-black mb-[20px]">
               Estado del sensor
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[20px]">
               <div className="bg-white rounded-[15px] p-[20px]">
-                <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600 mb-[5px]">
+                <p className="font-[Poppins] font-normal text-[14px] text-gray-600 mb-[5px]">
                   Dispositivo
                 </p>
-                <p className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black">
+                <p className="font-[Poppins] font-semibold text-[18px] text-black">
                   {deviceName || 'No conectado'}
                 </p>
               </div>
 
               <div className="bg-white rounded-[15px] p-[20px]">
-                <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600 mb-[5px]">
+                <p className="font-[Poppins] font-normal text-[14px] text-gray-600 mb-[5px]">
                   Última sincronización
                 </p>
-                <p className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black">
+                <p className="font-[Poppins] font-semibold text-[18px] text-black">
                   {lastSync}
                 </p>
               </div>
 
               <div className="bg-white rounded-[15px] p-[20px]">
-                <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600 mb-[5px]">
+                <p className="font-[Poppins] font-normal text-[14px] text-gray-600 mb-[5px]">
                   Nivel de batería
                 </p>
                 <div className="flex items-center gap-[10px]">
@@ -157,14 +157,14 @@ export function SincronizarSensor() {
                       style={{ width: `${batteryLevel}%` }}
                     />
                   </div>
-                  <span className="font-['Poppins:Bold',sans-serif] text-[18px] text-black">
+                  <span className="font-[Poppins] font-bold text-[18px] text-black">
                     {batteryLevel}%
                   </span>
                 </div>
               </div>
 
               <div className="bg-white rounded-[15px] p-[20px]">
-                <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600 mb-[5px]">
+                <p className="font-[Poppins] font-normal text-[14px] text-gray-600 mb-[5px]">
                   Estado
                 </p>
                 <div className="flex items-center gap-[8px]">
@@ -173,7 +173,7 @@ export function SincronizarSensor() {
                     syncStatus === 'error' ? 'bg-red-500' : 
                     syncStatus === 'idle' ? 'bg-gray-400' : 'bg-blue-500 animate-pulse'
                   }`} />
-                  <p className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black">
+                  <p className="font-[Poppins] font-semibold text-[18px] text-black">
                     {syncStatus === 'success' ? 'Conectado' : 
                      syncStatus === 'error' ? 'Error' : 
                      syncStatus === 'idle' ? 'Sin conexión' : 'Conectando...'}
@@ -188,10 +188,10 @@ export function SincronizarSensor() {
             <div className={`border-2 rounded-[20px] p-[30px] mb-[30px] ${statusInfo.color}`}>
               <div className="flex flex-col items-center text-center">
                 {statusInfo.icon}
-                <h3 className="font-['Poppins:Bold',sans-serif] text-[24px] text-black mt-[15px] mb-[10px]">
+                <h3 className="font-[Poppins] font-bold text-[24px] text-black mt-[15px] mb-[10px]">
                   {statusInfo.title}
                 </h3>
-                <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-700">
+                <p className="font-[Poppins] font-normal text-[16px] text-gray-700">
                   {statusInfo.message}
                 </p>
               </div>
@@ -203,7 +203,7 @@ export function SincronizarSensor() {
             {syncStatus === 'idle' || syncStatus === 'error' ? (
               <button
                 onClick={startSync}
-                className="bg-[#39588a] hover:bg-[#2d4570] text-white rounded-[15px] px-[50px] py-[18px] font-['Poppins:Bold',sans-serif] text-[20px] transition-all active:scale-95 flex items-center gap-[10px]"
+                className="bg-[#39588a] hover:bg-[#2d4570] text-white rounded-[15px] px-[50px] py-[18px] font-[Poppins] font-bold text-[20px] transition-all active:scale-95 flex items-center gap-[10px]"
               >
                 <RefreshCw size={24} />
                 {syncStatus === 'error' ? 'Reintentar sincronización' : 'Iniciar sincronización'}
@@ -212,19 +212,19 @@ export function SincronizarSensor() {
               <div className="flex gap-[15px]">
                 <button
                   onClick={resetSync}
-                  className="bg-[#39588a] hover:bg-[#2d4570] text-white rounded-[15px] px-[40px] py-[15px] font-['Poppins:Bold',sans-serif] text-[18px] transition-all active:scale-95"
+                  className="bg-[#39588a] hover:bg-[#2d4570] text-white rounded-[15px] px-[40px] py-[15px] font-[Poppins] font-bold text-[18px] transition-all active:scale-95"
                 >
                   Nueva sincronización
                 </button>
                 <button
                   onClick={() => navigate('/menu-paciente')}
-                  className="bg-green-600 hover:bg-green-700 text-white rounded-[15px] px-[40px] py-[15px] font-['Poppins:Bold',sans-serif] text-[18px] transition-all active:scale-95"
+                  className="bg-green-600 hover:bg-green-700 text-white rounded-[15px] px-[40px] py-[15px] font-[Poppins] font-bold text-[18px] transition-all active:scale-95"
                 >
                   Volver al menú
                 </button>
               </div>
             ) : (
-              <div className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-600">
+              <div className="font-[Poppins] font-normal text-[16px] text-gray-600">
                 Sincronizando, por favor espera...
               </div>
             )}
@@ -232,10 +232,10 @@ export function SincronizarSensor() {
 
           {/* Instructions */}
           <div className="mt-[30px] bg-blue-50 border-l-4 border-blue-500 p-[20px] rounded">
-            <h3 className="font-['Poppins:Bold',sans-serif] text-[16px] text-blue-900 mb-[10px]">
+            <h3 className="font-[Poppins] font-bold text-[16px] text-blue-900 mb-[10px]">
               Instrucciones de sincronización
             </h3>
-            <ul className="font-['Poppins:Regular',sans-serif] text-[14px] text-blue-800 space-y-[8px]">
+            <ul className="font-[Poppins] font-normal text-[14px] text-blue-800 space-y-[8px]">
               <li>• Asegúrate de que tu sensor esté encendido</li>
               <li>• Mantén el sensor cerca de tu dispositivo (máximo 5 metros)</li>
               <li>• Activa Bluetooth en tu dispositivo</li>
@@ -246,10 +246,10 @@ export function SincronizarSensor() {
 
           {/* Supported Devices */}
           <div className="mt-[20px] text-center">
-            <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-500 mb-[10px]">
+            <p className="font-[Poppins] font-normal text-[12px] text-gray-500 mb-[10px]">
               Sensores compatibles:
             </p>
-            <p className="font-['Poppins:Medium',sans-serif] text-[14px] text-gray-700">
+            <p className="font-[Poppins] font-medium text-[14px] text-gray-700">
               FreeStyle Libre • Dexcom G6 • Guardian Connect
             </p>
           </div>

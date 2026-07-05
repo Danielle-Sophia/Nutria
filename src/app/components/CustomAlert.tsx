@@ -42,7 +42,7 @@ export function CustomAlert({ show, title, message, type = 'info', onClose }: Cu
       <div className={`bg-white rounded-[20px] shadow-2xl max-w-[500px] w-[90%] border-4 ${getColorScheme()} overflow-hidden`}>
         {/* Header */}
         <div className="bg-[#193073] px-[30px] py-[20px]">
-          <h2 className="font-['Poppins:Bold',sans-serif] text-[24px] text-white">
+          <h2 className="font-[Poppins] font-bold text-[24px] text-white">
             Nutr<span className="text-[#8db9f2]">IA</span>
           </h2>
         </div>
@@ -53,11 +53,11 @@ export function CustomAlert({ show, title, message, type = 'info', onClose }: Cu
             {getIcon()}
             <div className="flex-1">
               {title && (
-                <h3 className="font-['Poppins:SemiBold',sans-serif] text-[20px] text-black mb-[10px]">
+                <h3 className="font-[Poppins] font-semibold text-[20px] text-black mb-[10px]">
                   {title}
                 </h3>
               )}
-              <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-black leading-relaxed">
+              <p className="font-[Poppins] font-normal text-[16px] text-black leading-relaxed">
                 {message}
               </p>
             </div>
@@ -67,7 +67,7 @@ export function CustomAlert({ show, title, message, type = 'info', onClose }: Cu
           <div className="flex justify-end">
             <button
               onClick={onClose}
-              className="bg-[#39588a] hover:bg-[#2d4570] text-white rounded-[10px] px-[30px] py-[12px] font-['Poppins:SemiBold',sans-serif] text-[16px] transition-all active:scale-95"
+              className="bg-[#39588a] hover:bg-[#2d4570] text-white rounded-[10px] px-[30px] py-[12px] font-[Poppins] font-semibold text-[16px] transition-all active:scale-95"
             >
               Aceptar
             </button>

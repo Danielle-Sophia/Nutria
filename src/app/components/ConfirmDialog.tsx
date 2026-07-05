@@ -84,12 +84,12 @@ export function ConfirmDialog({
               </div>
 
               {/* Title */}
-              <h3 className="font-['Poppins:Bold',sans-serif] text-[24px] text-center text-black mb-[15px]">
+              <h3 className="font-[Poppins] font-bold text-[24px] text-center text-black mb-[15px]">
                 {title}
               </h3>
 
               {/* Message */}
-              <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-center text-gray-700 mb-[30px]">
+              <p className="font-[Poppins] font-normal text-[16px] text-center text-gray-700 mb-[30px]">
                 {message}
               </p>
 
@@ -97,7 +97,7 @@ export function ConfirmDialog({
               <div className="flex gap-[15px]">
                 <motion.button
                   onClick={onClose}
-                  className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[10px] py-[12px] font-['Poppins:Medium',sans-serif] text-[16px] transition-colors"
+                  className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[10px] py-[12px] font-[Poppins] font-medium text-[16px] transition-colors"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -106,7 +106,7 @@ export function ConfirmDialog({
 
                 <motion.button
                   onClick={handleConfirm}
-                  className={`flex-1 ${getButtonColor()} text-white rounded-[10px] py-[12px] font-['Poppins:Medium',sans-serif] text-[16px] transition-colors`}
+                  className={`flex-1 ${getButtonColor()} text-white rounded-[10px] py-[12px] font-[Poppins] font-medium text-[16px] transition-colors`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

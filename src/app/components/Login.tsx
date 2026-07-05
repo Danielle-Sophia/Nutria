@@ -108,18 +108,18 @@ export function Login() {
         {/* Form Content */}
         <div className="relative w-full h-full">
           {/* Title */}
-          <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-1/2 -translate-x-1/2 not-italic text-[48px] text-black text-nowrap top-[41px]">
+          <p className="absolute font-[Poppins] font-bold leading-[normal] left-1/2 -translate-x-1/2 not-italic text-[48px] text-black text-nowrap top-[41px]">
             Iniciar sesión
           </p>
           
           {/* Register Link */}
           <div className="absolute left-[83px] top-[137px]">
-            <span className="font-['Poppins:Regular',sans-serif] text-[18px] text-black">
+            <span className="font-[Poppins] font-normal text-[18px] text-black">
               ¿Eres nuevo aquí?{' '}
             </span>
             <Link
               to="/registro"
-              className="[text-underline-position:from-font] decoration-solid font-['Poppins:Bold',sans-serif] text-[#458dff] text-[18px] underline hover:text-[#3a7ae0] transition-colors"
+              className="[text-underline-position:from-font] decoration-solid font-[Poppins] font-bold text-[#458dff] text-[18px] underline hover:text-[#3a7ae0] transition-colors"
             >
               Regístrate
             </Link>
@@ -130,7 +130,7 @@ export function Login() {
             <div>
               <label 
                 htmlFor="email"
-                className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black left-[83px] top-[209px]"
+                className="absolute font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black left-[83px] top-[209px]"
               >
                 Correo electrónico
               </label>
@@ -150,7 +150,7 @@ export function Login() {
             <div>
               <label 
                 htmlFor="password"
-                className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black left-[83px] top-[299px]"
+                className="absolute font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black left-[83px] top-[299px]"
               >
                 Contraseña
               </label>
@@ -169,7 +169,7 @@ export function Login() {
             {/* Error Message */}
             {error && (
               <motion.p
-                className="absolute left-[83px] top-[375px] text-red-600 text-[14px] font-['Poppins:Regular',sans-serif] w-[474px]"
+                className="absolute left-[83px] top-[375px] text-red-600 text-[14px] font-[Poppins] font-normal w-[474px]"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3 }}
@@ -182,7 +182,7 @@ export function Login() {
             <button
               type="button"
               onClick={handleForgotPassword}
-              className="[text-underline-position:from-font] absolute decoration-solid font-['Poppins:Bold',sans-serif] leading-[normal] left-[83px] not-italic text-[#458dff] text-[18px] top-[392px] underline hover:text-[#3a7ae0] transition-colors"
+              className="[text-underline-position:from-font] absolute decoration-solid font-[Poppins] font-bold leading-[normal] left-[83px] not-italic text-[#458dff] text-[18px] top-[392px] underline hover:text-[#3a7ae0] transition-colors"
             >
               Olvidé mi contraseña
             </button>
@@ -195,7 +195,7 @@ export function Login() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span className="font-['Poppins:Bold',sans-serif] text-[24px] text-white flex items-center justify-center gap-2">
+              <span className="font-[Poppins] font-bold text-[24px] text-white flex items-center justify-center gap-2">
                 {isLoading ? (
                   <>
                     <motion.div

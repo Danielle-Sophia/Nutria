@@ -140,17 +140,17 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
               {/* Table Header */}
               <div className="bg-[rgba(57,88,138,0.5)] h-[65px] flex items-center border-b border-[#39588a]">
                 <div className="w-[242px] flex items-center justify-center border-r border-[#39588a]">
-                  <p className="font-['Poppins:Medium',sans-serif] text-[20px] text-black">
+                  <p className="font-[Poppins] font-medium text-[20px] text-black">
                     Atributo
                   </p>
                 </div>
                 <div className="w-[252px] flex items-center justify-center border-r border-[#39588a]">
-                  <p className="font-['Poppins:Medium',sans-serif] text-[20px] text-black">
+                  <p className="font-[Poppins] font-medium text-[20px] text-black">
                     Valor
                   </p>
                 </div>
                 <div className="flex-1 flex items-center justify-center">
-                  <p className="font-['Poppins:Medium',sans-serif] text-[20px] text-black">
+                  <p className="font-[Poppins] font-medium text-[20px] text-black">
                     Fecha
                   </p>
                 </div>
@@ -168,21 +168,21 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
                   >
                     {/* Attribute Column */}
                     <div className="w-[242px] flex items-center justify-center px-[10px] border-r border-[#39588a]">
-                      <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-black text-center leading-tight">
+                      <p className="font-[Poppins] font-normal text-[16px] text-black text-center leading-tight">
                         {record.attribute}
                       </p>
                     </div>
                     
                     {/* Value Column */}
                     <div className="w-[252px] flex items-center justify-center px-[10px] py-[8px] border-r border-[#39588a]">
-                      <div className="font-['Poppins:Regular',sans-serif] text-[16px] text-black text-center">
+                      <div className="font-[Poppins] font-normal text-[16px] text-black text-center">
                         {record.value}
                       </div>
                     </div>
                     
                     {/* Date Column */}
                     <div className="flex-1 flex items-center justify-center px-[10px]">
-                      <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-black text-center">
+                      <p className="font-[Poppins] font-normal text-[16px] text-black text-center">
                         {record.date}
                       </p>
                     </div>
@@ -201,7 +201,7 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
               <button
                 onClick={handleComplementDiagnosis}
                 disabled={isComplementingDiagnosis}
-                className={`rounded-[15px] px-[25px] py-[12px] font-['Poppins:Bold',sans-serif] text-[16px] transition-all flex items-center gap-[10px] shadow-lg ${
+                className={`rounded-[15px] px-[25px] py-[12px] font-[Poppins] font-bold text-[16px] transition-all flex items-center gap-[10px] shadow-lg ${
                   isComplementingDiagnosis
                     ? 'bg-gray-400 text-gray-200 cursor-wait'
                     : 'bg-gradient-to-r from-[#5e7deb] to-[#8db9f2] hover:from-[#4d6bd9] hover:to-[#7aa8e1] text-white active:scale-95'
@@ -220,7 +220,7 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
                     <Sparkles size={40} className="text-[#5e7deb]" />
                   </div>
                 </div>
-                <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-[#193073]">
+                <p className="font-[Poppins] font-medium text-[16px] text-[#193073]">
                   La IA está analizando los datos clínicos del paciente...
                 </p>
               </div>
@@ -233,13 +233,13 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
                   <div className="bg-[#5e7deb] rounded-full p-[12px]">
                     <ClipboardList size={28} className="text-white" />
                   </div>
-                  <h3 className="font-['Poppins:Bold',sans-serif] text-[24px] text-[#193073]">
+                  <h3 className="font-[Poppins] font-bold text-[24px] text-[#193073]">
                     Diagnóstico Complementado con IA
                   </h3>
                 </div>
 
                 <div className="bg-white rounded-[15px] p-[25px] whitespace-pre-line">
-                  <p className="font-['Poppins:Regular',sans-serif] text-[15px] text-gray-800 leading-relaxed">
+                  <p className="font-[Poppins] font-normal text-[15px] text-gray-800 leading-relaxed">
                     {diagnosisResult}
                   </p>
                 </div>
@@ -247,7 +247,7 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
                 {/* Warning */}
                 <div className="bg-yellow-50 border-l-4 border-yellow-400 rounded-[10px] p-[15px] mt-[20px] flex items-start gap-[10px]">
                   <AlertCircle size={24} className="text-yellow-600 flex-shrink-0 mt-[2px]" />
-                  <p className="font-['Poppins:Regular',sans-serif] text-[13px] text-yellow-800">
+                  <p className="font-[Poppins] font-normal text-[13px] text-yellow-800">
                     <strong>Nota importante:</strong> Este análisis es una herramienta de apoyo generada por IA. 
                     El diagnóstico final debe ser realizado por el médico tratante basándose en su criterio clínico profesional.
                   </p>
@@ -256,10 +256,10 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
             ) : (
               <div className="bg-gray-50 rounded-[15px] p-[40px] text-center">
                 <ClipboardList size={64} className="text-gray-300 mx-auto mb-[20px]" />
-                <p className="font-['Poppins:Medium',sans-serif] text-[18px] text-gray-500 mb-[10px]">
+                <p className="font-[Poppins] font-medium text-[18px] text-gray-500 mb-[10px]">
                   No hay diagnóstico complementario generado
                 </p>
-                <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-400">
+                <p className="font-[Poppins] font-normal text-[14px] text-gray-400">
                   Haz clic en "Complementar diagnóstico con IA" para generar un análisis automático
                 </p>
               </div>
@@ -275,7 +275,7 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
               <button
                 onClick={handleComplementTreatment}
                 disabled={isComplementingTreatment}
-                className={`rounded-[15px] px-[25px] py-[12px] font-['Poppins:Bold',sans-serif] text-[16px] transition-all flex items-center gap-[10px] shadow-lg ${
+                className={`rounded-[15px] px-[25px] py-[12px] font-[Poppins] font-bold text-[16px] transition-all flex items-center gap-[10px] shadow-lg ${
                   isComplementingTreatment
                     ? 'bg-gray-400 text-gray-200 cursor-wait'
                     : 'bg-gradient-to-r from-[#10b981] to-[#34d399] hover:from-[#059669] hover:to-[#10b981] text-white active:scale-95'
@@ -294,7 +294,7 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
                     <Sparkles size={40} className="text-[#10b981]" />
                   </div>
                 </div>
-                <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-[#065f46]">
+                <p className="font-[Poppins] font-medium text-[16px] text-[#065f46]">
                   La IA está generando un plan de tratamiento personalizado...
                 </p>
               </div>
@@ -307,13 +307,13 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
                   <div className="bg-[#10b981] rounded-full p-[12px]">
                     <Pill size={28} className="text-white" />
                   </div>
-                  <h3 className="font-['Poppins:Bold',sans-serif] text-[24px] text-[#065f46]">
+                  <h3 className="font-[Poppins] font-bold text-[24px] text-[#065f46]">
                     Plan de Tratamiento Generado con IA
                   </h3>
                 </div>
 
                 <div className="bg-white rounded-[15px] p-[25px] whitespace-pre-line">
-                  <p className="font-['Poppins:Regular',sans-serif] text-[15px] text-gray-800 leading-relaxed">
+                  <p className="font-[Poppins] font-normal text-[15px] text-gray-800 leading-relaxed">
                     {treatmentResult}
                   </p>
                 </div>
@@ -321,7 +321,7 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
                 {/* Warning */}
                 <div className="bg-orange-50 border-l-4 border-orange-400 rounded-[10px] p-[15px] mt-[20px] flex items-start gap-[10px]">
                   <AlertCircle size={24} className="text-orange-600 flex-shrink-0 mt-[2px]" />
-                  <p className="font-['Poppins:Regular',sans-serif] text-[13px] text-orange-800">
+                  <p className="font-[Poppins] font-normal text-[13px] text-orange-800">
                     <strong>Importante:</strong> Este plan de tratamiento es una recomendación generada por IA basada en los datos disponibles. 
                     Debe ser revisado, ajustado y aprobado por el médico tratante antes de su implementación. 
                     Cada paciente requiere un enfoque individualizado.
@@ -331,10 +331,10 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
             ) : (
               <div className="bg-gray-50 rounded-[15px] p-[40px] text-center">
                 <Pill size={64} className="text-gray-300 mx-auto mb-[20px]" />
-                <p className="font-['Poppins:Medium',sans-serif] text-[18px] text-gray-500 mb-[10px]">
+                <p className="font-[Poppins] font-medium text-[18px] text-gray-500 mb-[10px]">
                   No hay plan de tratamiento generado
                 </p>
-                <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-400">
+                <p className="font-[Poppins] font-normal text-[14px] text-gray-400">
                   Haz clic en "Complementar tratamiento con IA" para generar un plan personalizado
                 </p>
               </div>
@@ -363,10 +363,10 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
           )}
         </div>
         <div className="flex-1">
-          <p className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black mb-[8px]">
+          <p className="font-[Poppins] font-semibold text-[18px] text-black mb-[8px]">
             {patient.nombre}
           </p>
-          <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-black">
+          <p className="font-[Poppins] font-normal text-[18px] text-black">
             Folio (identificador): {patient.folio}
           </p>
         </div>
@@ -376,7 +376,7 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
       <div className="flex gap-[10px] mb-[30px]">
         <button
           onClick={() => setActiveTab('datos-generales')}
-          className={`flex items-center gap-[8px] px-[20px] py-[12px] rounded-[10px] font-['Poppins:SemiBold',sans-serif] text-[16px] transition-all ${
+          className={`flex items-center gap-[8px] px-[20px] py-[12px] rounded-[10px] font-[Poppins] font-semibold text-[16px] transition-all ${
             activeTab === 'datos-generales'
               ? 'bg-[#39588a] text-white shadow-md'
               : 'bg-[#e8e8e8] text-gray-700 hover:bg-[#d0d0d0]'
@@ -387,7 +387,7 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
         </button>
         <button
           onClick={() => setActiveTab('diagnostico')}
-          className={`flex items-center gap-[8px] px-[20px] py-[12px] rounded-[10px] font-['Poppins:SemiBold',sans-serif] text-[16px] transition-all ${
+          className={`flex items-center gap-[8px] px-[20px] py-[12px] rounded-[10px] font-[Poppins] font-semibold text-[16px] transition-all ${
             activeTab === 'diagnostico'
               ? 'bg-[#5e7deb] text-white shadow-md'
               : 'bg-[#e8e8e8] text-gray-700 hover:bg-[#d0d0d0]'
@@ -398,7 +398,7 @@ export function HistoriaClinica({ patient }: HistoriaClinicaProps) {
         </button>
         <button
           onClick={() => setActiveTab('tratamiento')}
-          className={`flex items-center gap-[8px] px-[20px] py-[12px] rounded-[10px] font-['Poppins:SemiBold',sans-serif] text-[16px] transition-all ${
+          className={`flex items-center gap-[8px] px-[20px] py-[12px] rounded-[10px] font-[Poppins] font-semibold text-[16px] transition-all ${
             activeTab === 'tratamiento'
               ? 'bg-[#10b981] text-white shadow-md'
               : 'bg-[#e8e8e8] text-gray-700 hover:bg-[#d0d0d0]'

@@ -5,7 +5,7 @@ function Group() {
   return (
     <div className="absolute contents left-0 top-0">
       <div className="absolute bg-[#193073] h-[80px] left-0 top-0 w-[1440px]" />
-      <p className="-translate-x-1/2 absolute font-['Poppins:Medium',sans-serif] h-[28px] leading-[normal] left-[1026.5px] not-italic text-[18px] text-center text-white top-[27px] w-[193px] whitespace-pre-wrap">Mis pacientes</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-medium h-[28px] leading-[normal] left-[1026.5px] not-italic text-[18px] text-center text-white top-[27px] w-[193px] whitespace-pre-wrap">Mis pacientes</p>
       <div className="absolute left-[1333px] overflow-clip size-[30px] top-[25px]" data-name="User">
         <div className="absolute inset-[12.5%_16.67%]" data-name="Icon">
           <div className="absolute inset-[-8.89%_-10%]">
@@ -94,21 +94,21 @@ function Group1() {
           </svg>
         </div>
       </div>
-      <button className="-translate-x-1/2 absolute block cursor-pointer font-['Poppins:Medium',sans-serif] leading-[0] left-[calc(50%-432.5px)] not-italic text-[#458dff] text-[20px] text-center top-[313px] whitespace-nowrap">
+      <button className="-translate-x-1/2 absolute block cursor-pointer font-[Poppins] font-medium leading-[0] left-[calc(50%-432.5px)] not-italic text-[#458dff] text-[20px] text-center top-[313px] whitespace-nowrap">
         <p className="leading-[normal]">Identificación del paciente</p>
       </button>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[385px]">Historia clínica</p>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[457px]">Bitácora</p>
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Poppins:Medium',sans-serif] justify-center leading-[0] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[544px] whitespace-nowrap">
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-medium leading-[normal] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[385px]">Historia clínica</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-medium leading-[normal] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[457px]">Bitácora</p>
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-[Poppins] font-medium justify-center leading-[0] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[544px] whitespace-nowrap">
         <p className="leading-[normal]">Análisis y reportes</p>
       </div>
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Poppins:Medium',sans-serif] justify-center leading-[0] left-[calc(50%-433px)] not-italic text-[20px] text-black text-center top-[616px] whitespace-nowrap">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-[Poppins] font-medium justify-center leading-[0] left-[calc(50%-433px)] not-italic text-[20px] text-black text-center top-[616px] whitespace-nowrap">
         <p className="leading-[normal]">Seguimiento</p>
       </div>
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Poppins:Medium',sans-serif] justify-center leading-[0] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[688px] whitespace-nowrap">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-[Poppins] font-medium justify-center leading-[0] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[688px] whitespace-nowrap">
         <p className="leading-[normal]">Documentos</p>
       </div>
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Poppins:Medium',sans-serif] justify-center leading-[0] left-[calc(50%-433.5px)] not-italic text-[20px] text-black text-center top-[776px] w-[303px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-[Poppins] font-medium justify-center leading-[0] left-[calc(50%-433.5px)] not-italic text-[20px] text-black text-center top-[776px] w-[303px]">
         <p className="leading-[normal] whitespace-pre-wrap">Seguridad y registro de actividad</p>
       </div>
     </div>
@@ -120,7 +120,7 @@ export default function IdentificacionDelPaciente() {
     <div className="bg-[#85aab3] relative size-full" data-name="Identificación del paciente">
       <Group />
       <div className="absolute bg-white h-[1040px] left-[107px] rounded-[40px] top-[148px] w-[1225px]" />
-      <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[159px] not-italic text-[30px] text-black top-[193px]">Expediente</p>
+      <p className="absolute font-[Poppins] font-bold leading-[normal] left-[159px] not-italic text-[30px] text-black top-[193px]">Expediente</p>
       <Group1 />
       <div className="absolute h-0 left-[508px] top-[906px] w-[764px]">
         <div className="absolute inset-[-1px_0_0_0]">
@@ -132,21 +132,21 @@ export default function IdentificacionDelPaciente() {
       <div className="absolute h-[121px] left-[508px] top-[300px] w-[130px]" data-name="Avatars Default with Backdrop">
         <img alt="" className="absolute inset-0 max-w-none object-contain pointer-events-none size-full" src={imgAvatarsDefaultWithBackdrop} />
       </div>
-      <p className="absolute font-['Poppins:SemiBold',sans-serif] leading-[normal] left-[676px] not-italic text-[18px] text-black top-[329px]">Patricio Castillo Antonio</p>
-      <p className="absolute font-['Poppins:SemiBold',sans-serif] leading-[normal] left-[508px] not-italic text-[#7f94e2] text-[20px] top-[470px]">DATOS PERSONALES</p>
-      <p className="absolute font-['Poppins:SemiBold',sans-serif] leading-[normal] left-[508px] not-italic text-[#7f94e2] text-[20px] top-[932px]">ANTECEDENTES FAMILIARES</p>
-      <p className="absolute font-['Poppins:SemiBold',sans-serif] leading-[normal] left-[508px] not-italic text-[18px] text-black top-[532px]">{`Fecha de nacimiento: `}</p>
-      <p className="absolute font-['Poppins:SemiBold',sans-serif] leading-[normal] left-[508px] not-italic text-[18px] text-black top-[585px]">Sexo biológico:</p>
-      <p className="absolute font-['Poppins:SemiBold',sans-serif] leading-[normal] left-[508px] not-italic text-[18px] text-black top-[638px]">Información de contacto:</p>
-      <p className="absolute font-['Poppins:SemiBold',sans-serif] leading-[normal] left-[508px] not-italic text-[18px] text-black top-[751px]">Dirección:</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[508px] not-italic text-[18px] text-black top-[691px]">Teléfono:</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[841px] not-italic text-[18px] text-black top-[691px]">Correo:</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] h-[27px] leading-[normal] left-[676px] not-italic text-[18px] text-black top-[365px] w-[320px] whitespace-pre-wrap">Folio (identificador): 000001</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[770px] not-italic text-[18px] text-black top-[532px]">15/09/1997</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[781px] not-italic text-[18px] text-black top-[585px]">Hombre</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[638px] not-italic text-[18px] text-black top-[691px]">55-55555555</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[522px] not-italic text-[18px] text-black top-[817px]">Calle Manzana, Lt. 1, Mz 1. Colonia Bonita colonia. Ciudad Manzana. México. México</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[964px] not-italic text-[18px] text-black top-[691px]">patricio_castillo_97@mail.com</p>
+      <p className="absolute font-[Poppins] font-semibold leading-[normal] left-[676px] not-italic text-[18px] text-black top-[329px]">Patricio Castillo Antonio</p>
+      <p className="absolute font-[Poppins] font-semibold leading-[normal] left-[508px] not-italic text-[#7f94e2] text-[20px] top-[470px]">DATOS PERSONALES</p>
+      <p className="absolute font-[Poppins] font-semibold leading-[normal] left-[508px] not-italic text-[#7f94e2] text-[20px] top-[932px]">ANTECEDENTES FAMILIARES</p>
+      <p className="absolute font-[Poppins] font-semibold leading-[normal] left-[508px] not-italic text-[18px] text-black top-[532px]">{`Fecha de nacimiento: `}</p>
+      <p className="absolute font-[Poppins] font-semibold leading-[normal] left-[508px] not-italic text-[18px] text-black top-[585px]">Sexo biológico:</p>
+      <p className="absolute font-[Poppins] font-semibold leading-[normal] left-[508px] not-italic text-[18px] text-black top-[638px]">Información de contacto:</p>
+      <p className="absolute font-[Poppins] font-semibold leading-[normal] left-[508px] not-italic text-[18px] text-black top-[751px]">Dirección:</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[508px] not-italic text-[18px] text-black top-[691px]">Teléfono:</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[841px] not-italic text-[18px] text-black top-[691px]">Correo:</p>
+      <p className="absolute font-[Poppins] font-normal h-[27px] leading-[normal] left-[676px] not-italic text-[18px] text-black top-[365px] w-[320px] whitespace-pre-wrap">Folio (identificador): 000001</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[770px] not-italic text-[18px] text-black top-[532px]">15/09/1997</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[781px] not-italic text-[18px] text-black top-[585px]">Hombre</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[638px] not-italic text-[18px] text-black top-[691px]">55-55555555</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[522px] not-italic text-[18px] text-black top-[817px]">Calle Manzana, Lt. 1, Mz 1. Colonia Bonita colonia. Ciudad Manzana. México. México</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[964px] not-italic text-[18px] text-black top-[691px]">patricio_castillo_97@mail.com</p>
       <div className="absolute border-[0.5px] border-black border-solid h-[41px] left-[725px] rounded-[50px] top-[525px] w-[185px]" />
       <div className="absolute border-[0.5px] border-black border-solid h-[41px] left-[725px] rounded-[50px] top-[578px] w-[185px]" />
       <div className="absolute border-[0.5px] border-black border-solid h-[89px] left-[507px] rounded-[20px] top-[804px] w-[765px]" />

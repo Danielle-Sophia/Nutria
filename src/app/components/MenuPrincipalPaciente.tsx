@@ -38,7 +38,7 @@ function MenuCard({ title, image, onClick, index }: MenuCardProps) {
         {/* Blue header bar with gradient (warmer tones for patient) */}
         <div className="absolute left-0 top-0 w-[266px]">
           <div className="bg-gradient-to-r from-[#5e7deb] to-[#7aa8e1] h-[41px] rounded-[5px] w-full group-hover:from-[#4d6bd9] group-hover:to-[#6997d0] transition-all shadow-md" />
-          <p className="absolute -translate-x-1/2 font-['Poppins:Medium',sans-serif] leading-[normal] left-[132px] not-italic text-[16px] text-center text-white top-[9px] whitespace-nowrap px-2">
+          <p className="absolute -translate-x-1/2 font-[Poppins] font-medium leading-[normal] left-[132px] not-italic text-[16px] text-center text-white top-[9px] whitespace-nowrap px-2">
             {title}
           </p>
         </div>
@@ -107,7 +107,7 @@ function FoodTooltipContent({ active, payload }: any) {
   if (!d) return null;
   return (
     <div className="bg-white border border-[#e1e9f2] rounded-[10px] p-[12px] shadow-lg text-[13px]">
-      <p className="font-['Poppins:Bold',sans-serif] text-[#193073] mb-1">{d.foodName}</p>
+      <p className="font-[Poppins] font-bold text-[#193073] mb-1">{d.foodName}</p>
       <p className="text-gray-600">🕐 {d.timeLabel}</p>
       <p className="text-gray-600">🥖 <span className="font-semibold text-[#39588a]">{d.carbs?.toFixed(1)}g</span> carbohidratos</p>
       {d.cals != null && <p className="text-gray-400">{d.cals?.toFixed(0)} kcal</p>}
@@ -375,7 +375,7 @@ export function MenuPrincipalPaciente() {
             {/* Info */}
             <div className="flex-1">
               <motion.p
-                className="font-['Poppins:Bold',sans-serif] leading-[normal] not-italic text-[#7f94e2] text-[32px] mb-[20px]"
+                className="font-[Poppins] font-bold leading-[normal] not-italic text-[#7f94e2] text-[32px] mb-[20px]"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
@@ -383,7 +383,7 @@ export function MenuPrincipalPaciente() {
                 ¡Bienvenido!
               </motion.p>
               <motion.p
-                className="font-['Poppins:SemiBold',sans-serif] leading-[normal] not-italic text-[18px] text-black mb-[8px]"
+                className="font-[Poppins] font-semibold leading-[normal] not-italic text-[18px] text-black mb-[8px]"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.7 }}
@@ -391,7 +391,7 @@ export function MenuPrincipalPaciente() {
                 {fullName}
               </motion.p>
               <motion.p
-                className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black"
+                className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.8 }}
@@ -408,13 +408,13 @@ export function MenuPrincipalPaciente() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.9 }}
           >
-            <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black mb-[15px]">
+            <p className="font-[Poppins] font-medium leading-[normal] not-italic text-[20px] text-black mb-[15px]">
               Acciones importantes:
             </p>
             <div className="flex gap-[18px]">
               <motion.button
                 onClick={() => handleActionClick('/sincronizar-sensor')}
-                className="bg-gradient-to-r from-[#39588a] to-[#2a4266] hover:from-[#2a4266] hover:to-[#1e3350] transition-all h-[37px] rounded-[15px] px-[30px] font-['Poppins:Regular',sans-serif] text-[18px] text-white shadow-md hover:shadow-lg"
+                className="bg-gradient-to-r from-[#39588a] to-[#2a4266] hover:from-[#2a4266] hover:to-[#1e3350] transition-all h-[37px] rounded-[15px] px-[30px] font-[Poppins] font-normal text-[18px] text-white shadow-md hover:shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -422,7 +422,7 @@ export function MenuPrincipalPaciente() {
               </motion.button>
               <motion.button
                 onClick={() => handleActionClick('/agendar-cita')}
-                className="bg-gradient-to-r from-[#39588a] to-[#2a4266] hover:from-[#2a4266] hover:to-[#1e3350] transition-all h-[37px] rounded-[15px] px-[30px] font-['Poppins:Regular',sans-serif] text-[18px] text-white shadow-md hover:shadow-lg"
+                className="bg-gradient-to-r from-[#39588a] to-[#2a4266] hover:from-[#2a4266] hover:to-[#1e3350] transition-all h-[37px] rounded-[15px] px-[30px] font-[Poppins] font-normal text-[18px] text-white shadow-md hover:shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -433,7 +433,7 @@ export function MenuPrincipalPaciente() {
 
           {/* Registration Section */}
           <div className="mb-[30px]">
-            <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black mb-[20px]">
+            <p className="font-[Poppins] font-medium leading-[normal] not-italic text-[20px] text-black mb-[20px]">
               ¿Tienes algo que registrar hoy?
             </p>
             
@@ -486,7 +486,7 @@ export function MenuPrincipalPaciente() {
                       >
                         <Sparkles size={24} className="text-white" />
                       </motion.div>
-                      <p className="font-['Poppins:Bold',sans-serif] text-[22px] text-white">
+                      <p className="font-[Poppins] font-bold text-[22px] text-white">
                         Calcular dosis de insulina con IA
                       </p>
                     </div>
@@ -501,7 +501,7 @@ export function MenuPrincipalPaciente() {
                         src={imgHappyBunchChat}
                       />
                     </div>
-                    <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-center text-gray-600 mt-[10px]">
+                    <p className="font-[Poppins] font-normal text-[14px] text-center text-gray-600 mt-[10px]">
                       Obtén una recomendación personalizada basada en tus datos de glucosa, ejercicio y alimentación
                     </p>
                   </div>
@@ -516,7 +516,7 @@ export function MenuPrincipalPaciente() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <p className="font-['Poppins:Bold',sans-serif] leading-[normal] not-italic text-[24px] text-[#5e7deb] mb-[20px]">
+            <p className="font-[Poppins] font-bold leading-[normal] not-italic text-[24px] text-[#5e7deb] mb-[20px]">
               GLUCOSA
             </p>
             
@@ -596,7 +596,7 @@ export function MenuPrincipalPaciente() {
                   {/* Average display */}
                   {!isLoadingGlucose && glucoseData.length > 0 && (
                     <div className="mt-[15px] text-center">
-                      <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-[#5e7deb]">
+                      <p className="font-[Poppins] font-medium text-[16px] text-[#5e7deb]">
                         Promedio: {average} mg/dL
                       </p>
                     </div>
@@ -610,15 +610,15 @@ export function MenuPrincipalPaciente() {
                   <svg width="16" height="16" viewBox="0 0 16 16" className="text-[#00913f]">
                     <polygon points="8,0 16,8 8,16" fill="currentColor" />
                   </svg>
-                  <p className="font-['Poppins:Bold',sans-serif] text-[16px] text-black">
+                  <p className="font-[Poppins] font-bold text-[16px] text-black">
                     Rango objetivo
                   </p>
                 </div>
-                <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-600 mb-[20px] ml-[24px]">
+                <p className="font-[Poppins] font-normal text-[12px] text-gray-600 mb-[20px] ml-[24px]">
                   70-180 mg/dL
                 </p>
                 
-                <p className="font-['Poppins:Bold',sans-serif] text-[16px] text-black mb-[12px]">
+                <p className="font-[Poppins] font-bold text-[16px] text-black mb-[12px]">
                   Niveles de glucosa
                 </p>
                 <div className="flex gap-[15px]">
@@ -635,10 +635,10 @@ export function MenuPrincipalPaciente() {
                   <div className="flex flex-col justify-between h-[303px] py-[2px]">
                     {glucoseLevels.map((level, index) => (
                       <div key={index} className="flex-shrink-0" style={{ marginBottom: index < glucoseLevels.length - 1 ? '10px' : '0' }}>
-                        <p className="font-['Poppins:Bold',sans-serif] text-[16px] text-black leading-[1.2]">
+                        <p className="font-[Poppins] font-bold text-[16px] text-black leading-[1.2]">
                           {level.label}
                         </p>
-                        <p className="font-['Poppins:Regular',sans-serif] text-[11px] text-black leading-[1.3]">
+                        <p className="font-[Poppins] font-normal text-[11px] text-black leading-[1.3]">
                           {level.range}
                         </p>
                       </div>
@@ -656,7 +656,7 @@ export function MenuPrincipalPaciente() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}
           >
-            <p className="font-['Poppins:Bold',sans-serif] leading-[normal] not-italic text-[24px] text-[#5e7deb] mb-[20px]">
+            <p className="font-[Poppins] font-bold leading-[normal] not-italic text-[24px] text-[#5e7deb] mb-[20px]">
               ALIMENTOS
             </p>
 
@@ -668,7 +668,7 @@ export function MenuPrincipalPaciente() {
                   <select
                     value={selectedFoodDate}
                     onChange={(e) => setSelectedFoodDate(e.target.value)}
-                    className="bg-[#e1e9f2] rounded-[10px] px-[16px] py-[8px] font-['Poppins:Regular',sans-serif] text-[15px] outline-none focus:ring-2 focus:ring-[#458dff]"
+                    className="bg-[#e1e9f2] rounded-[10px] px-[16px] py-[8px] font-[Poppins] font-normal text-[15px] outline-none focus:ring-2 focus:ring-[#458dff]"
                   >
                     {availableDates.map(d => (
                       <option key={d} value={d}>{d}</option>
@@ -680,16 +680,16 @@ export function MenuPrincipalPaciente() {
                     <div className="bg-[#FFF3CD] border border-[#F59E0B] rounded-[10px] px-[16px] py-[8px] flex items-center gap-[8px]">
                       <span className="text-[18px]">🍽️</span>
                       <div>
-                        <p className="font-['Poppins:Bold',sans-serif] text-[18px] text-[#193073] leading-none">{totalCarbsDay.toFixed(1)}g</p>
-                        <p className="font-['Poppins:Regular',sans-serif] text-[11px] text-gray-500">carbs totales del día</p>
+                        <p className="font-[Poppins] font-bold text-[18px] text-[#193073] leading-none">{totalCarbsDay.toFixed(1)}g</p>
+                        <p className="font-[Poppins] font-normal text-[11px] text-gray-500">carbs totales del día</p>
                       </div>
                     </div>
                     {Object.entries(foodByMeal).map(([meal, info]) => (
                       <div key={meal} className="bg-[#f0f4ff] rounded-[10px] px-[14px] py-[8px]">
-                        <p className="font-['Poppins:Bold',sans-serif] text-[15px] text-[#39588a]">
+                        <p className="font-[Poppins] font-bold text-[15px] text-[#39588a]">
                           {info.total.toFixed(1)}g <span className="font-normal text-gray-400 text-[13px]">({info.count})</span>
                         </p>
-                        <p className="font-['Poppins:Regular',sans-serif] text-[11px] text-gray-500">{meal}</p>
+                        <p className="font-[Poppins] font-normal text-[11px] text-gray-500">{meal}</p>
                       </div>
                     ))}
                   </div>
@@ -702,25 +702,25 @@ export function MenuPrincipalPaciente() {
                 {isLoadingFood ? (
                   <div className="h-[280px] flex items-center justify-center gap-3">
                     <div className="w-8 h-8 border-4 border-[#39588a] border-t-transparent rounded-full animate-spin" />
-                    <p className="font-['Poppins:Regular',sans-serif] text-[15px] text-gray-500">Cargando registros de alimentos...</p>
+                    <p className="font-[Poppins] font-normal text-[15px] text-gray-500">Cargando registros de alimentos...</p>
                   </div>
                 ) : foodRecords.length === 0 ? (
                   <div className="h-[280px] flex items-center justify-center flex-col gap-3">
                     <Utensils size={40} className="text-gray-300" />
-                    <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-400">No hay registros de alimentos aún</p>
-                    <p className="font-['Poppins:Regular',sans-serif] text-[13px] text-gray-400 text-center max-w-[360px]">
+                    <p className="font-[Poppins] font-normal text-[16px] text-gray-400">No hay registros de alimentos aún</p>
+                    <p className="font-[Poppins] font-normal text-[13px] text-gray-400 text-center max-w-[360px]">
                       Los datos aparecerán aquí una vez que comiences a registrar tus alimentos.
                     </p>
                   </div>
                 ) : dayFoodRecords.length === 0 ? (
                   <div className="h-[280px] flex items-center justify-center">
-                    <p className="font-['Poppins:Regular',sans-serif] text-[15px] text-gray-400">Sin registros para esta fecha</p>
+                    <p className="font-[Poppins] font-normal text-[15px] text-gray-400">Sin registros para esta fecha</p>
                   </div>
                 ) : (
                   <>
                     <div className="mb-[6px] flex items-center gap-[8px]">
                       <span className="text-[18px]">🍽️</span>
-                      <span className="font-['Poppins:Medium',sans-serif] text-[13px] text-gray-600">Carb. / gramos</span>
+                      <span className="font-[Poppins] font-medium text-[13px] text-gray-600">Carb. / gramos</span>
                     </div>
                     <ResponsiveContainer width="100%" height={280}>
                       <ScatterChart margin={{ top: 10, right: 30, left: 20, bottom: 20 }}>
@@ -745,18 +745,18 @@ export function MenuPrincipalPaciente() {
 
                     {/* Detail table */}
                     <div className="mt-[24px]">
-                      <p className="font-['Poppins:SemiBold',sans-serif] text-[15px] text-[#193073] mb-[12px]">
+                      <p className="font-[Poppins] font-semibold text-[15px] text-[#193073] mb-[12px]">
                         Detalle de registros — {formatFoodDate(selectedFoodDate)}
                       </p>
                       <div className="overflow-x-auto">
                         <table className="w-full text-[13px]">
                           <thead>
                             <tr className="bg-[#f0f4ff]">
-                              <th className="text-left px-[14px] py-[10px] font-['Poppins:SemiBold',sans-serif] text-[#39588a] rounded-l-[8px]">Hora</th>
-                              <th className="text-left px-[14px] py-[10px] font-['Poppins:SemiBold',sans-serif] text-[#39588a]">Alimento</th>
-                              <th className="text-left px-[14px] py-[10px] font-['Poppins:SemiBold',sans-serif] text-[#39588a]">Comida</th>
-                              <th className="text-center px-[14px] py-[10px] font-['Poppins:SemiBold',sans-serif] text-[#39588a]">Carbs</th>
-                              <th className="text-center px-[14px] py-[10px] font-['Poppins:SemiBold',sans-serif] text-[#39588a] rounded-r-[8px]">Kcal</th>
+                              <th className="text-left px-[14px] py-[10px] font-[Poppins] font-semibold text-[#39588a] rounded-l-[8px]">Hora</th>
+                              <th className="text-left px-[14px] py-[10px] font-[Poppins] font-semibold text-[#39588a]">Alimento</th>
+                              <th className="text-left px-[14px] py-[10px] font-[Poppins] font-semibold text-[#39588a]">Comida</th>
+                              <th className="text-center px-[14px] py-[10px] font-[Poppins] font-semibold text-[#39588a]">Carbs</th>
+                              <th className="text-center px-[14px] py-[10px] font-[Poppins] font-semibold text-[#39588a] rounded-r-[8px]">Kcal</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -765,24 +765,24 @@ export function MenuPrincipalPaciente() {
                               const cals  = r.nutritionalInfo?.calorias;
                               return (
                                 <tr key={r.id} className={i % 2 === 0 ? 'bg-white' : 'bg-[#fafbff]'}>
-                                  <td className="px-[14px] py-[10px] font-['Poppins:Medium',sans-serif] text-gray-600">{r.time}</td>
+                                  <td className="px-[14px] py-[10px] font-[Poppins] font-medium text-gray-600">{r.time}</td>
                                   <td className="px-[14px] py-[10px]">
                                     <div className="flex items-center gap-[8px]">
                                       <span className="text-[15px]">🍽️</span>
-                                      <span className="font-['Poppins:Medium',sans-serif] text-[#193073]">{r.foodName}</span>
+                                      <span className="font-[Poppins] font-medium text-[#193073]">{r.foodName}</span>
                                     </div>
                                   </td>
                                   <td className="px-[14px] py-[10px]">
-                                    <span className="bg-[#e1e9f2] text-[#39588a] px-[8px] py-[2px] rounded-full font-['Poppins:Regular',sans-serif] text-[11px]">
+                                    <span className="bg-[#e1e9f2] text-[#39588a] px-[8px] py-[2px] rounded-full font-[Poppins] font-normal text-[11px]">
                                       {r.mealType}
                                     </span>
                                   </td>
                                   <td className="px-[14px] py-[10px] text-center">
                                     {carbs != null
-                                      ? <span className="font-['Poppins:Bold',sans-serif] text-[#39588a]">{carbs.toFixed(1)}g</span>
+                                      ? <span className="font-[Poppins] font-bold text-[#39588a]">{carbs.toFixed(1)}g</span>
                                       : <span className="text-gray-300">—</span>}
                                   </td>
-                                  <td className="px-[14px] py-[10px] text-center font-['Poppins:Regular',sans-serif] text-gray-500">
+                                  <td className="px-[14px] py-[10px] text-center font-[Poppins] font-normal text-gray-500">
                                     {cals != null ? cals.toFixed(0) : '—'}
                                   </td>
                                 </tr>
@@ -791,9 +791,9 @@ export function MenuPrincipalPaciente() {
                           </tbody>
                           <tfoot>
                             <tr className="border-t-2 border-[#e1e9f2] bg-[#f0f4ff]">
-                              <td colSpan={3} className="px-[14px] py-[10px] font-['Poppins:SemiBold',sans-serif] text-[#193073]">Total del día</td>
-                              <td className="px-[14px] py-[10px] text-center font-['Poppins:Bold',sans-serif] text-[#39588a] text-[15px]">{totalCarbsDay.toFixed(1)}g</td>
-                              <td className="px-[14px] py-[10px] text-center font-['Poppins:Regular',sans-serif] text-gray-600">{totalKcalDay.toFixed(0)}</td>
+                              <td colSpan={3} className="px-[14px] py-[10px] font-[Poppins] font-semibold text-[#193073]">Total del día</td>
+                              <td className="px-[14px] py-[10px] text-center font-[Poppins] font-bold text-[#39588a] text-[15px]">{totalCarbsDay.toFixed(1)}g</td>
+                              <td className="px-[14px] py-[10px] text-center font-[Poppins] font-normal text-gray-600">{totalKcalDay.toFixed(0)}</td>
                             </tr>
                           </tfoot>
                         </table>

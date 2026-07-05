@@ -9,7 +9,7 @@ export function LoadingChart() {
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
       />
       <motion.p
-        className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-500 italic text-center"
+        className="font-[Poppins] font-normal text-[16px] text-gray-500 italic text-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: [0.5, 1, 0.5] }}
         transition={{ duration: 1.5, repeat: Infinity }}
@@ -38,7 +38,7 @@ export function EmptyChart({ message }: { message: string }) {
           <path d="M18 17l-5-5-4 4-4-4" />
         </svg>
       </motion.div>
-      <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-500 italic text-center">
+      <p className="font-[Poppins] font-normal text-[16px] text-gray-500 italic text-center">
         {message}
       </p>
     </motion.div>

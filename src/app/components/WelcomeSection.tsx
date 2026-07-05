@@ -34,7 +34,7 @@ export function WelcomeSection({ nombre, especialidad, folio, profilePicture }: 
       {/* Info */}
       <div className="flex-1">
         <motion.p
-          className="font-['Poppins:Bold',sans-serif] leading-[normal] not-italic text-[#7f94e2] text-[32px] mb-[20px]"
+          className="font-[Poppins] font-bold leading-[normal] not-italic text-[#7f94e2] text-[32px] mb-[20px]"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
@@ -42,7 +42,7 @@ export function WelcomeSection({ nombre, especialidad, folio, profilePicture }: 
           ¡Bienvenida!
         </motion.p>
         <motion.p
-          className="font-['Poppins:SemiBold',sans-serif] leading-[normal] not-italic text-[18px] text-black mb-[8px]"
+          className="font-[Poppins] font-semibold leading-[normal] not-italic text-[18px] text-black mb-[8px]"
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -50,7 +50,7 @@ export function WelcomeSection({ nombre, especialidad, folio, profilePicture }: 
           {nombre}
         </motion.p>
         <motion.p
-          className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black mb-[8px]"
+          className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black mb-[8px]"
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
@@ -59,7 +59,7 @@ export function WelcomeSection({ nombre, especialidad, folio, profilePicture }: 
         </motion.p>
         {folio && (
           <motion.p
-            className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black"
+            className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black"
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}

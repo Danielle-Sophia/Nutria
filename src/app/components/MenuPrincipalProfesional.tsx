@@ -36,7 +36,7 @@ function MenuCard({ title, image, onClick, index }: MenuCardProps) {
         {/* Blue header bar with gradient */}
         <div className="absolute left-0 top-0 w-[266px]">
           <div className="bg-gradient-to-r from-[#3457bf] to-[#2a46a0] h-[41px] rounded-[5px] w-full group-hover:from-[#2a46a0] group-hover:to-[#1e347a] transition-all shadow-md" />
-          <p className="absolute -translate-x-1/2 font-['Poppins:Medium',sans-serif] leading-[normal] left-[133px] not-italic text-[18px] text-center text-white text-nowrap top-[8px]">
+          <p className="absolute -translate-x-1/2 font-[Poppins] font-medium leading-[normal] left-[133px] not-italic text-[18px] text-center text-white text-nowrap top-[8px]">
             {title}
           </p>
         </div>
@@ -140,7 +140,7 @@ export function MenuPrincipalProfesional() {
           {/* Center Text */}
           <button
             onClick={() => navigate('/mis-pacientes')}
-            className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[18px] text-center text-white hover:text-[#8db9f2] transition-colors cursor-pointer"
+            className="font-[Poppins] font-medium leading-[normal] not-italic text-[18px] text-center text-white hover:text-[#8db9f2] transition-colors cursor-pointer"
           >
             Mis pacientes
           </button>
@@ -200,7 +200,7 @@ export function MenuPrincipalProfesional() {
           
           {/* Menu Section */}
           <div>
-            <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black mb-[30px]">
+            <p className="font-[Poppins] font-medium leading-[normal] not-italic text-[20px] text-black mb-[30px]">
               ¿Qué deseas consultar hoy?
             </p>
             

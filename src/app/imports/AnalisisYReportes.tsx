@@ -5,7 +5,7 @@ function Group6() {
   return (
     <div className="absolute contents left-0 top-0">
       <div className="absolute bg-[#193073] h-[80px] left-0 top-0 w-[1440px]" />
-      <p className="-translate-x-1/2 absolute font-['Poppins:Medium',sans-serif] h-[28px] leading-[normal] left-[1026.5px] not-italic text-[18px] text-center text-white top-[27px] w-[193px] whitespace-pre-wrap">Mis pacientes</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-medium h-[28px] leading-[normal] left-[1026.5px] not-italic text-[18px] text-center text-white top-[27px] w-[193px] whitespace-pre-wrap">Mis pacientes</p>
       <div className="absolute left-[1333px] overflow-clip size-[30px] top-[25px]" data-name="User">
         <div className="absolute inset-[12.5%_16.67%]" data-name="Icon">
           <div className="absolute inset-[-8.89%_-10%]">
@@ -47,8 +47,8 @@ function Group8() {
       <div className="absolute h-[121px] left-[508px] top-[238px] w-[130px]" data-name="Avatars Default with Backdrop">
         <img alt="" className="absolute inset-0 max-w-none object-contain pointer-events-none size-full" src={imgAvatarsDefaultWithBackdrop} />
       </div>
-      <p className="absolute font-['Poppins:SemiBold',sans-serif] leading-[normal] left-[676px] not-italic text-[18px] text-black top-[267px]">Patricio Castillo Antonio</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] h-[27px] leading-[normal] left-[676px] not-italic text-[18px] text-black top-[303px] w-[320px] whitespace-pre-wrap">Folio (identificador): 000001</p>
+      <p className="absolute font-[Poppins] font-semibold leading-[normal] left-[676px] not-italic text-[18px] text-black top-[267px]">Patricio Castillo Antonio</p>
+      <p className="absolute font-[Poppins] font-normal h-[27px] leading-[normal] left-[676px] not-italic text-[18px] text-black top-[303px] w-[320px] whitespace-pre-wrap">Folio (identificador): 000001</p>
     </div>
   );
 }
@@ -56,8 +56,8 @@ function Group8() {
 function Group() {
   return (
     <div className="absolute contents left-[632px] top-[486px]">
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[632px] not-italic text-[10px] text-black top-[513px]">{`>250 mg/dL`}</p>
-      <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[632px] not-italic text-[18px] text-black top-[486px]">Muy alto</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[632px] not-italic text-[10px] text-black top-[513px]">{`>250 mg/dL`}</p>
+      <p className="absolute font-[Poppins] font-bold leading-[normal] left-[632px] not-italic text-[18px] text-black top-[486px]">Muy alto</p>
       <div className="absolute h-0 left-[632px] top-[530px] w-[158px]">
         <div className="absolute inset-[-1px_0_0_0]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 158 1">
@@ -72,8 +72,8 @@ function Group() {
 function Group1() {
   return (
     <div className="absolute contents left-[632px] top-[553px]">
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[632px] not-italic text-[10px] text-black top-[580px]">181 - 249 mg/dL</p>
-      <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[632px] not-italic text-[18px] text-black top-[553px]">Alta</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[632px] not-italic text-[10px] text-black top-[580px]">181 - 249 mg/dL</p>
+      <p className="absolute font-[Poppins] font-bold leading-[normal] left-[632px] not-italic text-[18px] text-black top-[553px]">Alta</p>
       <div className="absolute h-0 left-[632px] top-[597px] w-[158px]">
         <div className="absolute inset-[-1px_0_0_0]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 158 1">
@@ -88,8 +88,8 @@ function Group1() {
 function Group2() {
   return (
     <div className="absolute contents left-[632px] top-[655px]">
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[632px] not-italic text-[10px] text-black top-[682px]">181 - 249 mg/dL</p>
-      <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[632px] not-italic text-[18px] text-black top-[655px]">Rango objetivo</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[632px] not-italic text-[10px] text-black top-[682px]">181 - 249 mg/dL</p>
+      <p className="absolute font-[Poppins] font-bold leading-[normal] left-[632px] not-italic text-[18px] text-black top-[655px]">Rango objetivo</p>
       <div className="absolute h-0 left-[632px] top-[699px] w-[158px]">
         <div className="absolute inset-[-1px_0_0_0]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 158 1">
@@ -104,8 +104,8 @@ function Group2() {
 function Group3() {
   return (
     <div className="absolute contents left-[632px] top-[716px]">
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[632px] not-italic text-[10px] text-black top-[743px]">54 - 69 mg/dL</p>
-      <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[632px] not-italic text-[18px] text-black top-[716px]">Baja</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[632px] not-italic text-[10px] text-black top-[743px]">54 - 69 mg/dL</p>
+      <p className="absolute font-[Poppins] font-bold leading-[normal] left-[632px] not-italic text-[18px] text-black top-[716px]">Baja</p>
       <div className="absolute h-0 left-[632px] top-[760px] w-[158px]">
         <div className="absolute inset-[-1px_0_0_0]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 158 1">
@@ -120,8 +120,8 @@ function Group3() {
 function Group4() {
   return (
     <div className="absolute contents left-[632px] top-[772px]">
-      <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[632px] not-italic text-[10px] text-black top-[799px]">{`< 54 mg/dL`}</p>
-      <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[632px] not-italic text-[18px] text-black top-[772px]">Muy baja</p>
+      <p className="absolute font-[Poppins] font-normal leading-[normal] left-[632px] not-italic text-[10px] text-black top-[799px]">{`< 54 mg/dL`}</p>
+      <p className="absolute font-[Poppins] font-bold leading-[normal] left-[632px] not-italic text-[18px] text-black top-[772px]">Muy baja</p>
       <div className="absolute h-0 left-[632px] top-[816px] w-[158px]">
         <div className="absolute inset-[-1px_0_0_0]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 158 1">
@@ -160,15 +160,15 @@ function Group9() {
           </svg>
         </div>
       </div>
-      <div className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] h-[21.547px] leading-[normal] left-[623.47px] not-italic text-[0px] text-black text-right top-[970.9px] w-[19.115px] whitespace-pre-wrap">
+      <div className="-translate-x-full absolute font-[Poppins] font-medium h-[21.547px] leading-[normal] left-[623.47px] not-italic text-[0px] text-black text-right top-[970.9px] w-[19.115px] whitespace-pre-wrap">
         <p className="mb-0 text-[10px]">350</p>
         <p className="text-[5px]">mg/dL</p>
       </div>
-      <p className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] h-[14.691px] leading-[normal] left-[623.47px] not-italic text-[10px] text-black text-right top-[1038.48px] w-[19.115px] whitespace-pre-wrap">250</p>
-      <p className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] h-[14.691px] leading-[normal] left-[623.47px] not-italic text-[10px] text-black text-right top-[1102.14px] w-[17.103px] whitespace-pre-wrap">180</p>
-      <p className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] h-[14.691px] leading-[normal] left-[623.47px] not-italic text-[10px] text-black text-right top-[1187.35px] w-[13.079px] whitespace-pre-wrap">70</p>
-      <p className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] h-[14.691px] leading-[normal] left-[623.47px] not-italic text-[10px] text-black text-right top-[1217.71px] w-[13.079px] whitespace-pre-wrap">54</p>
-      <p className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] h-[14.691px] leading-[normal] left-[623.47px] not-italic text-[10px] text-black text-right top-[1262.76px] w-[7.042px] whitespace-pre-wrap">0</p>
+      <p className="-translate-x-full absolute font-[Poppins] font-medium h-[14.691px] leading-[normal] left-[623.47px] not-italic text-[10px] text-black text-right top-[1038.48px] w-[19.115px] whitespace-pre-wrap">250</p>
+      <p className="-translate-x-full absolute font-[Poppins] font-medium h-[14.691px] leading-[normal] left-[623.47px] not-italic text-[10px] text-black text-right top-[1102.14px] w-[17.103px] whitespace-pre-wrap">180</p>
+      <p className="-translate-x-full absolute font-[Poppins] font-medium h-[14.691px] leading-[normal] left-[623.47px] not-italic text-[10px] text-black text-right top-[1187.35px] w-[13.079px] whitespace-pre-wrap">70</p>
+      <p className="-translate-x-full absolute font-[Poppins] font-medium h-[14.691px] leading-[normal] left-[623.47px] not-italic text-[10px] text-black text-right top-[1217.71px] w-[13.079px] whitespace-pre-wrap">54</p>
+      <p className="-translate-x-full absolute font-[Poppins] font-medium h-[14.691px] leading-[normal] left-[623.47px] not-italic text-[10px] text-black text-right top-[1262.76px] w-[7.042px] whitespace-pre-wrap">0</p>
       <div className="absolute flex h-[18.66px] items-center justify-center left-[584.24px] top-[1100.18px] w-[18.109px]" style={{ "--transform-inner-width": "1185", "--transform-inner-height": "154" } as React.CSSProperties}>
         <div className="flex-none rotate-90">
           <div className="h-[18.109px] relative w-[18.66px]">
@@ -191,7 +191,7 @@ function Group9() {
           </div>
         </div>
       </div>
-      <p className="-translate-x-full absolute font-['Poppins:Bold',sans-serif] h-[17.63px] leading-[normal] left-[793.49px] not-italic text-[12px] text-black text-right top-[1265.7px] w-[93.563px] whitespace-pre-wrap">Rango objetivo</p>
+      <p className="-translate-x-full absolute font-[Poppins] font-bold h-[17.63px] leading-[normal] left-[793.49px] not-italic text-[12px] text-black text-right top-[1265.7px] w-[93.563px] whitespace-pre-wrap">Rango objetivo</p>
       <div className="absolute bg-[#d9d9d9] h-[20.568px] left-[638.56px] top-[1262.76px] w-[217.307px]" />
       <div className="absolute bg-[#d9d9d9] h-[20.568px] left-[855.87px] top-[1262.76px] w-[72.436px]" />
       <div className="absolute bg-[#d9d9d9] h-[20.568px] left-[928.31px] top-[1262.76px] w-[144.871px]" />
@@ -229,11 +229,11 @@ function Group9() {
           </div>
         </div>
       </div>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Bold',sans-serif] h-[14.691px] leading-[normal] left-[746.71px] not-italic text-[10px] text-black text-center top-[1266.68px] w-[89.539px] whitespace-pre-wrap">Durante la noche</p>
-      <p className="-translate-x-full absolute font-['Poppins:Bold',sans-serif] h-[14.691px] leading-[normal] left-[623.47px] not-italic text-[10px] text-black text-right top-[1148.17px] w-[78.472px] whitespace-pre-wrap">Rango objetivo</p>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Bold',sans-serif] h-[14.691px] leading-[normal] left-[892.09px] not-italic text-[10px] text-black text-center top-[1266.68px] w-[44.266px] whitespace-pre-wrap">Mañana</p>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Bold',sans-serif] h-[14.691px] leading-[normal] left-[1000.74px] not-italic text-[10px] text-black text-center top-[1266.68px] w-[30.182px] whitespace-pre-wrap">Tarde</p>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Bold',sans-serif] h-[14.691px] leading-[normal] left-[1146.12px] not-italic text-[10px] text-black text-center top-[1266.68px] w-[33.2px] whitespace-pre-wrap">Noche</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-bold h-[14.691px] leading-[normal] left-[746.71px] not-italic text-[10px] text-black text-center top-[1266.68px] w-[89.539px] whitespace-pre-wrap">Durante la noche</p>
+      <p className="-translate-x-full absolute font-[Poppins] font-bold h-[14.691px] leading-[normal] left-[623.47px] not-italic text-[10px] text-black text-right top-[1148.17px] w-[78.472px] whitespace-pre-wrap">Rango objetivo</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-bold h-[14.691px] leading-[normal] left-[892.09px] not-italic text-[10px] text-black text-center top-[1266.68px] w-[44.266px] whitespace-pre-wrap">Mañana</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-bold h-[14.691px] leading-[normal] left-[1000.74px] not-italic text-[10px] text-black text-center top-[1266.68px] w-[30.182px] whitespace-pre-wrap">Tarde</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-bold h-[14.691px] leading-[normal] left-[1146.12px] not-italic text-[10px] text-black text-center top-[1266.68px] w-[33.2px] whitespace-pre-wrap">Noche</p>
       <div className="absolute border border-[rgba(0,0,0,0.1)] border-dashed h-[70.518px] left-[638.56px] top-[1192.25px] w-[72.436px]" />
       <div className="absolute border border-[rgba(0,0,0,0.1)] border-dashed h-[70.518px] left-[638.56px] top-[1122.71px] w-[72.436px]" />
       <div className="absolute border border-[rgba(0,0,0,0.1)] border-dashed h-[70.518px] left-[709.99px] top-[1192.25px] w-[72.436px]" />
@@ -397,19 +397,19 @@ function Group7() {
           </svg>
         </div>
       </div>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[313px]">Identificación del paciente</p>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[385px]">Historia clínica</p>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[457px]">Bitácora</p>
-      <button className="-translate-x-1/2 -translate-y-1/2 absolute cursor-pointer flex flex-col font-['Poppins:Medium',sans-serif] justify-center leading-[0] left-[calc(50%-432.5px)] not-italic text-[#458dff] text-[20px] text-center top-[544px] whitespace-nowrap">
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-medium leading-[normal] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[313px]">Identificación del paciente</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-medium leading-[normal] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[385px]">Historia clínica</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-medium leading-[normal] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[457px]">Bitácora</p>
+      <button className="-translate-x-1/2 -translate-y-1/2 absolute cursor-pointer flex flex-col font-[Poppins] font-medium justify-center leading-[0] left-[calc(50%-432.5px)] not-italic text-[#458dff] text-[20px] text-center top-[544px] whitespace-nowrap">
         <p className="leading-[normal]">Análisis y reportes</p>
       </button>
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Poppins:Medium',sans-serif] justify-center leading-[0] left-[calc(50%-433px)] not-italic text-[20px] text-black text-center top-[616px] whitespace-nowrap">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-[Poppins] font-medium justify-center leading-[0] left-[calc(50%-433px)] not-italic text-[20px] text-black text-center top-[616px] whitespace-nowrap">
         <p className="leading-[normal]">Seguimiento</p>
       </div>
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Poppins:Medium',sans-serif] justify-center leading-[0] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[688px] whitespace-nowrap">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-[Poppins] font-medium justify-center leading-[0] left-[calc(50%-432.5px)] not-italic text-[20px] text-black text-center top-[688px] whitespace-nowrap">
         <p className="leading-[normal]">Documentos</p>
       </div>
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Poppins:Medium',sans-serif] justify-center leading-[0] left-[calc(50%-433.5px)] not-italic text-[20px] text-black text-center top-[776px] w-[303px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-[Poppins] font-medium justify-center leading-[0] left-[calc(50%-433.5px)] not-italic text-[20px] text-black text-center top-[776px] w-[303px]">
         <p className="leading-[normal] whitespace-pre-wrap">Seguridad y registro de actividad</p>
       </div>
     </div>
@@ -426,14 +426,14 @@ function Group13() {
           </svg>
         </div>
       </div>
-      <div className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] h-[21.547px] leading-[normal] left-[623.11px] not-italic text-[0px] text-black text-right top-[1565px] w-[19.115px] whitespace-pre-wrap">
+      <div className="-translate-x-full absolute font-[Poppins] font-medium h-[21.547px] leading-[normal] left-[623.11px] not-italic text-[0px] text-black text-right top-[1565px] w-[19.115px] whitespace-pre-wrap">
         <p className="mb-0 text-[10px]">90</p>
         <p className="text-[5px]">min</p>
       </div>
-      <p className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] h-[14.691px] leading-[normal] left-[623.1px] not-italic text-[10px] text-black text-right top-[1638px] w-[17.103px] whitespace-pre-wrap">60</p>
-      <p className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] h-[14.691px] leading-[normal] left-[623.08px] not-italic text-[10px] text-black text-right top-[1710px] w-[13.079px] whitespace-pre-wrap">30</p>
-      <p className="-translate-x-full absolute font-['Poppins:Medium',sans-serif] h-[14.691px] leading-[normal] left-[623.47px] not-italic text-[10px] text-black text-right top-[1792.76px] w-[7.042px] whitespace-pre-wrap">0</p>
-      <p className="-translate-x-full absolute font-['Poppins:Bold',sans-serif] h-[17.63px] leading-[normal] left-[793.49px] not-italic text-[12px] text-black text-right top-[1795.7px] w-[93.563px] whitespace-pre-wrap">Rango objetivo</p>
+      <p className="-translate-x-full absolute font-[Poppins] font-medium h-[14.691px] leading-[normal] left-[623.1px] not-italic text-[10px] text-black text-right top-[1638px] w-[17.103px] whitespace-pre-wrap">60</p>
+      <p className="-translate-x-full absolute font-[Poppins] font-medium h-[14.691px] leading-[normal] left-[623.08px] not-italic text-[10px] text-black text-right top-[1710px] w-[13.079px] whitespace-pre-wrap">30</p>
+      <p className="-translate-x-full absolute font-[Poppins] font-medium h-[14.691px] leading-[normal] left-[623.47px] not-italic text-[10px] text-black text-right top-[1792.76px] w-[7.042px] whitespace-pre-wrap">0</p>
+      <p className="-translate-x-full absolute font-[Poppins] font-bold h-[17.63px] leading-[normal] left-[793.49px] not-italic text-[12px] text-black text-right top-[1795.7px] w-[93.563px] whitespace-pre-wrap">Rango objetivo</p>
       <div className="absolute bg-[#d9d9d9] h-[20.568px] left-[638.56px] top-[1792.76px] w-[217.307px]" />
       <div className="absolute bg-[#d9d9d9] h-[20.568px] left-[855.87px] top-[1792.76px] w-[72.436px]" />
       <div className="absolute bg-[#d9d9d9] h-[20.568px] left-[928.31px] top-[1792.76px] w-[144.871px]" />
@@ -471,10 +471,10 @@ function Group13() {
           </div>
         </div>
       </div>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Bold',sans-serif] h-[14.691px] leading-[normal] left-[746.71px] not-italic text-[10px] text-black text-center top-[1796.68px] w-[89.539px] whitespace-pre-wrap">Durante la noche</p>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Bold',sans-serif] h-[14.691px] leading-[normal] left-[892.09px] not-italic text-[10px] text-black text-center top-[1796.68px] w-[44.266px] whitespace-pre-wrap">Mañana</p>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Bold',sans-serif] h-[14.691px] leading-[normal] left-[1000.74px] not-italic text-[10px] text-black text-center top-[1796.68px] w-[30.182px] whitespace-pre-wrap">Tarde</p>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Bold',sans-serif] h-[14.691px] leading-[normal] left-[1146.12px] not-italic text-[10px] text-black text-center top-[1796.68px] w-[33.2px] whitespace-pre-wrap">Noche</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-bold h-[14.691px] leading-[normal] left-[746.71px] not-italic text-[10px] text-black text-center top-[1796.68px] w-[89.539px] whitespace-pre-wrap">Durante la noche</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-bold h-[14.691px] leading-[normal] left-[892.09px] not-italic text-[10px] text-black text-center top-[1796.68px] w-[44.266px] whitespace-pre-wrap">Mañana</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-bold h-[14.691px] leading-[normal] left-[1000.74px] not-italic text-[10px] text-black text-center top-[1796.68px] w-[30.182px] whitespace-pre-wrap">Tarde</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-bold h-[14.691px] leading-[normal] left-[1146.12px] not-italic text-[10px] text-black text-center top-[1796.68px] w-[33.2px] whitespace-pre-wrap">Noche</p>
       <div className="absolute border border-[rgba(0,0,0,0.1)] border-dashed h-[70.518px] left-[638.56px] top-[1722.25px] w-[72.436px]" />
       <div className="absolute border border-[rgba(0,0,0,0.1)] border-dashed h-[70.518px] left-[638.56px] top-[1652.71px] w-[72.436px]" />
       <div className="absolute border border-[rgba(0,0,0,0.1)] border-dashed h-[70.518px] left-[709.99px] top-[1722.25px] w-[72.436px]" />
@@ -573,7 +573,7 @@ export default function AnalisisYReportes() {
     <div className="bg-[#85aab3] relative size-full" data-name="Análisis y reportes">
       <Group6 />
       <div className="absolute bg-white h-[2219px] left-[107px] rounded-[40px] top-[148px] w-[1225px]" />
-      <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[159px] not-italic text-[30px] text-black top-[193px]">Expediente</p>
+      <p className="absolute font-[Poppins] font-bold leading-[normal] left-[159px] not-italic text-[30px] text-black top-[193px]">Expediente</p>
       <Group8 />
       <div className="absolute h-0 left-[1237px] top-[449px] w-px">
         <div className="absolute inset-[-0.04px_0_0_0]">
@@ -582,8 +582,8 @@ export default function AnalisisYReportes() {
           </svg>
         </div>
       </div>
-      <p className="absolute font-['Poppins:Medium',sans-serif] leading-[normal] left-[515px] not-italic text-[20px] text-black top-[389px]">{`Tablas de evolución  (últimos 14 días)`}</p>
-      <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-[515px] not-italic text-[18px] text-black top-[449px]">Niveles de glucosa</p>
+      <p className="absolute font-[Poppins] font-medium leading-[normal] left-[515px] not-italic text-[20px] text-black top-[389px]">{`Tablas de evolución  (últimos 14 días)`}</p>
+      <p className="absolute font-[Poppins] font-bold leading-[normal] left-[515px] not-italic text-[18px] text-black top-[449px]">Niveles de glucosa</p>
       <Group5 />
       <Group10 />
       <div className="absolute bottom-0 h-[1710px] left-[107px] pointer-events-none top-[290px]">
@@ -617,16 +617,16 @@ export default function AnalisisYReportes() {
           </svg>
         </div>
       </div>
-      <button className="absolute block cursor-pointer font-['Poppins:Regular',sans-serif] h-[33px] leading-[0] left-[981px] not-italic text-[18px] text-black text-left top-[498px] w-[74px]">
+      <button className="absolute block cursor-pointer font-[Poppins] font-normal h-[33px] leading-[0] left-[981px] not-italic text-[18px] text-black text-left top-[498px] w-[74px]">
         <p className="leading-[normal] whitespace-pre-wrap">Glucosa</p>
       </button>
-      <button className="absolute block cursor-pointer font-['Poppins:Regular',sans-serif] h-[33px] leading-[0] left-[981px] not-italic text-[18px] text-black text-left top-[538px] w-[180px]">
+      <button className="absolute block cursor-pointer font-[Poppins] font-normal h-[33px] leading-[0] left-[981px] not-italic text-[18px] text-black text-left top-[538px] w-[180px]">
         <p className="leading-[normal] whitespace-pre-wrap">Actividad física (AF)</p>
       </button>
-      <p className="absolute font-['Poppins:Regular',sans-serif] h-[33px] leading-[normal] left-[981px] not-italic text-[18px] text-black top-[579px] w-[53px] whitespace-pre-wrap">Estrés</p>
-      <p className="absolute font-['Poppins:Regular',sans-serif] h-[33px] leading-[normal] left-[981px] not-italic text-[18px] text-black top-[619px] w-[153px] whitespace-pre-wrap">Estado de ánimo</p>
-      <p className="absolute font-['Poppins:SemiBold',sans-serif] leading-[normal] left-[515px] not-italic text-[#7f94e2] text-[20px] top-[846px]">GLUCOSA</p>
-      <p className="absolute font-['Poppins:SemiBold',sans-serif] leading-[normal] left-[515px] not-italic text-[#7f94e2] text-[20px] top-[1376px]">ACTIVIDAD FÍSICA (AF)</p>
+      <p className="absolute font-[Poppins] font-normal h-[33px] leading-[normal] left-[981px] not-italic text-[18px] text-black top-[579px] w-[53px] whitespace-pre-wrap">Estrés</p>
+      <p className="absolute font-[Poppins] font-normal h-[33px] leading-[normal] left-[981px] not-italic text-[18px] text-black top-[619px] w-[153px] whitespace-pre-wrap">Estado de ánimo</p>
+      <p className="absolute font-[Poppins] font-semibold leading-[normal] left-[515px] not-italic text-[#7f94e2] text-[20px] top-[846px]">GLUCOSA</p>
+      <p className="absolute font-[Poppins] font-semibold leading-[normal] left-[515px] not-italic text-[#7f94e2] text-[20px] top-[1376px]">ACTIVIDAD FÍSICA (AF)</p>
       <Group12 />
     </div>
   );

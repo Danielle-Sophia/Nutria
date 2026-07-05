@@ -105,18 +105,18 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
         </button>
 
         {/* Title */}
-        <h2 className="font-['Poppins:Bold',sans-serif] text-[32px] text-[#193073] mb-[10px]">
+        <h2 className="font-[Poppins] font-bold text-[32px] text-[#193073] mb-[10px]">
           Agregar nuevo paciente
         </h2>
         
-        <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-600 mb-[30px]">
+        <p className="font-[Poppins] font-normal text-[16px] text-gray-600 mb-[30px]">
           Completa los datos del paciente para crear su cuenta
         </p>
 
         {/* Error Message */}
         {error && (
           <div className="bg-red-50 border border-red-300 rounded-[10px] p-3 mb-4">
-            <p className="text-red-600 text-[14px] font-['Poppins:Regular',sans-serif]">
+            <p className="text-red-600 text-[14px] font-[Poppins] font-normal">
               {error}
             </p>
           </div>
@@ -126,7 +126,7 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
           {/* Name Fields */}
           <div className="grid grid-cols-2 gap-[20px] mb-[20px]">
             <div>
-              <label className="block font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[8px]">
+              <label className="block font-[Poppins] font-medium text-[16px] text-black mb-[8px]">
                 Nombre(s) *
               </label>
               <input
@@ -136,13 +136,13 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
                 onChange={handleChange}
                 required
                 disabled={isLoading}
-                className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
+                className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
                 placeholder="Juan"
               />
             </div>
 
             <div>
-              <label className="block font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[8px]">
+              <label className="block font-[Poppins] font-medium text-[16px] text-black mb-[8px]">
                 Apellidos *
               </label>
               <input
@@ -152,7 +152,7 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
                 onChange={handleChange}
                 required
                 disabled={isLoading}
-                className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
+                className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
                 placeholder="Pérez García"
               />
             </div>
@@ -161,7 +161,7 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
           {/* Age and Sex */}
           <div className="grid grid-cols-2 gap-[20px] mb-[20px]">
             <div>
-              <label className="block font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[8px]">
+              <label className="block font-[Poppins] font-medium text-[16px] text-black mb-[8px]">
                 Edad *
               </label>
               <input
@@ -173,13 +173,13 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
                 min="1"
                 max="120"
                 disabled={isLoading}
-                className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
+                className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
                 placeholder="25"
               />
             </div>
 
             <div>
-              <label className="block font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[8px]">
+              <label className="block font-[Poppins] font-medium text-[16px] text-black mb-[8px]">
                 Sexo biológico *
               </label>
               <select
@@ -188,7 +188,7 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
                 onChange={handleChange}
                 required
                 disabled={isLoading}
-                className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
+                className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
               >
                 <option value="Hombre">Hombre</option>
                 <option value="Mujer">Mujer</option>
@@ -198,7 +198,7 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
 
           {/* Contact Info */}
           <div className="mb-[20px]">
-            <label className="block font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[8px]">
+            <label className="block font-[Poppins] font-medium text-[16px] text-black mb-[8px]">
               Correo electrónico *
             </label>
             <input
@@ -208,13 +208,13 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
               onChange={handleChange}
               required
               disabled={isLoading}
-              className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
+              className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
               placeholder="paciente@email.com"
             />
           </div>
 
           <div className="mb-[20px]">
-            <label className="block font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[8px]">
+            <label className="block font-[Poppins] font-medium text-[16px] text-black mb-[8px]">
               Contraseña *
             </label>
             <input
@@ -225,16 +225,16 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
               required
               minLength={8}
               disabled={isLoading}
-              className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
+              className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
               placeholder="Mínimo 8 caracteres"
             />
-            <p className="text-[12px] text-gray-500 mt-1 font-['Poppins:Regular',sans-serif]">
+            <p className="text-[12px] text-gray-500 mt-1 font-[Poppins] font-normal">
               Esta contraseña se proporcionará al paciente
             </p>
           </div>
 
           <div className="mb-[20px]">
-            <label className="block font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[8px]">
+            <label className="block font-[Poppins] font-medium text-[16px] text-black mb-[8px]">
               Teléfono (opcional)
             </label>
             <input
@@ -243,7 +243,7 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
               value={formData.telefono}
               onChange={handleChange}
               disabled={isLoading}
-              className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
+              className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
               placeholder="555-0123"
             />
           </div>
@@ -251,7 +251,7 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
           {/* Medical Data */}
           <div className="grid grid-cols-2 gap-[20px] mb-[30px]">
             <div>
-              <label className="block font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[8px]">
+              <label className="block font-[Poppins] font-medium text-[16px] text-black mb-[8px]">
                 Peso (kg) (opcional)
               </label>
               <input
@@ -262,13 +262,13 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
                 step="0.1"
                 min="0"
                 disabled={isLoading}
-                className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
+                className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
                 placeholder="70.5"
               />
             </div>
 
             <div>
-              <label className="block font-['Poppins:Medium',sans-serif] text-[16px] text-black mb-[8px]">
+              <label className="block font-[Poppins] font-medium text-[16px] text-black mb-[8px]">
                 Talla (cm) (opcional)
               </label>
               <input
@@ -279,7 +279,7 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
                 step="0.1"
                 min="0"
                 disabled={isLoading}
-                className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
+                className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
                 placeholder="170"
               />
             </div>
@@ -291,14 +291,14 @@ export function AddPatientModal({ isOpen, onClose, onSuccess }: AddPatientModalP
               type="button"
               onClick={onClose}
               disabled={isLoading}
-              className="px-[30px] py-[12px] rounded-[10px] border-2 border-[#39588a] text-[#39588a] font-['Poppins:Medium',sans-serif] text-[16px] hover:bg-[#39588a] hover:text-white transition-all disabled:opacity-50"
+              className="px-[30px] py-[12px] rounded-[10px] border-2 border-[#39588a] text-[#39588a] font-[Poppins] font-medium text-[16px] hover:bg-[#39588a] hover:text-white transition-all disabled:opacity-50"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={isLoading}
-              className="px-[30px] py-[12px] rounded-[10px] bg-[#39588a] text-white font-['Poppins:Bold',sans-serif] text-[16px] hover:bg-[#2d4570] transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-[30px] py-[12px] rounded-[10px] bg-[#39588a] text-white font-[Poppins] font-bold text-[16px] hover:bg-[#2d4570] transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Agregando...' : 'Agregar paciente'}
             </button>

@@ -150,7 +150,7 @@ export function MisPacientes() {
           {/* Center Text */}
           <button
             onClick={() => navigate('/mis-pacientes')}
-            className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[18px] text-center text-white hover:text-[#8db9f2] transition-colors cursor-pointer"
+            className="font-[Poppins] font-medium leading-[normal] not-italic text-[18px] text-center text-white hover:text-[#8db9f2] transition-colors cursor-pointer"
           >
             Mis pacientes
           </button>
@@ -194,12 +194,12 @@ export function MisPacientes() {
       <div className="pt-[80px] pb-[40px] flex justify-center">
         <div className="bg-white rounded-[40px] w-[90%] max-w-[1225px] min-h-[1040px] p-[45px] relative">
           {/* Title */}
-          <h1 className="font-['Poppins:Bold',sans-serif] leading-[normal] not-italic text-[30px] text-black mb-[20px]">
+          <h1 className="font-[Poppins] font-bold leading-[normal] not-italic text-[30px] text-black mb-[20px]">
             Mis pacientes
           </h1>
 
           {/* Description */}
-          <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black mb-[45px]">
+          <p className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black mb-[45px]">
             Accede rapidamente a la información de tus pacientes, dando clic en el recuadro accede a diversas funciones
           </p>
 
@@ -210,7 +210,7 @@ export function MisPacientes() {
               onClick={handleAddPatient}
               className="bg-[#39588a] hover:bg-[#2d4670] h-[37px] rounded-[15px] w-[240px] flex items-center justify-center transition-colors"
             >
-              <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-white">
+              <p className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-white">
                 Agregar paciente
               </p>
             </button>
@@ -223,7 +223,7 @@ export function MisPacientes() {
                   placeholder="Buscar paciente"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="flex-1 bg-transparent font-['Poppins:Regular',sans-serif] text-[18px] text-black placeholder:text-[rgba(0,0,0,0.6)] outline-none"
+                  className="flex-1 bg-transparent font-[Poppins] font-normal text-[18px] text-black placeholder:text-[rgba(0,0,0,0.6)] outline-none"
                 />
                 <Search size={20} className="text-[#303030]" strokeWidth={2.5} />
               </div>
@@ -233,7 +233,7 @@ export function MisPacientes() {
           {/* Loading State */}
           {isLoading ? (
             <div className="flex justify-center items-center h-[400px]">
-              <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-gray-500">
+              <p className="font-[Poppins] font-normal text-[18px] text-gray-500">
                 Cargando pacientes...
               </p>
             </div>
@@ -241,16 +241,16 @@ export function MisPacientes() {
             <>
               {/* Table Header */}
               <div className="bg-[rgba(217,215,216,0.8)] h-[63px] rounded-[10px] mb-[15px] flex items-center px-[37px]">
-                <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black w-[260px]">
+                <p className="font-[Poppins] font-medium leading-[normal] not-italic text-[20px] text-black w-[260px]">
                   Nombre
                 </p>
-                <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black w-[100px]">
+                <p className="font-[Poppins] font-medium leading-[normal] not-italic text-[20px] text-black w-[100px]">
                   Edad
                 </p>
-                <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black w-[200px]">
+                <p className="font-[Poppins] font-medium leading-[normal] not-italic text-[20px] text-black w-[200px]">
                   Sexo biológico
                 </p>
-                <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[20px] text-black flex-1">
+                <p className="font-[Poppins] font-medium leading-[normal] not-italic text-[20px] text-black flex-1">
                   Contacto
                 </p>
               </div>
@@ -258,7 +258,7 @@ export function MisPacientes() {
               {/* Patient List */}
               {filteredPatients.length === 0 ? (
                 <div className="flex justify-center items-center h-[300px]">
-                  <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-gray-500">
+                  <p className="font-[Poppins] font-normal text-[18px] text-gray-500">
                     {searchTerm ? 'No se encontraron pacientes' : 'No tienes pacientes registrados'}
                   </p>
                 </div>
@@ -271,17 +271,17 @@ export function MisPacientes() {
                       className="border-[0.5px] border-black border-solid h-[55px] rounded-[50px] w-full flex items-center px-[37px] hover:bg-[#f5f8fa] transition-colors cursor-pointer"
                     >
                       {/* Name */}
-                      <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black w-[260px] text-left">
+                      <p className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black w-[260px] text-left">
                         {patient.nombre} {patient.apellidos}
                       </p>
 
                       {/* Age */}
-                      <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black w-[100px] text-left">
+                      <p className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black w-[100px] text-left">
                         {patient.edad}
                       </p>
 
                       {/* Sex */}
-                      <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black w-[200px] text-left">
+                      <p className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black w-[200px] text-left">
                         {patient.sexoBiologico}
                       </p>
 
@@ -292,7 +292,7 @@ export function MisPacientes() {
                           <img src={imgLetter} alt="Email" className="size-[37px]" />
                           <button
                             onClick={(e) => handleContactClick('email', patient.correo, e)}
-                            className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black underline hover:text-[#3457bf] transition-colors"
+                            className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black underline hover:text-[#3457bf] transition-colors"
                           >
                             Correo
                           </button>
@@ -303,7 +303,7 @@ export function MisPacientes() {
                           <Phone size={30} className="text-[#1E1E1E]" strokeWidth={2} />
                           <button
                             onClick={(e) => handleContactClick('phone', patient.telefono, e)}
-                            className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black underline hover:text-[#3457bf] transition-colors"
+                            className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black underline hover:text-[#3457bf] transition-colors"
                           >
                             Teléfono
                           </button>

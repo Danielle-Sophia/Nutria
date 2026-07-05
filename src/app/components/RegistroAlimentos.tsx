@@ -208,7 +208,7 @@ export function RegistroAlimentos() {
       <div className="bg-gradient-to-br from-[#85aab3] to-[#a5c6cd] min-h-screen w-full flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-white">Cargando base de datos de alimentos...</p>
+          <p className="font-[Poppins] font-normal text-[18px] text-white">Cargando base de datos de alimentos...</p>
         </div>
       </div>
     );
@@ -251,15 +251,15 @@ export function RegistroAlimentos() {
             <div className="flex items-center gap-[20px]">
               <button onClick={() => navigate('/menu-paciente')} className="flex items-center gap-2 text-[#39588a] hover:text-[#2d4570] transition-colors">
                 <ArrowLeft size={24} />
-                <span className="font-['Poppins:Medium',sans-serif] text-[16px]">Volver</span>
+                <span className="font-[Poppins] font-medium text-[16px]">Volver</span>
               </button>
-              <h1 className="font-['Poppins:Bold',sans-serif] text-[32px] text-[#193073]">Registro de Alimentos</h1>
+              <h1 className="font-[Poppins] font-bold text-[32px] text-[#193073]">Registro de Alimentos</h1>
             </div>
             <div className="flex items-center gap-[12px]">
               {/* Historial button — mobile only */}
               <button
                 onClick={() => setHistorialOpen(true)}
-                className="lg:hidden flex items-center gap-2 bg-[#39588a] text-white px-[16px] py-[10px] rounded-[12px] font-['Poppins:Medium',sans-serif] text-[14px] hover:bg-[#2d4570] transition-colors"
+                className="lg:hidden flex items-center gap-2 bg-[#39588a] text-white px-[16px] py-[10px] rounded-[12px] font-[Poppins] font-medium text-[14px] hover:bg-[#2d4570] transition-colors"
               >
                 <History size={18} />
                 Historial
@@ -271,7 +271,7 @@ export function RegistroAlimentos() {
               </button>
               <button
                 onClick={() => setShowPortionTable(!showPortionTable)}
-                className="bg-gradient-to-r from-[#5e7deb] to-[#7aa8e1] text-white px-[20px] py-[10px] rounded-[10px] font-['Poppins:Medium',sans-serif] text-[14px] hover:from-[#4d6bd9] hover:to-[#6997d0] transition-all"
+                className="bg-gradient-to-r from-[#5e7deb] to-[#7aa8e1] text-white px-[20px] py-[10px] rounded-[10px] font-[Poppins] font-medium text-[14px] hover:from-[#4d6bd9] hover:to-[#6997d0] transition-all"
               >
                 {showPortionTable ? 'Ocultar' : 'Ver'} Tabla de Porciones
               </button>
@@ -281,7 +281,7 @@ export function RegistroAlimentos() {
           {/* Portion Table */}
           {showPortionTable && (
             <motion.div className="bg-[#f5f9ff] rounded-[20px] p-[25px] mb-[30px]" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}>
-              <h3 className="font-['Poppins:Bold',sans-serif] text-[20px] text-[#39588a] mb-[15px]">Medidas con las Manos - Guía de Porciones</h3>
+              <h3 className="font-[Poppins] font-bold text-[20px] text-[#39588a] mb-[15px]">Medidas con las Manos - Guía de Porciones</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-[15px]">
                 {[
                   { icon: '✋', title: 'Palma de la mano', desc: 'Proteínas: Carne, pescado, pollo (90-120g)' },
@@ -290,8 +290,8 @@ export function RegistroAlimentos() {
                   { icon: '🖐️', title: 'Manos ahuecadas', desc: 'Verduras: Ensaladas, vegetales (2 tazas aprox.)' },
                 ].map((item) => (
                   <div key={item.title} className="bg-white rounded-[15px] p-[15px]">
-                    <p className="font-['Poppins:SemiBold',sans-serif] text-[16px] text-black mb-[5px]">{item.icon} {item.title}</p>
-                    <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-700">{item.desc}</p>
+                    <p className="font-[Poppins] font-semibold text-[16px] text-black mb-[5px]">{item.icon} {item.title}</p>
+                    <p className="font-[Poppins] font-normal text-[14px] text-gray-700">{item.desc}</p>
                   </div>
                 ))}
               </div>
@@ -301,8 +301,8 @@ export function RegistroAlimentos() {
           {/* Info tip */}
           {mealFoods.length === 0 && (
             <div className="bg-[#e3f2fd] border-l-4 border-[#2196f3] rounded-[10px] p-[15px] mb-[20px]">
-              <p className="font-['Poppins:Medium',sans-serif] text-[15px] text-[#1976d2] mb-[5px]">💡 Nuevo flujo de registro</p>
-              <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-[#1565c0]">
+              <p className="font-[Poppins] font-medium text-[15px] text-[#1976d2] mb-[5px]">💡 Nuevo flujo de registro</p>
+              <p className="font-[Poppins] font-normal text-[14px] text-[#1565c0]">
                 Busca y añade todos los alimentos que comiste en esta comida. Por ejemplo: 2 piezas de huevo + 2 porciones de jugo de naranja. Luego guarda toda la comida junta.
               </p>
             </div>
@@ -312,7 +312,7 @@ export function RegistroAlimentos() {
             {/* Left Column */}
             <div className="space-y-[20px]">
               <div>
-                <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">Buscar Alimento *</label>
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">Buscar Alimento *</label>
                 <div className="relative">
                   <div className="flex gap-[10px]">
                     <div className="flex-1 relative">
@@ -322,7 +322,7 @@ export function RegistroAlimentos() {
                         onChange={(e) => setSearchTerm(e.target.value)}
                         onFocus={() => setShowSuggestions(true)}
                         placeholder="Busca por nombre o grupo..."
-                        className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-['Poppins:Regular',sans-serif] text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none"
+                        className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-[Poppins] font-normal text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none"
                       />
                       <Search className="absolute right-[15px] top-[12px] text-gray-400" size={20} />
                     </div>
@@ -336,8 +336,8 @@ export function RegistroAlimentos() {
                     <div className="absolute z-10 w-full mt-[5px] bg-white border border-gray-300 rounded-[10px] shadow-lg max-h-[200px] overflow-y-auto">
                       {filteredFoods.map((food, index) => (
                         <button key={index} onClick={() => handleFoodSelect(food)} className="w-full text-left px-[15px] py-[10px] hover:bg-[#f0f4ff] transition-colors border-b border-gray-100 last:border-b-0">
-                          <p className="font-['Poppins:Medium',sans-serif] text-[14px] text-black">{food.alimento}</p>
-                          <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-600">{food.grupo} • {food.cantidad} {food.unidad}</p>
+                          <p className="font-[Poppins] font-medium text-[14px] text-black">{food.alimento}</p>
+                          <p className="font-[Poppins] font-normal text-[12px] text-gray-600">{food.grupo} • {food.cantidad} {food.unidad}</p>
                         </button>
                       ))}
                     </div>
@@ -347,28 +347,28 @@ export function RegistroAlimentos() {
 
               {selectedFood && (
                 <motion.div className="bg-[#f0f4ff] rounded-[15px] p-[15px]" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-                  <h3 className="font-['Poppins:SemiBold',sans-serif] text-[16px] text-[#39588a] mb-[10px]">Información Nutricional (por porción)</h3>
+                  <h3 className="font-[Poppins] font-semibold text-[16px] text-[#39588a] mb-[10px]">Información Nutricional (por porción)</h3>
                   <div className="grid grid-cols-2 gap-[10px] text-[13px]">
-                    <div><span className="font-['Poppins:Medium',sans-serif]">Calorías:</span> {selectedFood.calorias} kcal</div>
-                    <div><span className="font-['Poppins:Medium',sans-serif]">Proteína:</span> {selectedFood.proteina}g</div>
-                    <div><span className="font-['Poppins:Medium',sans-serif]">Carbohidratos:</span> {selectedFood.carbohidratos}g</div>
-                    <div><span className="font-['Poppins:Medium',sans-serif]">Lípidos:</span> {selectedFood.lipidos}g</div>
-                    <div><span className="font-['Poppins:Medium',sans-serif]">Fibra:</span> {selectedFood.fibra}g</div>
-                    <div><span className="font-['Poppins:Medium',sans-serif]">IG:</span> {selectedFood.ig}</div>
+                    <div><span className="font-[Poppins] font-medium">Calorías:</span> {selectedFood.calorias} kcal</div>
+                    <div><span className="font-[Poppins] font-medium">Proteína:</span> {selectedFood.proteina}g</div>
+                    <div><span className="font-[Poppins] font-medium">Carbohidratos:</span> {selectedFood.carbohidratos}g</div>
+                    <div><span className="font-[Poppins] font-medium">Lípidos:</span> {selectedFood.lipidos}g</div>
+                    <div><span className="font-[Poppins] font-medium">Fibra:</span> {selectedFood.fibra}g</div>
+                    <div><span className="font-[Poppins] font-medium">IG:</span> {selectedFood.ig}</div>
                   </div>
                 </motion.div>
               )}
 
               <div>
-                <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">Cantidad de Porciones</label>
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">Cantidad de Porciones</label>
                 <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} min="0.25" step="0.25"
-                  className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-['Poppins:Regular',sans-serif] text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none" />
+                  className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-[Poppins] font-normal text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none" />
               </div>
 
               <div>
-                <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">Tipo de Comida *</label>
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">Tipo de Comida *</label>
                 <select value={mealType} onChange={(e) => setMealType(e.target.value)}
-                  className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-['Poppins:Regular',sans-serif] text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none">
+                  className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-[Poppins] font-normal text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none">
                   <option value="">Selecciona...</option>
                   <option value="Desayuno">Desayuno</option>
                   <option value="Colación matutina">Colación matutina</option>
@@ -381,14 +381,14 @@ export function RegistroAlimentos() {
 
               <div className="grid grid-cols-2 gap-[15px]">
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">Fecha</label>
+                  <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">Fecha</label>
                   <input type="date" value={date} onChange={(e) => setDate(e.target.value)}
-                    className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-['Poppins:Regular',sans-serif] text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none" />
+                    className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-[Poppins] font-normal text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none" />
                 </div>
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">Hora</label>
+                  <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">Hora</label>
                   <input type="time" value={time} onChange={(e) => setTime(e.target.value)}
-                    className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-['Poppins:Regular',sans-serif] text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none" />
+                    className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-[Poppins] font-normal text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none" />
                 </div>
               </div>
             </div>
@@ -396,9 +396,9 @@ export function RegistroAlimentos() {
             {/* Right Column */}
             <div className="space-y-[20px]">
               <div>
-                <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">Lugar *</label>
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">Lugar *</label>
                 <select value={location} onChange={(e) => setLocation(e.target.value)}
-                  className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-['Poppins:Regular',sans-serif] text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none">
+                  className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-[Poppins] font-normal text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none">
                   <option value="">Selecciona...</option>
                   <option value="Casa">Casa</option>
                   <option value="Trabajo">Trabajo</option>
@@ -411,9 +411,9 @@ export function RegistroAlimentos() {
               </div>
 
               <div>
-                <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">¿Quién preparó los alimentos? *</label>
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">¿Quién preparó los alimentos? *</label>
                 <select value={preparedBy} onChange={(e) => setPreparedBy(e.target.value)}
-                  className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-['Poppins:Regular',sans-serif] text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none">
+                  className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-[Poppins] font-normal text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none">
                   <option value="">Selecciona...</option>
                   <option value="Yo mismo/a">Yo mismo/a</option>
                   <option value="Familiar">Familiar</option>
@@ -423,13 +423,13 @@ export function RegistroAlimentos() {
               </div>
 
               <div>
-                <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">Orden de Consumo (Opcional)</label>
-                <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-600 mb-[8px]">
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">Orden de Consumo (Opcional)</label>
+                <p className="font-[Poppins] font-normal text-[12px] text-gray-600 mb-[8px]">
                   Describe en qué orden comiste los alimentos. Ejemplo: "Primero el huevo, después el jugo"
                 </p>
                 <textarea value={consumptionOrder} onChange={(e) => setConsumptionOrder(e.target.value)} rows={3}
                   placeholder="Ejemplo: Primero comí 2 piezas de huevo cocido, y al final tomé 2 porciones de jugo de naranja..."
-                  className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-['Poppins:Regular',sans-serif] text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none resize-none" />
+                  className="w-full bg-white rounded-[10px] px-[15px] py-[12px] font-[Poppins] font-normal text-[15px] border border-gray-300 focus:ring-2 focus:ring-[#5e7deb] outline-none resize-none" />
               </div>
             </div>
           </div>
@@ -437,18 +437,18 @@ export function RegistroAlimentos() {
           {/* Added Foods List */}
           {mealFoods.length > 0 && (
             <div className="mt-[30px] p-[20px] bg-[#f5f9ff] rounded-[15px]">
-              <h3 className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-[#39588a] mb-[15px]">Alimentos en esta comida ({mealFoods.length})</h3>
+              <h3 className="font-[Poppins] font-semibold text-[18px] text-[#39588a] mb-[15px]">Alimentos en esta comida ({mealFoods.length})</h3>
               <div className="space-y-[10px]">
                 {mealFoods.map((mealFood, index) => (
                   <div key={`meal-food-${index}`} className="bg-white rounded-[10px] p-[15px] flex items-center justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-[10px]">
-                        <span className="bg-[#5e7deb] text-white rounded-full w-[24px] h-[24px] flex items-center justify-center text-[12px] font-['Poppins:SemiBold',sans-serif]">{mealFood.order}</span>
-                        <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-black">{mealFood.food.alimento}</p>
+                        <span className="bg-[#5e7deb] text-white rounded-full w-[24px] h-[24px] flex items-center justify-center text-[12px] font-[Poppins] font-semibold">{mealFood.order}</span>
+                        <p className="font-[Poppins] font-medium text-[16px] text-black">{mealFood.food.alimento}</p>
                       </div>
                       <div className="ml-[34px] mt-[5px]">
-                        <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-600">{mealFood.quantity} {mealFood.food.unidad} ({mealFood.food.cantidad} por porción)</p>
-                        <p className="font-['Poppins:Regular',sans-serif] text-[13px] text-gray-500">
+                        <p className="font-[Poppins] font-normal text-[14px] text-gray-600">{mealFood.quantity} {mealFood.food.unidad} ({mealFood.food.cantidad} por porción)</p>
+                        <p className="font-[Poppins] font-normal text-[13px] text-gray-500">
                           {(mealFood.food.calorias * mealFood.quantity).toFixed(1)} kcal · {(mealFood.food.carbohidratos * mealFood.quantity).toFixed(1)}g carbs
                         </p>
                       </div>
@@ -464,16 +464,16 @@ export function RegistroAlimentos() {
 
           {/* Action Buttons */}
           <div className="flex justify-between mt-[30px] pt-[20px] border-t border-gray-200">
-            <button onClick={() => navigate('/menu-paciente')} className="bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[10px] px-[30px] py-[12px] font-['Poppins:Medium',sans-serif] text-[16px] transition-colors">
+            <button onClick={() => navigate('/menu-paciente')} className="bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[10px] px-[30px] py-[12px] font-[Poppins] font-medium text-[16px] transition-colors">
               Cancelar
             </button>
             <div className="flex gap-[15px]">
               <button onClick={handleAddToMeal} disabled={!selectedFood}
-                className="bg-gradient-to-r from-[#5e7deb] to-[#7aa8e1] hover:from-[#4d6bd9] hover:to-[#6997d0] text-white rounded-[10px] px-[30px] py-[12px] font-['Poppins:Medium',sans-serif] text-[16px] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                className="bg-gradient-to-r from-[#5e7deb] to-[#7aa8e1] hover:from-[#4d6bd9] hover:to-[#6997d0] text-white rounded-[10px] px-[30px] py-[12px] font-[Poppins] font-medium text-[16px] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
                 Añadir a la comida
               </button>
               <button onClick={handleSaveMeal} disabled={isSaving || mealFoods.length === 0 || !mealType || !location || !preparedBy}
-                className="bg-gradient-to-r from-[#39588a] to-[#2d4570] hover:from-[#2d4570] hover:to-[#1e3350] text-white rounded-[10px] px-[30px] py-[12px] font-['Poppins:Medium',sans-serif] text-[16px] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-[10px]">
+                className="bg-gradient-to-r from-[#39588a] to-[#2d4570] hover:from-[#2d4570] hover:to-[#1e3350] text-white rounded-[10px] px-[30px] py-[12px] font-[Poppins] font-medium text-[16px] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-[10px]">
                 <Save size={20} />
                 {isSaving ? 'Guardando...' : `Guardar Comida (${mealFoods.length})`}
               </button>
@@ -485,7 +485,7 @@ export function RegistroAlimentos() {
         <div className="hidden lg:flex flex-col bg-white rounded-[30px] w-[340px] flex-shrink-0 overflow-hidden shadow-2xl" style={{ maxHeight: 'calc(100vh - 100px)', position: 'sticky', top: '80px' }}>
           <div className="bg-gradient-to-r from-[#193073] to-[#2a4580] px-[24px] py-[18px] flex items-center gap-[10px]">
             <History size={22} className="text-[#8db9f2]" />
-            <h2 className="font-['Poppins:Bold',sans-serif] text-[17px] text-white flex-1">Historial de alimentos</h2>
+            <h2 className="font-[Poppins] font-bold text-[17px] text-white flex-1">Historial de alimentos</h2>
             {foodRecords.length > 0 && (
               <span className="bg-[#8db9f2] text-[#193073] rounded-full px-[10px] py-[2px] text-[13px] font-bold">
                 {Math.min(foodRecords.length, 15)}
@@ -503,7 +503,7 @@ export function RegistroAlimentos() {
           <div className="absolute right-0 top-0 h-full w-[320px] bg-white shadow-2xl flex flex-col">
             <div className="bg-gradient-to-r from-[#193073] to-[#2a4580] px-[20px] py-[16px] flex items-center gap-[10px]">
               <History size={20} className="text-[#8db9f2]" />
-              <h2 className="font-['Poppins:Bold',sans-serif] text-[17px] text-white flex-1">Historial de alimentos</h2>
+              <h2 className="font-[Poppins] font-bold text-[17px] text-white flex-1">Historial de alimentos</h2>
               <button onClick={() => setHistorialOpen(false)} className="text-white/70 hover:text-white"><X size={22} /></button>
             </div>
             <HistorialContent records={foodRecords} loading={loadingRecords} />
@@ -558,7 +558,7 @@ function HistorialContent({ records, loading }: HistorialContentProps) {
       <div className="flex-1 flex items-center justify-center p-[24px]">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-[#39588a] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-500">Cargando historial...</p>
+          <p className="font-[Poppins] font-normal text-[14px] text-gray-500">Cargando historial...</p>
         </div>
       </div>
     );
@@ -569,8 +569,8 @@ function HistorialContent({ records, loading }: HistorialContentProps) {
       <div className="flex-1 flex items-center justify-center p-[24px]">
         <div className="text-center">
           <Utensils size={40} className="text-[#c5d5e4] mx-auto mb-3" />
-          <p className="font-['Poppins:Medium',sans-serif] text-[15px] text-gray-400">Sin registros aún</p>
-          <p className="font-['Poppins:Regular',sans-serif] text-[13px] text-gray-400 mt-1">Tu historial aparecerá aquí</p>
+          <p className="font-[Poppins] font-medium text-[15px] text-gray-400">Sin registros aún</p>
+          <p className="font-[Poppins] font-normal text-[13px] text-gray-400 mt-1">Tu historial aparecerá aquí</p>
         </div>
       </div>
     );
@@ -581,12 +581,12 @@ function HistorialContent({ records, loading }: HistorialContentProps) {
       {/* Avg carbs stat */}
       {avgCarbs !== null && (
         <div className="mx-[16px] mt-[14px] bg-gradient-to-r from-[#eef3ff] to-[#f0f9ff] rounded-[14px] p-[14px] border border-[#d0deff]">
-          <p className="font-['Poppins:Regular',sans-serif] text-[11px] text-[#39588a] uppercase tracking-wide mb-[2px]">Promedio diario de carbohidratos</p>
+          <p className="font-[Poppins] font-normal text-[11px] text-[#39588a] uppercase tracking-wide mb-[2px]">Promedio diario de carbohidratos</p>
           <div className="flex items-baseline gap-[4px]">
-            <span className="font-['Poppins:Bold',sans-serif] text-[28px] text-[#193073] leading-none">{avgCarbs.toFixed(1)}</span>
-            <span className="font-['Poppins:Regular',sans-serif] text-[13px] text-gray-500">g / día</span>
+            <span className="font-[Poppins] font-bold text-[28px] text-[#193073] leading-none">{avgCarbs.toFixed(1)}</span>
+            <span className="font-[Poppins] font-normal text-[13px] text-gray-500">g / día</span>
           </div>
-          <p className="font-['Poppins:Regular',sans-serif] text-[11px] text-gray-400 mt-[2px]">
+          <p className="font-[Poppins] font-normal text-[11px] text-gray-400 mt-[2px]">
             Basado en {Object.keys(records.reduce((acc, r) => ({ ...acc, [r.date]: 1 }), {} as Record<string,number>)).length} día(s) registrado(s)
           </p>
         </div>
@@ -601,27 +601,27 @@ function HistorialContent({ records, loading }: HistorialContentProps) {
           return (
             <div key={rec.id} className="bg-[#f5f8fc] rounded-[14px] p-[13px] border border-[#e1e9f2]">
               <div className="flex items-start justify-between gap-[8px] mb-[6px]">
-                <p className="font-['Poppins:Medium',sans-serif] text-[14px] text-[#193073] leading-snug flex-1">{rec.foodName}</p>
-                <span className="font-['Poppins:Regular',sans-serif] text-[11px] text-gray-400 whitespace-nowrap">{formatFecha(rec.date)}</span>
+                <p className="font-[Poppins] font-medium text-[14px] text-[#193073] leading-snug flex-1">{rec.foodName}</p>
+                <span className="font-[Poppins] font-normal text-[11px] text-gray-400 whitespace-nowrap">{formatFecha(rec.date)}</span>
               </div>
               <div className="flex items-center gap-[6px] flex-wrap">
                 {rec.mealType && (
-                  <span className={`text-[11px] font-['Poppins:Medium',sans-serif] px-[8px] py-[2px] rounded-full ${mealClass}`}>
+                  <span className={`text-[11px] font-[Poppins] font-medium px-[8px] py-[2px] rounded-full ${mealClass}`}>
                     {rec.mealType}
                   </span>
                 )}
                 {carbs != null && (
-                  <span className="text-[11px] font-['Poppins:Medium',sans-serif] px-[8px] py-[2px] rounded-full bg-blue-50 text-blue-700">
+                  <span className="text-[11px] font-[Poppins] font-medium px-[8px] py-[2px] rounded-full bg-blue-50 text-blue-700">
                     {carbs.toFixed(1)}g carbs
                   </span>
                 )}
                 {cals != null && (
-                  <span className="text-[11px] font-['Poppins:Regular',sans-serif] text-gray-400">
+                  <span className="text-[11px] font-[Poppins] font-normal text-gray-400">
                     {cals.toFixed(0)} kcal
                   </span>
                 )}
               </div>
-              <p className="font-['Poppins:Regular',sans-serif] text-[11px] text-gray-400 mt-[4px]">{rec.time} · {rec.quantity} {rec.unit}</p>
+              <p className="font-[Poppins] font-normal text-[11px] text-gray-400 mt-[4px]">{rec.time} · {rec.quantity} {rec.unit}</p>
             </div>
           );
         })}

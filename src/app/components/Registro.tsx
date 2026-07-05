@@ -295,24 +295,24 @@ export function Registro() {
         {/* Form Content */}
         <div className="relative w-full h-full">
           {/* Title */}
-          <p className="absolute font-['Poppins:Bold',sans-serif] leading-[normal] left-1/2 -translate-x-1/2 not-italic text-[48px] text-black text-nowrap top-[37px]">
+          <p className="absolute font-[Poppins] font-bold leading-[normal] left-1/2 -translate-x-1/2 not-italic text-[48px] text-black text-nowrap top-[37px]">
             Crea tu cuenta
           </p>
 
           {/* Warning Message */}
-          <p className="absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[calc(50%-240px)] not-italic text-[18px] text-black top-[124px] w-[480px] text-left">
+          <p className="absolute font-[Poppins] font-normal leading-[normal] left-[calc(50%-240px)] not-italic text-[18px] text-black top-[124px] w-[480px] text-left">
             Recuerda que debes ser un profesional de la salud
             para crear una cuenta
           </p>
 
           {/* Login Link */}
           <div className="absolute left-[74px] top-[193px]">
-            <span className="font-['Poppins:Regular',sans-serif] text-[18px] text-black">
+            <span className="font-[Poppins] font-normal text-[18px] text-black">
               ¿Ya tienes una cuenta?{" "}
             </span>
             <Link
               to="/"
-              className="[text-underline-position:from-font] decoration-solid font-['Poppins:Bold',sans-serif] text-[#458dff] text-[18px] underline hover:text-[#3a7ae0] transition-colors"
+              className="[text-underline-position:from-font] decoration-solid font-[Poppins] font-bold text-[#458dff] text-[18px] underline hover:text-[#3a7ae0] transition-colors"
             >
               Inicia sesión
             </Link>
@@ -326,7 +326,7 @@ export function Registro() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <p className="text-red-600 text-[14px] font-['Poppins:Regular',sans-serif]">
+              <p className="text-red-600 text-[14px] font-[Poppins] font-normal">
                 {errors.api}
               </p>
             </motion.div>
@@ -338,7 +338,7 @@ export function Registro() {
               <div className="inline-block w-[242px] align-top">
                 <label
                   htmlFor="nombre"
-                  className="block font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black mb-[10px]"
+                  className="block font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black mb-[10px]"
                 >
                   Nombre (s)
                 </label>
@@ -354,7 +354,7 @@ export function Registro() {
                   placeholder="Juan"
                 />
                 {errors.nombre && (
-                  <p className="absolute left-[75px] top-[300px] text-red-500 text-[14px] font-['Poppins:Regular',sans-serif]">
+                  <p className="absolute left-[75px] top-[300px] text-red-500 text-[14px] font-[Poppins] font-normal">
                     {errors.nombre}
                   </p>
                 )}
@@ -363,7 +363,7 @@ export function Registro() {
               <div className="inline-block w-[227px] ml-[23px] align-top">
                 <label
                   htmlFor="apellidos"
-                  className="block font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black mb-[10px]"
+                  className="block font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black mb-[10px]"
                 >
                   Apellidos
                 </label>
@@ -379,7 +379,7 @@ export function Registro() {
                   placeholder="Pérez García"
                 />
                 {errors.apellidos && (
-                  <p className="absolute left-[300px] top-[300px] text-red-500 text-[14px] font-['Poppins:Regular',sans-serif]">
+                  <p className="absolute left-[300px] top-[300px] text-red-500 text-[14px] font-[Poppins] font-normal">
                     {errors.apellidos}
                   </p>
                 )}
@@ -391,7 +391,7 @@ export function Registro() {
               <div className="absolute left-[75px] top-[325px] flex items-center">
                 <label
                   htmlFor="cedulaProfesional"
-                  className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black"
+                  className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black"
                 >
                   Cédula profesional (CP)
                 </label>
@@ -413,7 +413,7 @@ export function Registro() {
                 placeholder="12345678"
               />
               {errors.cedulaProfesional && (
-                <p className="absolute left-[75px] top-[405px] text-red-500 text-[14px] font-['Poppins:Regular',sans-serif]">
+                <p className="absolute left-[75px] top-[405px] text-red-500 text-[14px] font-[Poppins] font-normal">
                   {errors.cedulaProfesional}
                 </p>
               )}
@@ -424,7 +424,7 @@ export function Registro() {
               <div className="absolute left-[75px] top-[425px] flex items-center">
                 <label
                   htmlFor="especialidad"
-                  className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black"
+                  className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black"
                 >
                   Especialidad
                 </label>
@@ -448,7 +448,7 @@ export function Registro() {
               <div className="absolute left-[75px] top-[509px] flex items-center">
                 <label
                   htmlFor="email"
-                  className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black"
+                  className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black"
                 >
                   Correo electrónico
                 </label>
@@ -472,7 +472,7 @@ export function Registro() {
               <div className="absolute left-[75px] top-[593px] flex items-center">
                 <label
                   htmlFor="password"
-                  className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black"
+                  className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black"
                 >
                   Contraseña
                 </label>
@@ -503,7 +503,7 @@ export function Registro() {
                     transition={{ duration: 0.5 }}
                   />
                   <span
-                    className={`text-[14px] font-['Poppins:Regular',sans-serif] ${
+                    className={`text-[14px] font-[Poppins] font-normal ${
                       passwordStrength.score <= 2
                         ? "text-red-600"
                         : passwordStrength.score <= 3
@@ -516,7 +516,7 @@ export function Registro() {
                 </motion.div>
               )}
               {errors.password && (
-                <p className="absolute left-[75px] top-[670px] text-red-500 text-[14px] font-['Poppins:Regular',sans-serif]">
+                <p className="absolute left-[75px] top-[670px] text-red-500 text-[14px] font-[Poppins] font-normal">
                   {errors.password}
                 </p>
               )}
@@ -527,7 +527,7 @@ export function Registro() {
               <div className="absolute left-[75px] top-[700px] flex items-center">
                 <label
                   htmlFor="confirmPassword"
-                  className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[18px] text-black"
+                  className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black"
                 >
                   Confirmar contraseña
                 </label>
@@ -549,7 +549,7 @@ export function Registro() {
                 placeholder="••••••••"
               />
               {errors.confirmPassword && (
-                <p className="absolute left-[75px] top-[776px] text-red-500 text-[14px] font-['Poppins:Regular',sans-serif]">
+                <p className="absolute left-[75px] top-[776px] text-red-500 text-[14px] font-[Poppins] font-normal">
                   {errors.confirmPassword}
                 </p>
               )}
@@ -563,7 +563,7 @@ export function Registro() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span className="font-['Poppins:Bold',sans-serif] text-[24px] text-white flex items-center justify-center gap-2">
+              <span className="font-[Poppins] font-bold text-[24px] text-white flex items-center justify-center gap-2">
                 {isLoading ? (
                   <>
                     <motion.div

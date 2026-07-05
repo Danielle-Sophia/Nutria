@@ -135,7 +135,7 @@ export function RegistrarGlucosa() {
             className="flex items-center gap-2 text-white hover:text-[#8db9f2] transition-colors"
           >
             <ArrowLeft size={24} />
-            <span className="font-['Poppins:Regular',sans-serif] text-[18px]">Volver al menú</span>
+            <span className="font-[Poppins] font-normal text-[18px]">Volver al menú</span>
           </button>
         </div>
       </div>
@@ -149,14 +149,14 @@ export function RegistrarGlucosa() {
           <div className="flex items-center justify-between mb-[30px]">
             <div className="flex items-center gap-[15px]">
               <Droplet size={36} className="text-[#39588a]" />
-              <h1 className="font-['Poppins:Bold',sans-serif] text-[36px] text-[#193073]">
+              <h1 className="font-[Poppins] font-bold text-[36px] text-[#193073]">
                 Registrar Glucosa
               </h1>
             </div>
             {/* Historial button — visible on mobile / small screens, hidden on large */}
             <button
               onClick={() => setHistorialOpen(true)}
-              className="lg:hidden flex items-center gap-2 bg-[#39588a] text-white px-[16px] py-[10px] rounded-[12px] font-['Poppins:Medium',sans-serif] text-[14px] hover:bg-[#2d4570] transition-colors"
+              className="lg:hidden flex items-center gap-2 bg-[#39588a] text-white px-[16px] py-[10px] rounded-[12px] font-[Poppins] font-medium text-[14px] hover:bg-[#2d4570] transition-colors"
             >
               <History size={18} />
               Historial
@@ -171,7 +171,7 @@ export function RegistrarGlucosa() {
           <div className="space-y-[25px]">
             {/* Glucose Value Input */}
             <div>
-              <label className="font-['Poppins:Medium',sans-serif] text-[18px] text-black block mb-[10px]">
+              <label className="font-[Poppins] font-medium text-[18px] text-black block mb-[10px]">
                 Nivel de glucosa (mg/dL)
               </label>
               <input
@@ -181,7 +181,7 @@ export function RegistrarGlucosa() {
                 placeholder="Ej: 120"
                 min="0"
                 max="600"
-                className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[15px] font-['Poppins:Bold',sans-serif] text-[32px] text-center outline-none focus:ring-2 focus:ring-[#458dff]"
+                className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[15px] font-[Poppins] font-bold text-[32px] text-center outline-none focus:ring-2 focus:ring-[#458dff]"
               />
             </div>
 
@@ -191,8 +191,8 @@ export function RegistrarGlucosa() {
                 <div className="flex items-start gap-[10px]">
                   <AlertCircle size={24} className="flex-shrink-0 mt-1" />
                   <div>
-                    <p className="font-['Poppins:Bold',sans-serif] text-[20px] mb-[5px]">{nivelInfo.nivel}</p>
-                    <p className="font-['Poppins:Regular',sans-serif] text-[16px] opacity-90">{nivelInfo.mensaje}</p>
+                    <p className="font-[Poppins] font-bold text-[20px] mb-[5px]">{nivelInfo.nivel}</p>
+                    <p className="font-[Poppins] font-normal text-[16px] opacity-90">{nivelInfo.mensaje}</p>
                   </div>
                 </div>
               </div>
@@ -201,28 +201,28 @@ export function RegistrarGlucosa() {
             {/* Date and Time */}
             <div className="grid grid-cols-2 gap-[20px]">
               <div>
-                <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">Fecha</label>
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">Fecha</label>
                 <input
                   type="date"
                   value={fecha}
                   onChange={(e) => setFecha(e.target.value)}
-                  className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
+                  className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
                 />
               </div>
               <div>
-                <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">Hora</label>
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">Hora</label>
                 <input
                   type="time"
                   value={hora}
                   onChange={(e) => setHora(e.target.value)}
-                  className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
+                  className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
                 />
               </div>
             </div>
 
             {/* Momento */}
             <div>
-              <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[10px]">
+              <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[10px]">
                 Momento de medición
               </label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-[10px]">
@@ -235,7 +235,7 @@ export function RegistrarGlucosa() {
                   <button
                     key={option.value}
                     onClick={() => setMomento(option.value)}
-                    className={`px-[15px] py-[10px] rounded-[10px] font-['Poppins:Medium',sans-serif] text-[14px] transition-all ${
+                    className={`px-[15px] py-[10px] rounded-[10px] font-[Poppins] font-medium text-[14px] transition-all ${
                       momento === option.value ? 'bg-[#39588a] text-white' : 'bg-[#e1e9f2] text-black hover:bg-[#d0dde8]'
                     }`}
                   >
@@ -247,7 +247,7 @@ export function RegistrarGlucosa() {
 
             {/* Notas */}
             <div>
-              <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+              <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                 Notas adicionales (opcional)
               </label>
               <textarea
@@ -255,13 +255,13 @@ export function RegistrarGlucosa() {
                 onChange={(e) => setNotas(e.target.value)}
                 placeholder="¿Cómo te sientes? ¿Comiste algo antes?"
                 rows={4}
-                className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] resize-none"
+                className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] resize-none"
               />
             </div>
 
             {/* Reference Chart */}
             <div className="bg-[#f5f5f5] rounded-[15px] p-[20px]">
-              <h3 className="font-['Poppins:Bold',sans-serif] text-[16px] text-black mb-[15px]">Niveles de referencia</h3>
+              <h3 className="font-[Poppins] font-bold text-[16px] text-black mb-[15px]">Niveles de referencia</h3>
               <div className="space-y-[8px] text-[14px]">
                 {[
                   { color: 'bg-[#590202]', label: 'Muy baja: < 54 mg/dL' },
@@ -272,7 +272,7 @@ export function RegistrarGlucosa() {
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-[10px]">
                     <div className={`w-[20px] h-[20px] ${item.color} rounded`}></div>
-                    <span className="font-['Poppins:Regular',sans-serif]">{item.label}</span>
+                    <span className="font-[Poppins] font-normal">{item.label}</span>
                   </div>
                 ))}
               </div>
@@ -284,7 +284,7 @@ export function RegistrarGlucosa() {
             <button
               onClick={handleSave}
               disabled={!glucosa || valorGlucosa <= 0 || isSaving}
-              className={`rounded-[15px] px-[40px] py-[15px] font-['Poppins:Bold',sans-serif] text-[18px] transition-all ${
+              className={`rounded-[15px] px-[40px] py-[15px] font-[Poppins] font-bold text-[18px] transition-all ${
                 !glucosa || valorGlucosa <= 0 || isSaving
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   : 'bg-[#39588a] hover:bg-[#2d4570] text-white active:scale-95'
@@ -299,7 +299,7 @@ export function RegistrarGlucosa() {
         <div className="hidden lg:flex flex-col bg-white rounded-[30px] w-[340px] flex-shrink-0 overflow-hidden" style={{ maxHeight: 'calc(100vh - 100px)', position: 'sticky', top: '80px' }}>
           <div className="bg-[#193073] px-[24px] py-[18px] flex items-center gap-[10px]">
             <History size={22} className="text-[#8db9f2]" />
-            <h2 className="font-['Poppins:Bold',sans-serif] text-[18px] text-white flex-1">Historial de glucosa</h2>
+            <h2 className="font-[Poppins] font-bold text-[18px] text-white flex-1">Historial de glucosa</h2>
             {records.length > 0 && (
               <span className="bg-[#8db9f2] text-[#193073] rounded-full px-[10px] py-[2px] text-[13px] font-bold">
                 {records.length}
@@ -317,7 +317,7 @@ export function RegistrarGlucosa() {
           <div className="absolute right-0 top-0 h-full w-[320px] bg-white shadow-2xl flex flex-col">
             <div className="bg-[#193073] px-[20px] py-[16px] flex items-center gap-[10px]">
               <History size={20} className="text-[#8db9f2]" />
-              <h2 className="font-['Poppins:Bold',sans-serif] text-[17px] text-white flex-1">Historial de glucosa</h2>
+              <h2 className="font-[Poppins] font-bold text-[17px] text-white flex-1">Historial de glucosa</h2>
               <button onClick={() => setHistorialOpen(false)} className="text-white/70 hover:text-white">
                 <X size={22} />
               </button>
@@ -355,7 +355,7 @@ function HistorialContent({ records, loading, formatFecha, getMomento, getNivel 
       <div className="flex-1 flex items-center justify-center p-[24px]">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-[#39588a] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-500">Cargando historial...</p>
+          <p className="font-[Poppins] font-normal text-[14px] text-gray-500">Cargando historial...</p>
         </div>
       </div>
     );
@@ -366,8 +366,8 @@ function HistorialContent({ records, loading, formatFecha, getMomento, getNivel 
       <div className="flex-1 flex items-center justify-center p-[24px]">
         <div className="text-center">
           <Droplet size={40} className="text-[#c5d5e4] mx-auto mb-3" />
-          <p className="font-['Poppins:Medium',sans-serif] text-[15px] text-gray-400">Sin registros aún</p>
-          <p className="font-['Poppins:Regular',sans-serif] text-[13px] text-gray-400 mt-1">Tu historial aparecerá aquí</p>
+          <p className="font-[Poppins] font-medium text-[15px] text-gray-400">Sin registros aún</p>
+          <p className="font-[Poppins] font-normal text-[13px] text-gray-400 mt-1">Tu historial aparecerá aquí</p>
         </div>
       </div>
     );
@@ -384,27 +384,27 @@ function HistorialContent({ records, loading, formatFecha, getMomento, getNivel 
             <div className="flex items-center justify-between mb-[6px]">
               <div className="flex items-center gap-[8px]">
                 <div className={`w-[10px] h-[10px] rounded-full ${nivel.dot}`} />
-                <span className="font-['Poppins:Bold',sans-serif] text-[22px] text-[#193073] leading-none">
+                <span className="font-[Poppins] font-bold text-[22px] text-[#193073] leading-none">
                   {rec.glucoseValue}
-                  <span className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-400 ml-1">mg/dL</span>
+                  <span className="font-[Poppins] font-normal text-[12px] text-gray-400 ml-1">mg/dL</span>
                 </span>
               </div>
-              <span className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-500">
+              <span className="font-[Poppins] font-normal text-[12px] text-gray-500">
                 {formatFecha(rec.date)} · {rec.time}
               </span>
             </div>
             <div className="flex items-center gap-[6px] flex-wrap">
-              <span className={`text-[11px] font-['Poppins:Medium',sans-serif] px-[8px] py-[2px] rounded-full ${nivel.dot} bg-opacity-20 text-gray-700`}>
+              <span className={`text-[11px] font-[Poppins] font-medium px-[8px] py-[2px] rounded-full ${nivel.dot} bg-opacity-20 text-gray-700`}>
                 {nivel.nivel}
               </span>
               {momento && (
-                <span className="text-[11px] font-['Poppins:Regular',sans-serif] text-gray-500 bg-gray-100 px-[8px] py-[2px] rounded-full">
+                <span className="text-[11px] font-[Poppins] font-normal text-gray-500 bg-gray-100 px-[8px] py-[2px] rounded-full">
                   {momento}
                 </span>
               )}
             </div>
             {notaExtra && (
-              <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-500 mt-[6px] line-clamp-2">{notaExtra}</p>
+              <p className="font-[Poppins] font-normal text-[12px] text-gray-500 mt-[6px] line-clamp-2">{notaExtra}</p>
             )}
           </div>
         );

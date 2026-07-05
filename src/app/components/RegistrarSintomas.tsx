@@ -86,7 +86,7 @@ export function RegistrarSintomas() {
             className="flex items-center gap-2 text-white hover:text-[#8db9f2] transition-colors"
           >
             <ArrowLeft size={24} />
-            <span className="font-['Poppins:Regular',sans-serif] text-[18px]">Volver al menú</span>
+            <span className="font-[Poppins] font-normal text-[18px]">Volver al menú</span>
           </button>
         </div>
       </div>
@@ -97,7 +97,7 @@ export function RegistrarSintomas() {
           {/* Title */}
           <div className="flex items-center gap-[15px] mb-[30px]">
             <Heart size={36} className="text-[#39588a]" />
-            <h1 className="font-['Poppins:Bold',sans-serif] text-[36px] text-[#193073]">
+            <h1 className="font-[Poppins] font-bold text-[36px] text-[#193073]">
               Registrar Síntomas
             </h1>
           </div>
@@ -105,7 +105,7 @@ export function RegistrarSintomas() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-[30px]">
             {/* Symptoms Selection */}
             <div className="lg:col-span-2">
-              <h2 className="font-['Poppins:SemiBold',sans-serif] text-[20px] text-black mb-[20px]">
+              <h2 className="font-[Poppins] font-semibold text-[20px] text-black mb-[20px]">
                 Selecciona los síntomas que experimentas
               </h2>
               
@@ -121,7 +121,7 @@ export function RegistrarSintomas() {
                     }`}
                   >
                     <div className="text-[32px] mb-[8px]">{sintoma.icon}</div>
-                    <p className="font-['Poppins:Medium',sans-serif] text-[14px]">
+                    <p className="font-[Poppins] font-medium text-[14px]">
                       {sintoma.nombre}
                     </p>
                   </button>
@@ -130,7 +130,7 @@ export function RegistrarSintomas() {
 
               {/* Description */}
               <div className="mt-[25px]">
-                <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                   Descripción detallada (opcional)
                 </label>
                 <textarea
@@ -138,53 +138,53 @@ export function RegistrarSintomas() {
                   onChange={(e) => setDescripcion(e.target.value)}
                   placeholder="Describe cómo te sientes, cuándo comenzaron los síntomas, etc."
                   rows={5}
-                  className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] resize-none"
+                  className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] resize-none"
                 />
               </div>
             </div>
 
             {/* Details Panel */}
             <div>
-              <h2 className="font-['Poppins:SemiBold',sans-serif] text-[20px] text-black mb-[20px]">
+              <h2 className="font-[Poppins] font-semibold text-[20px] text-black mb-[20px]">
                 Detalles
               </h2>
               
               <div className="space-y-[20px]">
                 {/* Date */}
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                  <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                     Fecha
                   </label>
                   <input
                     type="date"
                     value={fecha}
                     onChange={(e) => setFecha(e.target.value)}
-                    className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
+                    className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
                   />
                 </div>
 
                 {/* Time */}
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                  <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                     Hora
                   </label>
                   <input
                     type="time"
                     value={hora}
                     onChange={(e) => setHora(e.target.value)}
-                    className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
+                    className="w-full bg-[#e1e9f2] rounded-[10px] px-[15px] py-[10px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
                   />
                 </div>
 
                 {/* Intensity */}
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                  <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                     Intensidad
                   </label>
                   <div className="bg-[#f5f5f5] rounded-[15px] p-[20px]">
                     <div className="flex items-center justify-between mb-[15px]">
                       {intensidadInfo.emoji}
-                      <span className={`font-['Poppins:Bold',sans-serif] text-[20px] ${intensidadInfo.color}`}>
+                      <span className={`font-[Poppins] font-bold text-[20px] ${intensidadInfo.color}`}>
                         {intensidadInfo.texto}
                       </span>
                     </div>
@@ -197,13 +197,13 @@ export function RegistrarSintomas() {
                       className="w-full h-2 bg-[#e1e9f2] rounded-lg appearance-none cursor-pointer accent-[#39588a]"
                     />
                     <div className="flex justify-between mt-[10px]">
-                      <span className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-600">
+                      <span className="font-[Poppins] font-normal text-[12px] text-gray-600">
                         1 (Leve)
                       </span>
-                      <span className="font-['Poppins:Bold',sans-serif] text-[18px] text-[#39588a]">
+                      <span className="font-[Poppins] font-bold text-[18px] text-[#39588a]">
                         {intensidad}
                       </span>
-                      <span className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-600">
+                      <span className="font-[Poppins] font-normal text-[12px] text-gray-600">
                         10 (Severo)
                       </span>
                     </div>
@@ -215,18 +215,18 @@ export function RegistrarSintomas() {
                   <div className="bg-[#39588a] rounded-[15px] p-[20px] text-white">
                     <div className="flex items-center gap-[10px] mb-[10px]">
                       <AlertCircle size={20} />
-                      <p className="font-['Poppins:Bold',sans-serif] text-[16px]">
+                      <p className="font-[Poppins] font-bold text-[16px]">
                         Síntomas seleccionados
                       </p>
                     </div>
-                    <p className="font-['Poppins:Bold',sans-serif] text-[32px] text-center">
+                    <p className="font-[Poppins] font-bold text-[32px] text-center">
                       {selectedSintomas.length}
                     </p>
                     <div className="mt-[10px] space-y-[5px]">
                       {sintomasComunes
                         .filter(s => selectedSintomas.includes(s.id))
                         .map(s => (
-                          <p key={s.id} className="font-['Poppins:Regular',sans-serif] text-[14px] opacity-90">
+                          <p key={s.id} className="font-[Poppins] font-normal text-[14px] opacity-90">
                             • {s.nombre}
                           </p>
                         ))}
@@ -238,7 +238,7 @@ export function RegistrarSintomas() {
                 <div className="bg-yellow-50 border-l-4 border-yellow-500 p-[15px] rounded">
                   <div className="flex items-start gap-[10px]">
                     <AlertCircle size={20} className="text-yellow-600 flex-shrink-0 mt-1" />
-                    <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-yellow-800">
+                    <p className="font-[Poppins] font-normal text-[12px] text-yellow-800">
                       Si experimentas síntomas severos, consulta a tu médico inmediatamente.
                     </p>
                   </div>
@@ -252,7 +252,7 @@ export function RegistrarSintomas() {
             <button
               onClick={handleSave}
               disabled={selectedSintomas.length === 0}
-              className={`rounded-[15px] px-[40px] py-[15px] font-['Poppins:Bold',sans-serif] text-[18px] transition-all ${
+              className={`rounded-[15px] px-[40px] py-[15px] font-[Poppins] font-bold text-[18px] transition-all ${
                 selectedSintomas.length === 0
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   : 'bg-[#39588a] hover:bg-[#2d4570] text-white active:scale-95'

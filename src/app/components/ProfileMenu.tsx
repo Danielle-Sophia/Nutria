@@ -91,7 +91,7 @@ export function ProfileMenu({ isOpen, onClose }: ProfileMenuProps) {
                 transition={{ duration: 0.2 }}
               >
                 <Settings size={24} className="text-black group-hover:text-[#3457bf] transition-colors" />
-                <p className="font-['Poppins:Medium',sans-serif] text-[18px] text-black group-hover:text-[#3457bf] transition-colors">
+                <p className="font-[Poppins] font-medium text-[18px] text-black group-hover:text-[#3457bf] transition-colors">
                   Configuración
                 </p>
               </motion.button>
@@ -107,7 +107,7 @@ export function ProfileMenu({ isOpen, onClose }: ProfileMenuProps) {
                 transition={{ duration: 0.2 }}
               >
                 <LogOut size={24} className="text-black group-hover:text-[#d32f2f] transition-colors" />
-                <p className="font-['Poppins:Medium',sans-serif] text-[18px] text-black group-hover:text-[#d32f2f] transition-colors">
+                <p className="font-[Poppins] font-medium text-[18px] text-black group-hover:text-[#d32f2f] transition-colors">
                   Cerrar Sesión
                 </p>
               </motion.button>

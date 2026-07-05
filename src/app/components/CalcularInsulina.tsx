@@ -54,7 +54,7 @@ export function CalcularInsulina() {
             className="flex items-center gap-2 text-white hover:text-[#8db9f2] transition-colors"
           >
             <ArrowLeft size={24} />
-            <span className="font-['Poppins:Regular',sans-serif] text-[18px]">Volver al menú</span>
+            <span className="font-[Poppins] font-normal text-[18px]">Volver al menú</span>
           </button>
         </div>
       </div>
@@ -67,21 +67,21 @@ export function CalcularInsulina() {
             <div className="bg-gradient-to-r from-[#5e7deb] to-[#8db9f2] rounded-full p-[10px]">
               <Sparkles size={36} className="text-white" />
             </div>
-            <h1 className="font-['Poppins:Bold',sans-serif] text-[36px] text-[#193073]">
+            <h1 className="font-[Poppins] font-bold text-[36px] text-[#193073]">
               Calcular Dosis de Insulina con IA
             </h1>
           </div>
 
           {/* Info Banner */}
           <div className="bg-gradient-to-r from-[#e8f4ff] to-[#f0f8ff] border-l-4 border-[#5e7deb] rounded-[10px] p-[20px] mb-[30px]">
-            <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-[#193073]">
+            <p className="font-[Poppins] font-medium text-[16px] text-[#193073]">
               La IA analizará tus datos recientes de glucosa, actividad física, alimentación y ciclo menstrual para calcular una dosis personalizada.
             </p>
           </div>
 
           {/* Patient Data Summary */}
           <div className="space-y-[20px] mb-[30px]">
-            <h2 className="font-['Poppins:SemiBold',sans-serif] text-[24px] text-black mb-[20px]">
+            <h2 className="font-[Poppins] font-semibold text-[24px] text-black mb-[20px]">
               Datos actuales considerados:
             </h2>
 
@@ -93,13 +93,13 @@ export function CalcularInsulina() {
                     <Droplet size={24} className="text-white" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-['Poppins:Bold',sans-serif] text-[16px] text-[#193073] mb-[5px]">
+                    <p className="font-[Poppins] font-bold text-[16px] text-[#193073] mb-[5px]">
                       Última Glucosa
                     </p>
-                    <p className="font-['Poppins:Bold',sans-serif] text-[28px] text-[#5e7deb]">
+                    <p className="font-[Poppins] font-bold text-[28px] text-[#5e7deb]">
                       {patientData.ultimaGlucosa} mg/dL
                     </p>
-                    <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-600">
+                    <p className="font-[Poppins] font-normal text-[12px] text-gray-600">
                       {patientData.fechaGlucosa}
                     </p>
                   </div>
@@ -113,10 +113,10 @@ export function CalcularInsulina() {
                     <Activity size={24} className="text-white" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-['Poppins:Bold',sans-serif] text-[16px] text-[#cc6633] mb-[5px]">
+                    <p className="font-[Poppins] font-bold text-[16px] text-[#cc6633] mb-[5px]">
                       Ejercicio de Hoy
                     </p>
-                    <p className="font-['Poppins:Medium',sans-serif] text-[16px] text-black">
+                    <p className="font-[Poppins] font-medium text-[16px] text-black">
                       {patientData.ejercicioHoy || 'Sin registro'}
                     </p>
                   </div>
@@ -130,13 +130,13 @@ export function CalcularInsulina() {
                     <Utensils size={24} className="text-white" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-['Poppins:Bold',sans-serif] text-[16px] text-[#2d7755] mb-[5px]">
+                    <p className="font-[Poppins] font-bold text-[16px] text-[#2d7755] mb-[5px]">
                       Alimentación
                     </p>
-                    <p className="font-['Poppins:Medium',sans-serif] text-[14px] text-black mb-[5px]">
+                    <p className="font-[Poppins] font-medium text-[14px] text-black mb-[5px]">
                       {patientData.ultimaComida}
                     </p>
-                    <p className="font-['Poppins:Regular',sans-serif] text-[12px] text-gray-600">
+                    <p className="font-[Poppins] font-normal text-[12px] text-gray-600">
                       Calorías del día: {patientData.caloriasDia} kcal
                     </p>
                   </div>
@@ -150,10 +150,10 @@ export function CalcularInsulina() {
                     <Heart size={24} className="text-white" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-['Poppins:Bold',sans-serif] text-[16px] text-[#cc4477] mb-[5px]">
+                    <p className="font-[Poppins] font-bold text-[16px] text-[#cc4477] mb-[5px]">
                       Ciclo Menstrual
                     </p>
-                    <p className="font-['Poppins:Medium',sans-serif] text-[14px] text-black">
+                    <p className="font-[Poppins] font-medium text-[14px] text-black">
                       {patientData.cicloMenstrual}
                     </p>
                   </div>
@@ -168,7 +168,7 @@ export function CalcularInsulina() {
               <button
                 onClick={handleCalcular}
                 disabled={isCalculating}
-                className={`rounded-[20px] px-[50px] py-[18px] font-['Poppins:Bold',sans-serif] text-[20px] transition-all flex items-center gap-[15px] shadow-lg ${
+                className={`rounded-[20px] px-[50px] py-[18px] font-[Poppins] font-bold text-[20px] transition-all flex items-center gap-[15px] shadow-lg ${
                   isCalculating
                     ? 'bg-gray-400 text-gray-200 cursor-wait'
                     : 'bg-gradient-to-r from-[#5e7deb] to-[#8db9f2] hover:from-[#4d6bd9] hover:to-[#7aa8e1] text-white active:scale-95'
@@ -188,7 +188,7 @@ export function CalcularInsulina() {
                   <Sparkles size={48} className="text-[#5e7deb]" />
                 </div>
               </div>
-              <p className="font-['Poppins:Medium',sans-serif] text-[18px] text-[#193073]">
+              <p className="font-[Poppins] font-medium text-[18px] text-[#193073]">
                 Analizando tus datos con inteligencia artificial...
               </p>
             </div>
@@ -203,24 +203,24 @@ export function CalcularInsulina() {
                     <Sparkles size={36} className="text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-['Poppins:Bold',sans-serif] text-[28px] text-[#193073] mb-[15px]">
+                    <h3 className="font-[Poppins] font-bold text-[28px] text-[#193073] mb-[15px]">
                       Recomendación de IA
                     </h3>
                     
                     <div className="bg-white rounded-[15px] p-[25px] mb-[20px] shadow-lg">
-                      <p className="font-['Poppins:Medium',sans-serif] text-[18px] text-gray-700 mb-[15px]">
+                      <p className="font-[Poppins] font-medium text-[18px] text-gray-700 mb-[15px]">
                         Dosis de insulina recomendada:
                       </p>
-                      <p className="font-['Poppins:Bold',sans-serif] text-[48px] text-[#5e7deb] text-center">
+                      <p className="font-[Poppins] font-bold text-[48px] text-[#5e7deb] text-center">
                         {dosisCalculada} unidades
                       </p>
                     </div>
 
                     <div className="bg-[#fff9e6] rounded-[15px] p-[20px] border-2 border-[#ffcc00]">
-                      <p className="font-['Poppins:Bold',sans-serif] text-[16px] text-[#cc9900] mb-[10px]">
+                      <p className="font-[Poppins] font-bold text-[16px] text-[#cc9900] mb-[10px]">
                         Factores considerados:
                       </p>
-                      <ul className="font-['Poppins:Regular',sans-serif] text-[14px] text-gray-700 space-y-[5px]">
+                      <ul className="font-[Poppins] font-normal text-[14px] text-gray-700 space-y-[5px]">
                         <li>✓ Nivel de glucosa actual: {patientData.ultimaGlucosa} mg/dL</li>
                         <li>✓ Actividad física: {patientData.ejercicioHoy} (reduce necesidad de insulina)</li>
                         <li>✓ Fase del ciclo menstrual: {patientData.cicloMenstrual} (puede aumentar resistencia)</li>
@@ -235,10 +235,10 @@ export function CalcularInsulina() {
               <div className="bg-red-50 border-2 border-red-300 rounded-[15px] p-[20px] flex items-start gap-[15px]">
                 <AlertCircle size={28} className="text-red-600 flex-shrink-0 mt-[2px]" />
                 <div>
-                  <p className="font-['Poppins:Bold',sans-serif] text-[18px] text-red-800 mb-[8px]">
+                  <p className="font-[Poppins] font-bold text-[18px] text-red-800 mb-[8px]">
                     ⚠️ Importante - Consulta Médica Obligatoria
                   </p>
-                  <p className="font-['Poppins:Regular',sans-serif] text-[14px] text-red-700">
+                  <p className="font-[Poppins] font-normal text-[14px] text-red-700">
                     Esta es solo una <strong>estimación orientativa</strong> generada por IA basada en tus datos actuales. 
                     <strong> NO reemplaza el criterio médico profesional.</strong> Siempre consulta con tu médico o endocrinólogo 
                     antes de realizar cualquier cambio en tu dosis de insulina. La administración incorrecta de insulina puede 
@@ -254,13 +254,13 @@ export function CalcularInsulina() {
                     setShowResult(false);
                     setIsCalculating(false);
                   }}
-                  className="bg-gray-200 hover:bg-gray-300 text-black rounded-[15px] px-[30px] py-[12px] font-['Poppins:Bold',sans-serif] text-[16px] transition-all active:scale-95"
+                  className="bg-gray-200 hover:bg-gray-300 text-black rounded-[15px] px-[30px] py-[12px] font-[Poppins] font-bold text-[16px] transition-all active:scale-95"
                 >
                   Calcular de nuevo
                 </button>
                 <button
                   onClick={() => navigate('/menu-paciente')}
-                  className="bg-[#39588a] hover:bg-[#2d4570] text-white rounded-[15px] px-[30px] py-[12px] font-['Poppins:Bold',sans-serif] text-[16px] transition-all active:scale-95"
+                  className="bg-[#39588a] hover:bg-[#2d4570] text-white rounded-[15px] px-[30px] py-[12px] font-[Poppins] font-bold text-[16px] transition-all active:scale-95"
                 >
                   Volver al menú
                 </button>

@@ -15,7 +15,7 @@ export default function Group() {
           </svg>
         </div>
       </div>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Medium',sans-serif] h-[28px] leading-[normal] left-[107px] not-italic text-[18px] text-black text-center top-[40px] w-[193px] whitespace-pre-wrap">Configuración</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-medium h-[28px] leading-[normal] left-[107px] not-italic text-[18px] text-black text-center top-[40px] w-[193px] whitespace-pre-wrap">Configuración</p>
       <div className="absolute left-[24.5px] size-[24px] top-[80px]" data-name="move_item">
         <div className="absolute inset-[12.5%_0_12.5%_12.5%]" data-name="icon">
           <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 21 18">
@@ -23,7 +23,7 @@ export default function Group() {
           </svg>
         </div>
       </div>
-      <p className="-translate-x-1/2 absolute font-['Poppins:Medium',sans-serif] h-[28px] leading-[normal] left-[124px] not-italic text-[18px] text-black text-center top-[78px] w-[193px] whitespace-pre-wrap">Cerrar Sesión</p>
+      <p className="-translate-x-1/2 absolute font-[Poppins] font-medium h-[28px] leading-[normal] left-[124px] not-italic text-[18px] text-black text-center top-[78px] w-[193px] whitespace-pre-wrap">Cerrar Sesión</p>
     </div>
   );
 }

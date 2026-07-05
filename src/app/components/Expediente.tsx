@@ -97,7 +97,7 @@ export function Expediente() {
     if (isLoading) {
       return (
         <div className="p-[20px] flex items-center justify-center h-full">
-          <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-gray-500">
+          <p className="font-[Poppins] font-normal text-[18px] text-gray-500">
             Cargando datos del paciente...
           </p>
         </div>
@@ -108,7 +108,7 @@ export function Expediente() {
       return (
         <div className="p-[20px] flex items-center justify-center h-full">
           <div className="text-center">
-            <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-red-600 mb-4">
+            <p className="font-[Poppins] font-normal text-[18px] text-red-600 mb-4">
               {error || 'No se pudo cargar la información del paciente'}
             </p>
             <button
@@ -130,7 +130,7 @@ export function Expediente() {
       case 'bitacora':
         return (
           <div className="p-[20px]">
-            <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-gray-600 italic">
+            <p className="font-[Poppins] font-normal text-[18px] text-gray-600 italic">
               Bitácora en desarrollo
             </p>
           </div>
@@ -140,7 +140,7 @@ export function Expediente() {
       case 'seguimiento':
         return (
           <div className="p-[20px]">
-            <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-gray-600 italic">
+            <p className="font-[Poppins] font-normal text-[18px] text-gray-600 italic">
               Seguimiento en desarrollo
             </p>
           </div>
@@ -148,7 +148,7 @@ export function Expediente() {
       case 'documentos':
         return (
           <div className="p-[20px]">
-            <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-gray-600 italic">
+            <p className="font-[Poppins] font-normal text-[18px] text-gray-600 italic">
               Documentos en desarrollo
             </p>
           </div>
@@ -156,7 +156,7 @@ export function Expediente() {
       case 'seguridad':
         return (
           <div className="p-[20px]">
-            <p className="font-['Poppins:Regular',sans-serif] text-[18px] text-gray-600 italic">
+            <p className="font-[Poppins] font-normal text-[18px] text-gray-600 italic">
               Seguridad y registro de actividad en desarrollo
             </p>
           </div>
@@ -182,7 +182,7 @@ export function Expediente() {
           {/* Center Text */}
           <button
             onClick={() => navigate('/mis-pacientes')}
-            className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[18px] text-center text-white hover:text-[#8db9f2] transition-colors cursor-pointer"
+            className="font-[Poppins] font-medium leading-[normal] not-italic text-[18px] text-center text-white hover:text-[#8db9f2] transition-colors cursor-pointer"
           >
             Mis pacientes
           </button>
@@ -226,7 +226,7 @@ export function Expediente() {
         <div className="bg-white rounded-[40px] w-full flex overflow-hidden min-h-[1040px]">
           {/* Left Sidebar Menu */}
           <div className="bg-[#e1e9f2] w-[360px] flex-shrink-0 rounded-br-[25px] rounded-tr-[25px] pt-[45px] pb-[40px]">
-            <p className="font-['Poppins:Bold',sans-serif] text-[30px] text-black px-[40px] mb-[75px]">
+            <p className="font-[Poppins] font-bold text-[30px] text-black px-[40px] mb-[75px]">
               Expediente
             </p>
             
@@ -238,8 +238,8 @@ export function Expediente() {
                     onClick={() => setActiveSection(item.id)}
                     className={`w-full px-[40px] py-[20px] text-center transition-colors ${
                       activeSection === item.id
-                        ? 'text-[#458dff] font-["Poppins:Medium",sans-serif]'
-                        : 'text-black font-["Poppins:Medium",sans-serif] hover:text-[#458dff]'
+                        ? 'text-[#458dff] font-[Poppins] font-medium'
+                        : 'text-black font-[Poppins] font-medium hover:text-[#458dff]'
                     }`}
                   >
                     <p className="text-[20px] leading-tight">

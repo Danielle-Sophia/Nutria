@@ -79,7 +79,7 @@ export function AgendarCita() {
             className="flex items-center gap-2 text-white hover:text-[#8db9f2] transition-colors"
           >
             <ArrowLeft size={24} />
-            <span className="font-['Poppins:Regular',sans-serif] text-[18px]">Volver al menú</span>
+            <span className="font-[Poppins] font-normal text-[18px]">Volver al menú</span>
           </button>
         </div>
       </div>
@@ -90,7 +90,7 @@ export function AgendarCita() {
           {/* Title */}
           <div className="flex items-center gap-[15px] mb-[30px]">
             <Calendar size={36} className="text-[#39588a]" />
-            <h1 className="font-['Poppins:Bold',sans-serif] text-[36px] text-[#193073]">
+            <h1 className="font-[Poppins] font-bold text-[36px] text-[#193073]">
               Agendar Cita
             </h1>
           </div>
@@ -98,7 +98,7 @@ export function AgendarCita() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
             {/* Doctor Selection */}
             <div>
-              <h2 className="font-['Poppins:SemiBold',sans-serif] text-[20px] text-black mb-[20px] flex items-center gap-[10px]">
+              <h2 className="font-[Poppins] font-semibold text-[20px] text-black mb-[20px] flex items-center gap-[10px]">
                 <User size={24} className="text-[#39588a]" />
                 Selecciona tu profesional de salud
               </h2>
@@ -114,10 +114,10 @@ export function AgendarCita() {
                         : 'bg-[#f5f5f5] text-black hover:bg-[#e5e5e5]'
                     }`}
                   >
-                    <p className="font-['Poppins:Bold',sans-serif] text-[18px] mb-[5px]">
+                    <p className="font-[Poppins] font-bold text-[18px] mb-[5px]">
                       {doctor.nombre}
                     </p>
-                    <p className={`font-['Poppins:Regular',sans-serif] text-[14px] ${
+                    <p className={`font-[Poppins] font-normal text-[14px] ${
                       selectedDoctor?.id === doctor.id ? 'opacity-90' : 'text-gray-600'
                     }`}>
                       {doctor.especialidad}
@@ -128,14 +128,14 @@ export function AgendarCita() {
 
               {/* Modalidad */}
               <div className="mt-[25px]">
-                <h3 className="font-['Poppins:SemiBold',sans-serif] text-[18px] text-black mb-[15px] flex items-center gap-[10px]">
+                <h3 className="font-[Poppins] font-semibold text-[18px] text-black mb-[15px] flex items-center gap-[10px]">
                   <MapPin size={20} className="text-[#39588a]" />
                   Modalidad de consulta
                 </h3>
                 <div className="flex gap-[15px]">
                   <button
                     onClick={() => setModalidad('presencial')}
-                    className={`flex-1 py-[12px] rounded-[10px] font-['Poppins:Medium',sans-serif] text-[16px] transition-all ${
+                    className={`flex-1 py-[12px] rounded-[10px] font-[Poppins] font-medium text-[16px] transition-all ${
                       modalidad === 'presencial'
                         ? 'bg-[#39588a] text-white'
                         : 'bg-[#e1e9f2] text-black hover:bg-[#d0dde8]'
@@ -145,7 +145,7 @@ export function AgendarCita() {
                   </button>
                   <button
                     onClick={() => setModalidad('virtual')}
-                    className={`flex-1 py-[12px] rounded-[10px] font-['Poppins:Medium',sans-serif] text-[16px] transition-all ${
+                    className={`flex-1 py-[12px] rounded-[10px] font-[Poppins] font-medium text-[16px] transition-all ${
                       modalidad === 'virtual'
                         ? 'bg-[#39588a] text-white'
                         : 'bg-[#e1e9f2] text-black hover:bg-[#d0dde8]'
@@ -159,7 +159,7 @@ export function AgendarCita() {
 
             {/* Appointment Details */}
             <div>
-              <h2 className="font-['Poppins:SemiBold',sans-serif] text-[20px] text-black mb-[20px] flex items-center gap-[10px]">
+              <h2 className="font-[Poppins] font-semibold text-[20px] text-black mb-[20px] flex items-center gap-[10px]">
                 <Clock size={24} className="text-[#39588a]" />
                 Fecha y hora
               </h2>
@@ -167,7 +167,7 @@ export function AgendarCita() {
               <div className="space-y-[20px]">
                 {/* Date */}
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                  <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                     Fecha de la cita
                   </label>
                   <input
@@ -175,14 +175,14 @@ export function AgendarCita() {
                     value={fecha}
                     onChange={(e) => setFecha(e.target.value)}
                     min={today}
-                    className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
+                    className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
                   />
                 </div>
 
                 {/* Available Times */}
                 {selectedDoctor && fecha && (
                   <div>
-                    <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                    <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                       Horarios disponibles
                     </label>
                     <div className="grid grid-cols-3 gap-[10px]">
@@ -190,7 +190,7 @@ export function AgendarCita() {
                         <button
                           key={horario}
                           onClick={() => setHora(horario)}
-                          className={`py-[10px] rounded-[10px] font-['Poppins:Medium',sans-serif] text-[14px] transition-all ${
+                          className={`py-[10px] rounded-[10px] font-[Poppins] font-medium text-[14px] transition-all ${
                             hora === horario
                               ? 'bg-[#39588a] text-white'
                               : 'bg-[#e1e9f2] text-black hover:bg-[#d0dde8]'
@@ -205,14 +205,14 @@ export function AgendarCita() {
 
                 {/* Reason */}
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                  <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                     <FileText size={18} className="inline mr-2" />
                     Motivo de la consulta
                   </label>
                   <select
                     value={motivo}
                     onChange={(e) => setMotivo(e.target.value)}
-                    className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
+                    className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff]"
                   >
                     <option value="">Selecciona un motivo</option>
                     <option value="control">Control de rutina</option>
@@ -226,7 +226,7 @@ export function AgendarCita() {
 
                 {/* Notes */}
                 <div>
-                  <label className="font-['Poppins:Medium',sans-serif] text-[16px] text-black block mb-[8px]">
+                  <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
                     Notas adicionales (opcional)
                   </label>
                   <textarea
@@ -234,17 +234,17 @@ export function AgendarCita() {
                     onChange={(e) => setNotas(e.target.value)}
                     placeholder="Información adicional que quieras compartir..."
                     rows={4}
-                    className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-['Poppins:Regular',sans-serif] text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] resize-none"
+                    className="w-full bg-[#e1e9f2] rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] resize-none"
                   />
                 </div>
 
                 {/* Summary Card */}
                 {selectedDoctor && fecha && hora && (
                   <div className="bg-[#39588a] rounded-[15px] p-[20px] text-white">
-                    <p className="font-['Poppins:Bold',sans-serif] text-[18px] mb-[15px]">
+                    <p className="font-[Poppins] font-bold text-[18px] mb-[15px]">
                       Resumen de la cita
                     </p>
-                    <div className="space-y-[10px] font-['Poppins:Regular',sans-serif] text-[14px]">
+                    <div className="space-y-[10px] font-[Poppins] font-normal text-[14px]">
                       <p>👨‍⚕️ <span className="font-semibold">{selectedDoctor.nombre}</span></p>
                       <p>📅 {new Date(fecha).toLocaleDateString('es-MX', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                       <p>🕐 {hora}</p>
@@ -261,14 +261,14 @@ export function AgendarCita() {
           <div className="flex justify-end mt-[30px] gap-[15px]">
             <button
               onClick={() => navigate('/menu-paciente')}
-              className="bg-gray-300 hover:bg-gray-400 text-black rounded-[15px] px-[40px] py-[15px] font-['Poppins:Bold',sans-serif] text-[18px] transition-all active:scale-95"
+              className="bg-gray-300 hover:bg-gray-400 text-black rounded-[15px] px-[40px] py-[15px] font-[Poppins] font-bold text-[18px] transition-all active:scale-95"
             >
               Cancelar
             </button>
             <button
               onClick={handleSubmit}
               disabled={!selectedDoctor || !fecha || !hora || !motivo}
-              className={`rounded-[15px] px-[40px] py-[15px] font-['Poppins:Bold',sans-serif] text-[18px] transition-all ${
+              className={`rounded-[15px] px-[40px] py-[15px] font-[Poppins] font-bold text-[18px] transition-all ${
                 !selectedDoctor || !fecha || !hora || !motivo
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   : 'bg-[#39588a] hover:bg-[#2d4570] text-white active:scale-95'
