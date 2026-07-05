@@ -42,15 +42,35 @@ function generateAccessToken(): string {
 }
 
 // Health check endpoint
-app.get("/make-server-deaf8e85/health", (c) => {
-  return c.json({ status: "ok" });
+app.get("/make-server-deaf8e85/health", async (c) => {
+  try {
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    );
+    const { data, error } = await supabase.from("kv_store_deaf8e85").select("key").limit(1);
+    if (error) {
+      console.error("Health check DB error:", JSON.stringify(error));
+      return c.json({ status: "error", db: false, error: JSON.stringify(error) }, 500);
+    }
+    return c.json({ status: "ok", db: true });
+  } catch (err: any) {
+    console.error("Health check error:", err?.message, err?.stack);
+    return c.json({ status: "error", db: false, error: err?.message || String(err) }, 500);
+  }
 });
 
 // Initialize demo users endpoint (idempotent)
 app.post("/make-server-deaf8e85/init-demo", async (c) => {
   try {
     // Create demo professional
-    const demoPro = await kv.get('user:doctor@nutria.com');
+    let demoPro: any = null;
+    try {
+      demoPro = await kv.get('user:doctor@nutria.com');
+    } catch (kvErr: any) {
+      console.error("kv.get failed for demo check:", kvErr?.message, kvErr?.code, kvErr?.details, kvErr?.hint, JSON.stringify(kvErr));
+      throw kvErr;
+    }
     if (!demoPro) {
       const professional = {
         id: crypto.randomUUID(),
@@ -92,8 +112,16 @@ app.post("/make-server-deaf8e85/init-demo", async (c) => {
 
     return c.json({ success: true, message: "Demo users initialized" });
   } catch (error: any) {
-    console.error("Init demo error:", error);
-    return c.json({ success: false, error: error.message }, 500);
+    const details = {
+      message: error?.message,
+      code: error?.code,
+      details: error?.details,
+      hint: error?.hint,
+      cause: String(error?.cause),
+      stack: error?.stack,
+    };
+    console.error("Init demo error:", JSON.stringify(details));
+    return c.json({ success: false, error: error?.message || String(error), details }, 500);
   }
 });
 

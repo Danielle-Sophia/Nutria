@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, ReferenceLine, ReferenceArea } from 'recharts';
-import { UserCircle } from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, ReferenceLine, ReferenceArea, Tooltip, ScatterChart, Scatter, ZAxis } from 'recharts';
+import { UserCircle, Utensils, Calendar } from 'lucide-react';
 import { patientAPI } from '../../utils/api';
 
 interface PatientData {
@@ -29,6 +29,17 @@ interface ChartData {
   time?: string;
 }
 
+interface FoodRecord {
+  id: string;
+  foodName: string;
+  mealType: string;
+  date: string;
+  time: string;
+  quantity: number;
+  unit: string;
+  nutritionalInfo?: { carbohidratos?: number; calorias?: number };
+}
+
 const glucoseLevels: GlucoseLevel[] = [
   { label: 'Muy alta', range: '>250 mg/dL', color: '#ff8000' },
   { label: 'Alta', range: '181 - 249 mg/dL', color: '#f2e307' },
@@ -40,6 +51,41 @@ const glucoseLevels: GlucoseLevel[] = [
 const legendItems = [
   { label: 'Glucosa', color: '#86A69D' },
 ];
+
+function timeToHours(t: string): number {
+  const [h, m] = t.split(':').map(Number);
+  return h + (m || 0) / 60;
+}
+
+function formatHour(h: number): string {
+  return `${String(Math.floor(h)).padStart(2, '0')}:00`;
+}
+
+function FoodDot(props: any) {
+  const { cx, cy } = props;
+  if (cx == null || cy == null) return null;
+  return (
+    <g>
+      <circle cx={cx} cy={cy} r={18} fill="#FFF3CD" stroke="#F59E0B" strokeWidth={2} />
+      <text x={cx} y={cy + 6} textAnchor="middle" fontSize={16}>🍽️</text>
+    </g>
+  );
+}
+
+function FoodTooltip({ active, payload }: any) {
+  if (!active || !payload?.length) return null;
+  const d = payload[0]?.payload;
+  if (!d) return null;
+  return (
+    <div className="bg-white border border-[#e1e9f2] rounded-[10px] p-[12px] shadow-lg text-[13px]">
+      <p className="font-['Poppins:Bold',sans-serif] text-[#193073] mb-1">{d.foodName}</p>
+      <p className="text-gray-600">🕐 {d.timeLabel}</p>
+      <p className="text-gray-600">🥖 <span className="font-semibold text-[#39588a]">{d.carbs?.toFixed(1)}g</span> carbohidratos</p>
+      {d.cals != null && <p className="text-gray-400">{d.cals?.toFixed(0)} kcal</p>}
+      <p className="text-gray-500 mt-1">{d.mealType}</p>
+    </div>
+  );
+}
 
 // Custom arrow component for target range markers
 function TargetArrow({ direction }: { direction: 'up' | 'down' }) {
@@ -59,8 +105,14 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
   const [error, setError] = useState<string | null>(null);
   const [average, setAverage] = useState<number>(0);
 
+  const [foodRecords, setFoodRecords] = useState<FoodRecord[]>([]);
+  const [isLoadingFood, setIsLoadingFood] = useState(false);
+  const [selectedFoodDate, setSelectedFoodDate] = useState('');
+  const [availableDates, setAvailableDates] = useState<string[]>([]);
+
   useEffect(() => {
     loadGlucoseData();
+    loadFoodData();
   }, [patient.id]);
 
   const loadGlucoseData = async () => {
@@ -108,6 +160,46 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const loadFoodData = async () => {
+    try {
+      setIsLoadingFood(true);
+      const result = await patientAPI.getFoodRecords(patient.id);
+      if (result.success && result.records.length > 0) {
+        setFoodRecords(result.records);
+        const dates = [...new Set<string>(result.records.map((r: FoodRecord) => r.date))].sort().reverse();
+        setAvailableDates(dates);
+        setSelectedFoodDate(dates[0] || '');
+      } else {
+        setFoodRecords([]); setAvailableDates([]); setSelectedFoodDate('');
+      }
+    } catch (e) { console.error('Error loading food data:', e); }
+    finally { setIsLoadingFood(false); }
+  };
+
+  const dayRecords = foodRecords.filter(r => r.date === selectedFoodDate);
+  const totalCarbsDay = dayRecords.reduce((s, r) => s + (r.nutritionalInfo?.carbohidratos ?? 0), 0);
+  const scatterData = dayRecords.map(r => ({
+    x: timeToHours(r.time),
+    y: r.nutritionalInfo?.carbohidratos ?? 0,
+    foodName: r.foodName,
+    timeLabel: r.time,
+    carbs: r.nutritionalInfo?.carbohidratos,
+    cals: r.nutritionalInfo?.calorias,
+    mealType: r.mealType,
+  }));
+  const byMeal: Record<string, { total: number; count: number }> = {};
+  dayRecords.forEach(r => {
+    const key = r.mealType || 'Otro';
+    if (!byMeal[key]) byMeal[key] = { total: 0, count: 0 };
+    byMeal[key].total += r.nutritionalInfo?.carbohidratos ?? 0;
+    byMeal[key].count += 1;
+  });
+  const formatDateLabel = (d: string) => {
+    if (!d) return '';
+    const [y, mo, day] = d.split('-');
+    return `${day}/${mo}/${y}`;
   };
 
   return (
@@ -329,11 +421,157 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
         </div>
       </div>
 
-      {/* Placeholder for other charts */}
-      <div className="p-[20px] bg-[#f5f5f5] rounded-[10px]">
-        <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-600 italic text-center">
-          Gráficas adicionales (Estrés, Estado de ánimo) se mostrarán aquí cuando estén disponibles los datos del backend
-        </p>
+      {/* ── FOOD SECTION ───────────────────────────────────────────────── */}
+      <div>
+        <div className="flex items-center gap-[12px] mb-[20px]">
+          <Utensils size={26} className="text-[#39588a]" />
+          <p className="font-['Poppins:Bold',sans-serif] text-[20px] text-[#39588a]">ALIMENTOS</p>
+        </div>
+
+        {/* Date selector + summary */}
+        {availableDates.length > 0 && (
+          <div className="flex items-center gap-[20px] mb-[20px] flex-wrap">
+            <div className="flex items-center gap-[10px]">
+              <Calendar size={18} className="text-[#39588a]" />
+              <select
+                value={selectedFoodDate}
+                onChange={(e) => setSelectedFoodDate(e.target.value)}
+                className="bg-[#e1e9f2] rounded-[10px] px-[16px] py-[8px] font-['Poppins:Regular',sans-serif] text-[15px] outline-none focus:ring-2 focus:ring-[#458dff]"
+              >
+                {availableDates.map(d => (
+                  <option key={d} value={d}>{formatDateLabel(d)}</option>
+                ))}
+              </select>
+            </div>
+            {dayRecords.length > 0 && (
+              <div className="flex items-center gap-[16px] flex-wrap">
+                <div className="bg-[#FFF3CD] border border-[#F59E0B] rounded-[10px] px-[16px] py-[8px] flex items-center gap-[8px]">
+                  <span className="text-[18px]">🍽️</span>
+                  <div>
+                    <p className="font-['Poppins:Bold',sans-serif] text-[18px] text-[#193073] leading-none">{totalCarbsDay.toFixed(1)}g</p>
+                    <p className="font-['Poppins:Regular',sans-serif] text-[11px] text-gray-500">carbs totales del día</p>
+                  </div>
+                </div>
+                {Object.entries(byMeal).map(([meal, info]) => (
+                  <div key={meal} className="bg-[#f0f4ff] rounded-[10px] px-[14px] py-[8px]">
+                    <p className="font-['Poppins:Bold',sans-serif] text-[15px] text-[#39588a]">{info.total.toFixed(1)}g <span className="font-normal text-gray-400 text-[13px]">({info.count})</span></p>
+                    <p className="font-['Poppins:Regular',sans-serif] text-[11px] text-gray-500">{meal}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className="bg-[#d9d9d9] rounded-[20px] p-[20px]">
+          <div className="bg-white rounded-[10px] p-[30px]">
+            {isLoadingFood ? (
+              <div className="h-[300px] flex items-center justify-center gap-3">
+                <div className="w-8 h-8 border-4 border-[#39588a] border-t-transparent rounded-full animate-spin" />
+                <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-500">Cargando registros de alimentos...</p>
+              </div>
+            ) : foodRecords.length === 0 ? (
+              <div className="h-[300px] flex items-center justify-center flex-col gap-3">
+                <Utensils size={40} className="text-gray-300" />
+                <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-400">No hay registros de alimentos aún</p>
+                <p className="font-['Poppins:Regular',sans-serif] text-[13px] text-gray-400 text-center max-w-[360px]">
+                  Los datos aparecerán aquí una vez que comiences a registrar tus alimentos.
+                </p>
+              </div>
+            ) : dayRecords.length === 0 ? (
+              <div className="h-[300px] flex items-center justify-center">
+                <p className="font-['Poppins:Regular',sans-serif] text-[16px] text-gray-400">Sin registros para esta fecha</p>
+              </div>
+            ) : (
+              <>
+                {/* Scatter chart */}
+                <div className="mb-[6px] flex items-center gap-[8px]">
+                  <span className="text-[18px]">🍽️</span>
+                  <span className="font-['Poppins:Medium',sans-serif] text-[13px] text-gray-600">Carb. / gramos</span>
+                </div>
+                <ResponsiveContainer width="100%" height={300}>
+                  <ScatterChart margin={{ top: 10, right: 30, left: 20, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.08)" />
+                    <XAxis type="number" dataKey="x" domain={[0, 24]}
+                      ticks={[0,2,4,6,8,10,12,14,16,18,20,22,24]}
+                      tickFormatter={formatHour}
+                      tick={{ fontSize: 10, fontFamily: 'Poppins' }}
+                      axisLine={{ stroke: '#999' }}
+                      label={{ value: 'Hora del día', position: 'insideBottomRight', offset: -10, style: { fontSize: 11, fill: '#999' } }}
+                    />
+                    <YAxis type="number" dataKey="y" domain={[0, 'auto']}
+                      tick={{ fontSize: 10, fontFamily: 'Poppins' }}
+                      axisLine={{ stroke: '#999' }}
+                      label={{ value: 'g carbs', angle: -90, position: 'insideLeft', style: { fontSize: 11, fill: '#999' } }}
+                    />
+                    <ZAxis range={[600, 600]} />
+                    <Tooltip content={<FoodTooltip />} />
+                    <Scatter data={scatterData} shape={<FoodDot />} />
+                  </ScatterChart>
+                </ResponsiveContainer>
+
+                {/* Detail table */}
+                <div className="mt-[24px]">
+                  <p className="font-['Poppins:SemiBold',sans-serif] text-[15px] text-[#193073] mb-[12px]">
+                    Detalle de registros — {formatDateLabel(selectedFoodDate)}
+                  </p>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-[13px]">
+                      <thead>
+                        <tr className="bg-[#f0f4ff]">
+                          <th className="text-left px-[14px] py-[10px] font-['Poppins:SemiBold',sans-serif] text-[#39588a] rounded-l-[8px]">Hora</th>
+                          <th className="text-left px-[14px] py-[10px] font-['Poppins:SemiBold',sans-serif] text-[#39588a]">Alimento</th>
+                          <th className="text-left px-[14px] py-[10px] font-['Poppins:SemiBold',sans-serif] text-[#39588a]">Comida</th>
+                          <th className="text-center px-[14px] py-[10px] font-['Poppins:SemiBold',sans-serif] text-[#39588a]">Carbs</th>
+                          <th className="text-center px-[14px] py-[10px] font-['Poppins:SemiBold',sans-serif] text-[#39588a] rounded-r-[8px]">Kcal</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {dayRecords.map((r, i) => {
+                          const carbs = r.nutritionalInfo?.carbohidratos;
+                          const cals  = r.nutritionalInfo?.calorias;
+                          return (
+                            <tr key={r.id} className={i % 2 === 0 ? 'bg-white' : 'bg-[#fafbff]'}>
+                              <td className="px-[14px] py-[10px] font-['Poppins:Medium',sans-serif] text-gray-600">{r.time}</td>
+                              <td className="px-[14px] py-[10px]">
+                                <div className="flex items-center gap-[8px]">
+                                  <span className="text-[15px]">🍽️</span>
+                                  <span className="font-['Poppins:Medium',sans-serif] text-[#193073]">{r.foodName}</span>
+                                </div>
+                              </td>
+                              <td className="px-[14px] py-[10px]">
+                                <span className="bg-[#e1e9f2] text-[#39588a] px-[8px] py-[2px] rounded-full font-['Poppins:Regular',sans-serif] text-[11px]">
+                                  {r.mealType}
+                                </span>
+                              </td>
+                              <td className="px-[14px] py-[10px] text-center">
+                                {carbs != null
+                                  ? <span className="font-['Poppins:Bold',sans-serif] text-[#39588a]">{carbs.toFixed(1)}g</span>
+                                  : <span className="text-gray-300">—</span>}
+                              </td>
+                              <td className="px-[14px] py-[10px] text-center font-['Poppins:Regular',sans-serif] text-gray-500">
+                                {cals != null ? cals.toFixed(0) : '—'}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                      <tfoot>
+                        <tr className="border-t-2 border-[#e1e9f2] bg-[#f0f4ff]">
+                          <td colSpan={3} className="px-[14px] py-[10px] font-['Poppins:SemiBold',sans-serif] text-[#193073]">Total del día</td>
+                          <td className="px-[14px] py-[10px] text-center font-['Poppins:Bold',sans-serif] text-[#39588a] text-[15px]">{totalCarbsDay.toFixed(1)}g</td>
+                          <td className="px-[14px] py-[10px] text-center font-['Poppins:Regular',sans-serif] text-gray-600">
+                            {dayRecords.reduce((s, r) => s + (r.nutritionalInfo?.calorias ?? 0), 0).toFixed(0)}
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
