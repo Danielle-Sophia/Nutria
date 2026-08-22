@@ -531,6 +531,180 @@ app.get("/make-server-deaf8e85/patient/:patientId", async (c) => {
   }
 });
 
+// ============================================
+// HISTORIA CLÍNICA ROUTES
+// ============================================
+
+// Get historia clínica for a patient
+app.get("/make-server-deaf8e85/patient/:patientId/historia-clinica", async (c) => {
+  try {
+    const { error, user } = await verifyToken(c.req.header('X-User-Token'));
+    if (error || !user) return c.json({ success: false, error: error || 'No autorizado' }, 401);
+
+    const patientId = c.req.param('patientId');
+    const data = await kv.get(`hc:${patientId}`);
+
+    return c.json({ success: true, data: data ?? null });
+  } catch (error) {
+    console.error('Get historia clinica error:', error);
+    return c.json({ success: false, error: 'Error al obtener historia clínica' }, 500);
+  }
+});
+
+// Save historia clínica for a patient
+app.post("/make-server-deaf8e85/patient/:patientId/historia-clinica", async (c) => {
+  try {
+    const { error, user } = await verifyToken(c.req.header('X-User-Token'));
+    if (error || !user) return c.json({ success: false, error: error || 'No autorizado' }, 401);
+
+    const patientId = c.req.param('patientId');
+    const body = await c.req.json();
+
+    const payload = {
+      ...body,
+      savedAt: new Date().toISOString(),
+      savedBy: user.id,
+    };
+
+    await kv.set(`hc:${patientId}`, payload);
+
+    return c.json({ success: true, message: 'Historia clínica guardada exitosamente' });
+  } catch (error) {
+    console.error('Save historia clinica error:', error);
+    return c.json({ success: false, error: 'Error al guardar historia clínica' }, 500);
+  }
+});
+
+// ============================================
+// DIAGNÓSTICO ROUTES
+// ============================================
+
+// Resolve the best available Gemini flash model dynamically
+async function resolveGeminiModel(apiKey: string): Promise<string> {
+  const preferred = ['gemini-3.6-flash', 'gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}&pageSize=50`
+    );
+    if (!res.ok) return preferred[0];
+    const data = await res.json();
+    const available: string[] = (data.models ?? [])
+      .filter((m: any) => (m.supportedGenerationMethods ?? []).includes('generateContent'))
+      .map((m: any) => (m.name as string).replace('models/', ''));
+    for (const p of preferred) {
+      if (available.includes(p)) return p;
+    }
+    const fallback = available.find(n => n.includes('flash')) ?? available[0];
+    return fallback ?? preferred[0];
+  } catch {
+    return preferred[0];
+  }
+}
+
+// Generate preliminary diagnosis with Gemini
+app.post("/make-server-deaf8e85/patient/:patientId/diagnostico/generar", async (c) => {
+  try {
+    const { error, user } = await verifyToken(c.req.header('X-User-Token'));
+    if (error || !user) return c.json({ success: false, error: error || 'No autorizado' }, 401);
+
+    const patientId = c.req.param('patientId');
+    const body = await c.req.json();
+    const { datosAnonimizados } = body;
+
+    const geminiKey = Deno.env.get('GEMINI_API_KEY');
+    if (!geminiKey) return c.json({ success: false, error: 'API de Gemini no configurada' }, 500);
+
+    const model = await resolveGeminiModel(geminiKey);
+    console.log('Using Gemini model:', model);
+
+    const prompt = `Eres un asistente clínico especializado en diagnóstico médico para profesionales de la salud. Analiza los siguientes datos clínicos del paciente y genera una lista de posibles diagnósticos o problemas de salud a considerar. Responde ÚNICAMENTE con un objeto JSON válido con la propiedad "diagnosticos" que contenga un array de strings. Cada string debe ser un diagnóstico o problema médico conciso en español. No incluyas planes de tratamiento. Prioriza los diagnósticos más relevantes según los datos.
+
+Datos clínicos del paciente:
+${datosAnonimizados}
+
+Formato de respuesta requerido:
+{"diagnosticos": ["Diagnóstico 1", "Diagnóstico 2", "Diagnóstico 3"]}`;
+
+    const geminiRes = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { responseMimeType: 'application/json', temperature: 0.3 },
+        }),
+      }
+    );
+
+    if (!geminiRes.ok) {
+      const errText = await geminiRes.text();
+      console.error('Gemini API error:', errText);
+      return c.json({ success: false, error: 'Error al consultar Gemini' }, 500);
+    }
+
+    const geminiData = await geminiRes.json();
+    const rawText = geminiData?.candidates?.[0]?.content?.parts?.[0]?.text ?? '{"diagnosticos":[]}';
+    const parsed = JSON.parse(rawText);
+    const diagnosticos: string[] = parsed.diagnosticos ?? [];
+
+    // Persist generated list in KV so it can be reloaded
+    const existing = await kv.get(`dx:${patientId}`) ?? {};
+    await kv.set(`dx:${patientId}`, {
+      ...existing,
+      generados: diagnosticos,
+      generadoAt: new Date().toISOString(),
+    });
+
+    return c.json({ success: true, diagnosticos });
+  } catch (error) {
+    console.error('Generate diagnostico error:', error);
+    return c.json({ success: false, error: 'Error al generar diagnóstico' }, 500);
+  }
+});
+
+// Get saved diagnosis for a patient
+app.get("/make-server-deaf8e85/patient/:patientId/diagnostico", async (c) => {
+  try {
+    const { error, user } = await verifyToken(c.req.header('X-User-Token'));
+    if (error || !user) return c.json({ success: false, error: error || 'No autorizado' }, 401);
+
+    const patientId = c.req.param('patientId');
+    const data = await kv.get(`dx:${patientId}`);
+
+    return c.json({ success: true, data: data ?? null });
+  } catch (error) {
+    console.error('Get diagnostico error:', error);
+    return c.json({ success: false, error: 'Error al obtener diagnóstico' }, 500);
+  }
+});
+
+// Save specialist's diagnosis selections and notes
+app.put("/make-server-deaf8e85/patient/:patientId/diagnostico", async (c) => {
+  try {
+    const { error, user } = await verifyToken(c.req.header('X-User-Token'));
+    if (error || !user) return c.json({ success: false, error: error || 'No autorizado' }, 401);
+
+    const patientId = c.req.param('patientId');
+    const body = await c.req.json();
+    const { seleccionados, notas } = body;
+
+    const existing = await kv.get(`dx:${patientId}`) ?? {};
+    await kv.set(`dx:${patientId}`, {
+      ...existing,
+      seleccionados: seleccionados ?? [],
+      notas: notas ?? '',
+      savedBy: user.id,
+      savedAt: new Date().toISOString(),
+    });
+
+    return c.json({ success: true, message: 'Diagnóstico guardado exitosamente' });
+  } catch (error) {
+    console.error('Save diagnostico error:', error);
+    return c.json({ success: false, error: 'Error al guardar diagnóstico' }, 500);
+  }
+});
+
 // Save glucose record
 app.post("/make-server-deaf8e85/patient/glucose", async (c) => {
   try {

@@ -1,7 +1,10 @@
-import { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, ReferenceLine, ReferenceArea, Tooltip, ScatterChart, Scatter, ZAxis } from 'recharts';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Customized, Tooltip, ScatterChart, Scatter, ZAxis } from 'recharts';
 import { UserCircle, Utensils, Calendar } from 'lucide-react';
 import { patientAPI } from '../../utils/api';
+import { ExportMenu, type ExportFormat } from '../ExportMenu';
+import { exportAnalisisPDF, exportAnalisisCSV } from '../../utils/exportAnalisis';
+import toast from 'react-hot-toast';
 
 interface PatientData {
   id: string;
@@ -52,6 +55,11 @@ const legendItems = [
   { label: 'Glucosa', color: '#86A69D' },
 ];
 
+function toTitleCase(str?: string): string {
+  if (!str) return '';
+  return str.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+}
+
 function timeToHours(t: string): number {
   const [h, m] = t.split(':').map(Number);
   return h + (m || 0) / 60;
@@ -99,6 +107,42 @@ function TargetArrow({ direction }: { direction: 'up' | 'down' }) {
   );
 }
 
+function GlucoseZones({ yAxis, offset }: any) {
+  if (!yAxis?.scale || !offset) return null;
+  const sc = yAxis.scale;
+  const x = offset.left;
+  const w = offset.width;
+  const clamp = (v: number) => Math.max(offset.top, Math.min(offset.top + offset.height, sc(v)));
+
+  const zones = [
+    { y1: 350, y2: 250, fill: '#ff8000' },
+    { y1: 250, y2: 180, fill: '#f2e307' },
+    { y1: 180, y2: 70,  fill: '#00913f' },
+    { y1: 70,  y2: 54,  fill: '#8c0303' },
+    { y1: 54,  y2: 0,   fill: '#590202' },
+  ];
+  const lines = [
+    { y: 250, stroke: '#000000', width: 1 },
+    { y: 180, stroke: '#00913F', width: 2 },
+    { y: 70,  stroke: '#00913F', width: 2 },
+    { y: 54,  stroke: '#000000', width: 1 },
+  ];
+
+  return (
+    <g>
+      {zones.map((z, i) => {
+        const top = clamp(z.y1);
+        const bot = clamp(z.y2);
+        return <rect key={`z${i}`} x={x} y={top} width={w} height={Math.abs(bot - top)} fill={z.fill} fillOpacity={0.3} />;
+      })}
+      {lines.map((l, i) => {
+        const y = clamp(l.y);
+        return <line key={`l${i}`} x1={x} y1={y} x2={x + w} y2={y} stroke={l.stroke} strokeWidth={l.width} />;
+      })}
+    </g>
+  );
+}
+
 export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
   const [glucoseData, setGlucoseData] = useState<ChartData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -109,6 +153,21 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
   const [isLoadingFood, setIsLoadingFood] = useState(false);
   const [selectedFoodDate, setSelectedFoodDate] = useState('');
   const [availableDates, setAvailableDates] = useState<string[]>([]);
+
+  const glucoseChartRef = useRef<HTMLDivElement>(null);
+  const foodChartRef    = useRef<HTMLDivElement>(null);
+
+  const handleExport = useCallback(async (format: ExportFormat) => {
+    try {
+      if (format === 'csv-analisis') {
+        exportAnalisisCSV(patient, glucoseData, average, foodRecords);
+      } else {
+        await exportAnalisisPDF(glucoseChartRef, foodChartRef, patient, glucoseData, average, foodRecords, selectedFoodDate);
+      }
+    } catch (err: any) {
+      toast.error(err?.message ?? 'Error al exportar');
+    }
+  }, [glucoseData, average, foodRecords, selectedFoodDate, patient]);
 
   useEffect(() => {
     loadGlucoseData();
@@ -219,11 +278,14 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
         </div>
         <div className="flex-1">
           <p className="font-[Poppins] font-semibold text-[18px] text-black mb-[8px]">
-            {patient.nombre} {patient.apellidos}
+            {toTitleCase(patient.nombre)} {toTitleCase(patient.apellidos)}
           </p>
           <p className="font-[Poppins] font-normal text-[18px] text-black">
             Folio (identificador): {patient.folio}
           </p>
+        </div>
+        <div className="flex-shrink-0">
+          <ExportMenu mode="analisis" onExport={handleExport} />
         </div>
       </div>
 
@@ -297,7 +359,7 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
             GLUCOSA
           </p>
           <div className="bg-[#d9d9d9] rounded-[20px] p-[20px]">
-            <div className="bg-white rounded-[10px] p-[30px] relative">
+            <div ref={glucoseChartRef} className="bg-white rounded-[10px] p-[30px] relative">
               {isLoading ? (
                 <div className="h-[500px] flex items-center justify-center">
                   <p className="font-[Poppins] font-normal text-[16px] text-gray-500">
@@ -330,27 +392,16 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
 
                   <ResponsiveContainer width="100%" height={500}>
                     <LineChart
-                      data={glucoseData.map(d => ({ ...d, key: d.id }))}
+                      data={glucoseData}
                       margin={{ top: 20, right: 30, left: 80, bottom: 60 }}
-                      id="glucose-chart-analisis"
                     >
-                      <CartesianGrid key="grid-analisis" strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
 
-                      {/* Colored zones (background areas) */}
-                      <ReferenceArea key="area-very-high" y1={250} y2={350} fill="#ff8000" fillOpacity={0.3} />
-                      <ReferenceArea key="area-high" y1={180} y2={250} fill="#f2e307" fillOpacity={0.3} />
-                      <ReferenceArea key="area-target" y1={70} y2={180} fill="#00913f" fillOpacity={0.3} />
-                      <ReferenceArea key="area-low" y1={54} y2={70} fill="#8c0303" fillOpacity={0.3} />
-                      <ReferenceArea key="area-very-low" y1={0} y2={54} fill="#590202" fillOpacity={0.3} />
+                      {/* Colored zones and reference lines rendered as a single Customized element
+                          to avoid recharts duplicate-key warnings from multiple same-type siblings */}
+                      <Customized component={GlucoseZones} />
 
-                      {/* Reference lines for ranges */}
-                      <ReferenceLine key="line-250" y={250} stroke="#000" strokeWidth={1} />
-                      <ReferenceLine key="line-180" y={180} stroke="#00913F" strokeWidth={2} />
-                      <ReferenceLine key="line-70" y={70} stroke="#00913F" strokeWidth={2} />
-                      <ReferenceLine key="line-54" y={54} stroke="#000" strokeWidth={1} />
-                      
                       <XAxis
-                        key="xaxis-analisis"
                         dataKey="name"
                         angle={-45}
                         textAnchor="end"
@@ -364,7 +415,6 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
                         }}
                       />
                       <YAxis
-                        key="yaxis-analisis"
                         domain={[0, 350]}
                         ticks={[0, 54, 70, 180, 250, 350]}
                         tick={{ fontSize: 10, fontFamily: 'Poppins', fontWeight: 500 }}
@@ -376,10 +426,9 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
                           style: { fontSize: 10, fontFamily: 'Poppins' }
                         }}
                       />
-                      
+
                       {/* Glucose line */}
                       <Line
-                        key="line-glucose-value"
                         type="monotone"
                         dataKey="value"
                         stroke="#5e7deb"
@@ -464,7 +513,7 @@ export function AnalisisYReportes({ patient }: AnalisisYReportesProps) {
         )}
 
         <div className="bg-[#d9d9d9] rounded-[20px] p-[20px]">
-          <div className="bg-white rounded-[10px] p-[30px]">
+          <div ref={foodChartRef} className="bg-white rounded-[10px] p-[30px]">
             {isLoadingFood ? (
               <div className="h-[300px] flex items-center justify-center gap-3">
                 <div className="w-8 h-8 border-4 border-[#39588a] border-t-transparent rounded-full animate-spin" />

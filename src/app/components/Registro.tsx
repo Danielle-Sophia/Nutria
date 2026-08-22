@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import toast from 'react-hot-toast';
 import { motion } from 'motion/react';
-import { authAPI } from '../utils/api';
+import { authAPI, getGreeting } from '../utils/api';
 import imgRegistrar from "figma:asset/014a7d00a40d56526e789e2e4f9dde6b606274b4.png";
 import { Header } from "./Header";
 import { Tooltip } from "./Tooltip";
@@ -14,6 +14,7 @@ export function Registro() {
     apellidos: "",
     cedulaProfesional: "",
     especialidad: "",
+    pronombres: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -81,7 +82,7 @@ export function Registro() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -246,10 +247,12 @@ export function Registro() {
         cedulaProfesional: formData.cedulaProfesional,
         especialidad: formData.especialidad,
         telefono: formData.telefono,
+        pronombres: formData.pronombres || undefined,
       });
 
       if (result.success) {
-        toast.success(`¡Cuenta creada exitosamente!\n\nBienvenido/a, ${formData.nombre} ${formData.apellidos}\nTu folio es: ${result.user.folio}\n\nPor favor inicia sesión.`);
+        const saludo = getGreeting(formData.pronombres);
+        toast.success(`¡Cuenta creada exitosamente!\n\n${saludo}, ${formData.nombre} ${formData.apellidos}\nTu folio es: ${result.user.folio}\n\nPor favor inicia sesión.`);
         navigate("/");
       } else {
         setErrors((prev) => ({
@@ -285,7 +288,7 @@ export function Registro() {
 
       {/* Registration Form Container */}
       <motion.div
-        className="relative w-[640px] h-[940px] z-10 my-6"
+        className="relative w-[640px] h-[1030px] z-10 my-6"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
@@ -293,7 +296,7 @@ export function Registro() {
         <div className="absolute bg-[rgba(255,255,255,0.85)] backdrop-blur-sm inset-0 rounded-[20px] shadow-2xl" />
 
         {/* Form Content */}
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full overflow-y-auto">
           {/* Title */}
           <p className="absolute font-[Poppins] font-bold leading-[normal] left-1/2 -translate-x-1/2 not-italic text-[48px] text-black text-nowrap top-[37px]">
             Crea tu cuenta
@@ -443,9 +446,35 @@ export function Registro() {
               />
             </div>
 
-            {/* Email Field */}
+            {/* Pronombres Field */}
             <div>
               <div className="absolute left-[75px] top-[509px] flex items-center">
+                <label
+                  htmlFor="pronombres"
+                  className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black"
+                >
+                  Pronombres (opcional)
+                </label>
+                <Tooltip text="Selecciona los pronombres con los que deseas ser tratado/a/e dentro de la plataforma. Esta información personaliza los mensajes de bienvenida." />
+              </div>
+              <select
+                id="pronombres"
+                name="pronombres"
+                value={formData.pronombres}
+                onChange={handleChange}
+                disabled={isLoading}
+                className="absolute bg-[#e1e9f2] h-[40px] left-1/2 -translate-x-1/2 top-[545px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
+              >
+                <option value="">Prefiero no especificar</option>
+                <option value="el/ellos">Él / Ellos</option>
+                <option value="ella/ellas">Ella / Ellas</option>
+                <option value="elle/elles">Elle / Elles</option>
+              </select>
+            </div>
+
+            {/* Email Field */}
+            <div>
+              <div className="absolute left-[75px] top-[597px] flex items-center">
                 <label
                   htmlFor="email"
                   className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black"
@@ -462,14 +491,14 @@ export function Registro() {
                 onChange={handleChange}
                 required
                 disabled={isLoading}
-                className="absolute bg-[#e1e9f2] h-[40px] left-1/2 -translate-x-1/2 top-[545px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
+                className="absolute bg-[#e1e9f2] h-[40px] left-1/2 -translate-x-1/2 top-[633px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
                 placeholder="tu@email.com"
               />
             </div>
 
             {/* Password Field */}
             <div>
-              <div className="absolute left-[75px] top-[593px] flex items-center">
+              <div className="absolute left-[75px] top-[681px] flex items-center">
                 <label
                   htmlFor="password"
                   className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black"
@@ -486,12 +515,12 @@ export function Registro() {
                 onChange={handleChange}
                 required
                 disabled={isLoading}
-                className="absolute bg-[#e1e9f2] h-[41px] left-1/2 -translate-x-1/2 top-[625px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
+                className="absolute bg-[#e1e9f2] h-[41px] left-1/2 -translate-x-1/2 top-[713px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 focus:ring-[#458dff] transition-all disabled:opacity-50"
                 placeholder="••••••••"
               />
               {passwordStrength.text && !errors.password && (
                 <motion.div
-                  className="absolute left-[75px] top-[670px] flex items-center gap-2"
+                  className="absolute left-[75px] top-[758px] flex items-center gap-2"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3 }}
@@ -516,7 +545,7 @@ export function Registro() {
                 </motion.div>
               )}
               {errors.password && (
-                <p className="absolute left-[75px] top-[670px] text-red-500 text-[14px] font-[Poppins] font-normal">
+                <p className="absolute left-[75px] top-[758px] text-red-500 text-[14px] font-[Poppins] font-normal">
                   {errors.password}
                 </p>
               )}
@@ -524,7 +553,7 @@ export function Registro() {
 
             {/* Confirm Password Field */}
             <div>
-              <div className="absolute left-[75px] top-[700px] flex items-center">
+              <div className="absolute left-[75px] top-[788px] flex items-center">
                 <label
                   htmlFor="confirmPassword"
                   className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black"
@@ -541,7 +570,7 @@ export function Registro() {
                 onChange={handleChange}
                 required
                 disabled={isLoading}
-                className={`absolute bg-[#e1e9f2] h-[41px] left-1/2 -translate-x-1/2 top-[732px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 transition-all disabled:opacity-50 ${
+                className={`absolute bg-[#e1e9f2] h-[41px] left-1/2 -translate-x-1/2 top-[820px] w-[492px] rounded-[10px] px-4 text-black outline-none focus:ring-2 transition-all disabled:opacity-50 ${
                   errors.confirmPassword
                     ? "ring-2 ring-red-500"
                     : "focus:ring-[#458dff]"
@@ -549,7 +578,7 @@ export function Registro() {
                 placeholder="••••••••"
               />
               {errors.confirmPassword && (
-                <p className="absolute left-[75px] top-[776px] text-red-500 text-[14px] font-[Poppins] font-normal">
+                <p className="absolute left-[75px] top-[864px] text-red-500 text-[14px] font-[Poppins] font-normal">
                   {errors.confirmPassword}
                 </p>
               )}
@@ -559,7 +588,7 @@ export function Registro() {
             <motion.button
               type="submit"
               disabled={isLoading}
-              className="absolute left-[174px] top-[810px] w-[292px] h-[60px] bg-[#39588a] rounded-[15px] hover:bg-[#2d4570] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+              className="absolute left-[174px] top-[898px] w-[292px] h-[60px] bg-[#39588a] rounded-[15px] hover:bg-[#2d4570] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >

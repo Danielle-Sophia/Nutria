@@ -38,6 +38,11 @@ interface FoodRecord {
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 
+function toTitleCase(str?: string): string {
+  if (!str) return '';
+  return str.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+}
+
 function timeToHours(t: string): number {
   const [h, m] = t.split(':').map(Number);
   return h + (m || 0) / 60;
@@ -244,7 +249,7 @@ export function TablasEvolucion() {
             >
               <option value="">Selecciona un paciente</option>
               {patients.map(p => (
-                <option key={p.id} value={p.id}>{p.nombre} {p.apellidos}</option>
+                <option key={p.id} value={p.id}>{toTitleCase(p.nombre)} {toTitleCase(p.apellidos)}</option>
               ))}
             </select>
           </div>
@@ -318,15 +323,15 @@ export function TablasEvolucion() {
                     <ResponsiveContainer width="100%" height={500}>
                       <LineChart data={glucoseData.map(d => ({ ...d, key: d.id }))} margin={{ top: 20, right: 30, left: 80, bottom: 60 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
-                        <ReferenceArea y1={250} y2={350} fill="#ff8000" fillOpacity={0.3} />
-                        <ReferenceArea y1={180} y2={250} fill="#f2e307" fillOpacity={0.3} />
-                        <ReferenceArea y1={70}  y2={180} fill="#00913f" fillOpacity={0.3} />
-                        <ReferenceArea y1={54}  y2={70}  fill="#8c0303" fillOpacity={0.3} />
-                        <ReferenceArea y1={0}   y2={54}  fill="#590202" fillOpacity={0.3} />
-                        <ReferenceLine y={250} stroke="#000" strokeWidth={1} />
-                        <ReferenceLine y={180} stroke="#00913F" strokeWidth={2} />
-                        <ReferenceLine y={70}  stroke="#00913F" strokeWidth={2} />
-                        <ReferenceLine y={54}  stroke="#000"    strokeWidth={1} />
+                        <ReferenceArea key="ta-area-1" y1={250} y2={350} fill="#ff8000" fillOpacity={0.3} />
+                        <ReferenceArea key="ta-area-2" y1={180} y2={250} fill="#f2e307" fillOpacity={0.3} />
+                        <ReferenceArea key="ta-area-3" y1={70}  y2={180} fill="#00913f" fillOpacity={0.3} />
+                        <ReferenceArea key="ta-area-4" y1={54}  y2={70}  fill="#8c0303" fillOpacity={0.3} />
+                        <ReferenceArea key="ta-area-5" y1={0}   y2={54}  fill="#590202" fillOpacity={0.3} />
+                        <ReferenceLine key="ta-ref-1" y={250} stroke="#000" strokeWidth={1} />
+                        <ReferenceLine key="ta-ref-2" y={180} stroke="#00913F" strokeWidth={2} />
+                        <ReferenceLine key="ta-ref-3" y={70}  stroke="#00913F" strokeWidth={2} />
+                        <ReferenceLine key="ta-ref-4" y={54}  stroke="#000"    strokeWidth={1} />
                         <XAxis dataKey="name" angle={-45} textAnchor="end" height={70}
                           tick={{ fontSize: 10, fontFamily: 'Poppins', fontWeight: 'bold' }}
                           interval={0} axisLine={{ stroke: '#000' }}

@@ -396,11 +396,23 @@ app.post("/make-server-deaf8e85/professional/patients", async (c) => {
     }
 
     const body = await c.req.json();
-    const { email, password, nombre, apellidos, edad, sexoBiologico, telefono, peso, talla } = body;
+    const { email, password, nombre, apellidos, fechaNacimiento, edad, sexoBiologico, telefono, peso, talla, domicilio, estadoCivil, escolaridad, alergias } = body;
 
-    if (!email || !password || !nombre || !apellidos || !edad || !sexoBiologico) {
+    if (!email || !password || !nombre || !apellidos || !sexoBiologico) {
       return c.json({ success: false, error: "Faltan campos requeridos" }, 400);
     }
+    if (!fechaNacimiento && !edad) {
+      return c.json({ success: false, error: "Se requiere fecha de nacimiento o edad" }, 400);
+    }
+
+    const edadFinal = edad ?? (() => {
+      const hoy = new Date();
+      const [y, m, d] = (fechaNacimiento as string).split('-').map(Number);
+      let e = hoy.getFullYear() - y;
+      const mo = hoy.getMonth() + 1;
+      if (mo < m || (mo === m && hoy.getDate() < d)) e--;
+      return Math.max(0, e);
+    })();
 
     const existingUser = await kv.get(`user:${email}`);
     if (existingUser) {
@@ -416,11 +428,16 @@ app.post("/make-server-deaf8e85/professional/patients", async (c) => {
       password: hashedPassword,
       nombre,
       apellidos,
-      edad,
+      fechaNacimiento: fechaNacimiento || null,
+      edad: edadFinal,
       sexoBiologico,
       telefono: telefono || '',
       peso: peso || null,
       talla: talla || null,
+      domicilio: domicilio || '',
+      estadoCivil: estadoCivil || '',
+      escolaridad: escolaridad || '',
+      alergias: alergias || '',
       tipo: 'paciente',
       folio,
       profesionalId: professional.id,
@@ -769,6 +786,141 @@ app.post("/make-server-deaf8e85/user/change-password", async (c) => {
   } catch (error: any) {
     console.error("Change password error:", error);
     return c.json({ success: false, error: error.message || "Error al cambiar contraseña" }, 500);
+  }
+});
+
+// ── Historia Clínica - Get ─────────────────────────────────────
+app.get("/make-server-deaf8e85/patient/:id/historia-clinica", async (c) => {
+  try {
+    const patientId = c.req.param('id');
+    const data = await kv.get(`hc:${patientId}`);
+    return c.json({ success: true, data: data ?? null });
+  } catch (error: any) {
+    console.error("Get historia clinica error:", error);
+    return c.json({ success: false, error: error.message || "Error al obtener historia clínica" }, 500);
+  }
+});
+
+// ── Historia Clínica - Save ────────────────────────────────────
+app.post("/make-server-deaf8e85/patient/:id/historia-clinica", async (c) => {
+  try {
+    const patientId = c.req.param('id');
+    const body = await c.req.json();
+    await kv.set(`hc:${patientId}`, { ...body, savedAt: new Date().toISOString() });
+    return c.json({ success: true, message: "Historia clínica guardada exitosamente" });
+  } catch (error: any) {
+    console.error("Save historia clinica error:", error);
+    return c.json({ success: false, error: error.message || "Error al guardar historia clínica" }, 500);
+  }
+});
+
+// ── Diagnóstico - Generate with Gemini ────────────────────────
+// Resolve the best available Gemini flash model dynamically
+async function resolveGeminiModel(apiKey: string): Promise<string> {
+  const preferred = ['gemini-3.6-flash', 'gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}&pageSize=50`
+    );
+    if (!res.ok) return preferred[0];
+    const data = await res.json();
+    const available: string[] = (data.models ?? [])
+      .filter((m: any) => (m.supportedGenerationMethods ?? []).includes('generateContent'))
+      .map((m: any) => (m.name as string).replace('models/', ''));
+    for (const p of preferred) {
+      if (available.includes(p)) return p;
+    }
+    const fallback = available.find(n => n.includes('flash')) ?? available[0];
+    return fallback ?? preferred[0];
+  } catch {
+    return preferred[0];
+  }
+}
+
+app.post("/make-server-deaf8e85/patient/:id/diagnostico/generar", async (c) => {
+  try {
+    const patientId = c.req.param('id');
+    const { datosAnonimizados } = await c.req.json();
+
+    const geminiKey = Deno.env.get('GEMINI_API_KEY');
+    if (!geminiKey) return c.json({ success: false, error: "API de Gemini no configurada" }, 500);
+
+    const model = await resolveGeminiModel(geminiKey);
+    console.log('Using Gemini model:', model);
+
+    const prompt = `Eres un asistente clínico especializado en diagnóstico médico para profesionales de la salud. Analiza los siguientes datos clínicos del paciente y genera una lista de posibles diagnósticos o problemas de salud a considerar. Responde ÚNICAMENTE con un objeto JSON válido con la propiedad "diagnosticos" que contenga un array de strings. Cada string debe ser un diagnóstico o problema médico conciso en español. No incluyas planes de tratamiento. Prioriza los diagnósticos más relevantes según los datos.
+
+Datos clínicos del paciente:
+${datosAnonimizados}
+
+Formato de respuesta requerido:
+{"diagnosticos": ["Diagnóstico 1", "Diagnóstico 2", "Diagnóstico 3"]}`;
+
+    const geminiRes = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { responseMimeType: 'application/json', temperature: 0.3 },
+        }),
+      }
+    );
+
+    if (!geminiRes.ok) {
+      const errText = await geminiRes.text();
+      console.error('Gemini API error:', errText);
+      return c.json({ success: false, error: "Error al consultar Gemini" }, 500);
+    }
+
+    const geminiData = await geminiRes.json();
+    const rawText = geminiData?.candidates?.[0]?.content?.parts?.[0]?.text ?? '{"diagnosticos":[]}';
+    const parsed = JSON.parse(rawText);
+    const diagnosticos: string[] = parsed.diagnosticos ?? [];
+
+    const existing = await kv.get(`dx:${patientId}`) ?? {};
+    await kv.set(`dx:${patientId}`, {
+      ...existing,
+      generados: diagnosticos,
+      generadoAt: new Date().toISOString(),
+    });
+
+    return c.json({ success: true, diagnosticos });
+  } catch (error: any) {
+    console.error("Generate diagnostico error:", error);
+    return c.json({ success: false, error: error.message || "Error al generar diagnóstico" }, 500);
+  }
+});
+
+// ── Diagnóstico - Get ──────────────────────────────────────────
+app.get("/make-server-deaf8e85/patient/:id/diagnostico", async (c) => {
+  try {
+    const patientId = c.req.param('id');
+    const data = await kv.get(`dx:${patientId}`);
+    return c.json({ success: true, data: data ?? null });
+  } catch (error: any) {
+    console.error("Get diagnostico error:", error);
+    return c.json({ success: false, error: error.message || "Error al obtener diagnóstico" }, 500);
+  }
+});
+
+// ── Diagnóstico - Save specialist selections ───────────────────
+app.put("/make-server-deaf8e85/patient/:id/diagnostico", async (c) => {
+  try {
+    const patientId = c.req.param('id');
+    const { seleccionados, notas } = await c.req.json();
+    const existing = await kv.get(`dx:${patientId}`) ?? {};
+    await kv.set(`dx:${patientId}`, {
+      ...existing,
+      seleccionados: seleccionados ?? [],
+      notas: notas ?? '',
+      savedAt: new Date().toISOString(),
+    });
+    return c.json({ success: true, message: "Diagnóstico guardado exitosamente" });
+  } catch (error: any) {
+    console.error("Save diagnostico error:", error);
+    return c.json({ success: false, error: error.message || "Error al guardar diagnóstico" }, 500);
   }
 });
 

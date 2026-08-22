@@ -18,6 +18,11 @@ interface Patient {
   folio: string;
 }
 
+function toTitleCase(str?: string): string {
+  if (!str) return '';
+  return str.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+}
+
 export function MisPacientes() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -272,7 +277,7 @@ export function MisPacientes() {
                     >
                       {/* Name */}
                       <p className="font-[Poppins] font-normal leading-[normal] not-italic text-[18px] text-black w-[260px] text-left">
-                        {patient.nombre} {patient.apellidos}
+                        {toTitleCase(patient.nombre)} {toTitleCase(patient.apellidos)}
                       </p>
 
                       {/* Age */}

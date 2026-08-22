@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
-import { ArrowLeft, User, Bell, Lock, Globe, Palette, UserCircle, Camera } from 'lucide-react';
+import { ArrowLeft, User, Bell, Lock, Globe, Palette, UserCircle, Camera, PersonStanding } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { motion } from 'motion/react';
-import { getUserData, userAPI } from '../utils/api';
+import { getUserData, userAPI, getGreeting } from '../utils/api';
 import { ConfirmDialog } from './ConfirmDialog';
 
 export function Configuracion() {
@@ -19,6 +19,8 @@ export function Configuracion() {
     folio: '',
     direccion: '',
     fechaNacimiento: '',
+    pronombres: '',
+    sexoBiologico: '',
     notificaciones: true,
     notificacionesEmail: true,
     notificacionesPush: false,
@@ -58,6 +60,8 @@ export function Configuracion() {
         folio: userData.folio || '',
         direccion: userData.direccion || '',
         fechaNacimiento: userData.fechaNacimiento || '',
+        pronombres: userData.pronombres || '',
+        sexoBiologico: userData.sexoBiologico || '',
       }));
       setProfilePictureUrl(userData.profilePicture || null);
     } else {
@@ -148,6 +152,7 @@ export function Configuracion() {
         nombre: config.nombre,
         apellidos: config.apellidos,
         telefono: config.telefono,
+        pronombres: config.pronombres,
       };
 
       // Include especialidad for professionals
@@ -456,6 +461,46 @@ export function Configuracion() {
                   disabled={isSaving}
                   className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] disabled:opacity-50"
                 />
+              </div>
+            </div>
+          </div>
+
+          {/* Pronouns Section */}
+          <div className="mb-[30px]">
+            <div className="flex items-center gap-[10px] mb-[20px]">
+              <PersonStanding size={24} className="text-[#39588a]" />
+              <h2 className="font-[Poppins] font-semibold text-[24px] text-black">
+                Pronombres
+              </h2>
+            </div>
+
+            <div className="bg-[#f5f5f5] rounded-[20px] p-[25px] space-y-[16px]">
+              <div>
+                <label className="font-[Poppins] font-medium text-[16px] text-black block mb-[8px]">
+                  ¿Con qué pronombres te identificas?
+                </label>
+                <select
+                  value={config.pronombres}
+                  onChange={(e) => handleChange('pronombres', e.target.value)}
+                  disabled={isSaving}
+                  className="w-full bg-white rounded-[10px] px-[20px] py-[12px] font-[Poppins] font-normal text-[16px] outline-none focus:ring-2 focus:ring-[#458dff] disabled:opacity-50"
+                >
+                  <option value="">Prefiero no especificar</option>
+                  <option value="el/ellos">Él / Ellos</option>
+                  <option value="ella/ellas">Ella / Ellas</option>
+                  <option value="elle/elles">Elle / Elles</option>
+                </select>
+                <p className="font-[Poppins] font-normal text-[12px] text-gray-500 mt-[6px]">
+                  Esta información personaliza los mensajes de bienvenida. Si no se especifica, se usará el sexo biológico registrado.
+                </p>
+              </div>
+
+              {/* Preview */}
+              <div className="bg-[#e1e9f2] rounded-[12px] px-[20px] py-[12px] flex items-center gap-[10px]">
+                <span className="font-[Poppins] font-normal text-[14px] text-gray-600">Vista previa del saludo:</span>
+                <span className="font-[Poppins] font-bold text-[16px] text-[#39588a]">
+                  {getGreeting(config.pronombres, config.sexoBiologico)}, {config.nombre || 'Usuario'}
+                </span>
               </div>
             </div>
           </div>

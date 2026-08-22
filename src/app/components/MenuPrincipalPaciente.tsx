@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 import { motion } from 'motion/react';
 import { ProfileMenu } from './ProfileMenu';
-import { getUserData, patientAPI } from '../utils/api';
+import { getUserData, patientAPI, getGreeting } from '../utils/api';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceArea, ScatterChart, Scatter, ZAxis } from 'recharts';
 import { LoadingChart, EmptyChart } from './LoadingChart';
 import imgFoodiesMealIngredients from "figma:asset/ab1a1cb53499fd7537e3427b3dd57bc7c74b57ed.png";
@@ -134,6 +134,8 @@ export function MenuPrincipalPaciente() {
     folio: '',
     id: '',
     profilePicture: '',
+    pronombres: '',
+    sexoBiologico: '',
   });
 
   useEffect(() => {
@@ -146,6 +148,8 @@ export function MenuPrincipalPaciente() {
         folio: userData.folio || '',
         id: userData.id || '',
         profilePicture: userData.profilePicture || '',
+        pronombres: userData.pronombres || '',
+        sexoBiologico: userData.sexoBiologico || '',
       });
 
       // Load glucose and food data for patient
@@ -380,7 +384,7 @@ export function MenuPrincipalPaciente() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
               >
-                ¡Bienvenido!
+                {getGreeting(patientData.pronombres, patientData.sexoBiologico)}
               </motion.p>
               <motion.p
                 className="font-[Poppins] font-semibold leading-[normal] not-italic text-[18px] text-black mb-[8px]"

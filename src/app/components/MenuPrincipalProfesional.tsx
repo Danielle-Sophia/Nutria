@@ -64,6 +64,8 @@ export function MenuPrincipalProfesional() {
     especialidad: 'Nutrición Clínica',
     folio: '',
     profilePicture: '',
+    pronombres: '',
+    sexoBiologico: '',
   });
 
   useEffect(() => {
@@ -76,6 +78,8 @@ export function MenuPrincipalProfesional() {
         especialidad: userData.especialidad || 'Nutrición Clínica',
         folio: userData.folio || '',
         profilePicture: userData.profilePicture || '',
+        pronombres: userData.pronombres || '',
+        sexoBiologico: userData.sexoBiologico || '',
       });
     } else {
       // If no user data, redirect to login
@@ -195,6 +199,8 @@ export function MenuPrincipalProfesional() {
               especialidad={professionalData.especialidad}
               folio={professionalData.folio}
               profilePicture={professionalData.profilePicture}
+              pronombres={professionalData.pronombres}
+              sexoBiologico={professionalData.sexoBiologico}
             />
           </div>
           

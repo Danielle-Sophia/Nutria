@@ -2,6 +2,20 @@ import { projectId, publicAnonKey } from './supabase/info';
 
 const API_BASE = `https://${projectId}.supabase.co/functions/v1/make-server-deaf8e85`;
 
+// Pronombres options
+export type Pronombres = 'el/ellos' | 'ella/ellas' | 'elle/elles' | '';
+
+// Returns the gender-aware greeting based on pronouns, falling back to sexoBiologico
+export function getGreeting(pronombres?: string, sexoBiologico?: string): string {
+  if (pronombres === 'ella/ellas') return '¡Bienvenida!';
+  if (pronombres === 'el/ellos') return '¡Bienvenido!';
+  if (pronombres === 'elle/elles') return '¡Bienvenide!';
+  // Fallback to biological sex
+  if (sexoBiologico === 'Mujer') return '¡Bienvenida!';
+  if (sexoBiologico === 'Hombre') return '¡Bienvenido!';
+  return '¡Bienvenido/a!';
+}
+
 // Get auth token from localStorage
 function getAuthToken(): string | null {
   return localStorage.getItem('accessToken');
@@ -70,6 +84,12 @@ async function apiCall(endpoint: string, options: RequestInit = {}, useUserToken
 
     if (!response.ok) {
       console.error('API Call failed:', endpoint, 'status:', response.status, 'data:', data);
+      if (response.status === 401) {
+        // Session expired or invalid — clear credentials and redirect to login
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('user');
+        window.location.href = '/';
+      }
       throw new Error(data.error || 'Error en la petición');
     }
 
@@ -96,6 +116,7 @@ export const authAPI = {
     cedulaProfesional: string;
     especialidad: string;
     telefono?: string;
+    pronombres?: string;
   }) {
     const data = await apiCall('/auth/register', {
       method: 'POST',
@@ -162,6 +183,7 @@ export const professionalAPI = {
     telefono?: string;
     peso?: number;
     talla?: number;
+    pronombres?: string;
   }) {
     return await apiCall('/professional/patients', {
       method: 'POST',
@@ -218,6 +240,41 @@ export const patientAPI = {
   },
 };
 
+// Historia Clínica API
+export const historiaClinicaAPI = {
+  async get(patientId: string) {
+    return await apiCall(`/patient/${patientId}/historia-clinica`);
+  },
+
+  async save(patientId: string, formData: Record<string, any>) {
+    return await apiCall(`/patient/${patientId}/historia-clinica`, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+    });
+  },
+};
+
+// Diagnóstico API
+export const diagnosticoAPI = {
+  async get(patientId: string) {
+    return await apiCall(`/patient/${patientId}/diagnostico`);
+  },
+
+  async generar(patientId: string, datosAnonimizados: string) {
+    return await apiCall(`/patient/${patientId}/diagnostico/generar`, {
+      method: 'POST',
+      body: JSON.stringify({ datosAnonimizados }),
+    });
+  },
+
+  async save(patientId: string, seleccionados: string[], notas: string) {
+    return await apiCall(`/patient/${patientId}/diagnostico`, {
+      method: 'PUT',
+      body: JSON.stringify({ seleccionados, notas }),
+    });
+  },
+};
+
 // User API
 export const userAPI = {
   async uploadProfilePicture(imageBase64: string, fileName: string) {
@@ -240,6 +297,7 @@ export const userAPI = {
     especialidad?: string;
     direccion?: string;
     fechaNacimiento?: string;
+    pronombres?: string;
   }) {
     const data = await apiCall('/user/profile', {
       method: 'PUT',
@@ -247,7 +305,9 @@ export const userAPI = {
     });
 
     if (data.success) {
-      setUserData(data.user);
+      // Merge: keep existing local fields the backend may not return (e.g. pronombres)
+      const existing = getUserData() || {};
+      setUserData({ ...existing, ...updates, ...(data.user || {}) });
     }
 
     return data;

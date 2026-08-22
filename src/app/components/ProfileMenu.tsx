@@ -63,7 +63,7 @@ export function ProfileMenu({ isOpen, onClose }: ProfileMenuProps) {
         {isOpen && (
           <motion.div
             ref={menuRef}
-            className="absolute right-[60px] top-[75px] z-50"
+            className="fixed right-[60px] top-[68px] z-[200]"
             initial={{ opacity: 0, y: -10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}

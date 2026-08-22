@@ -1,28 +1,31 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { ArrowLeft, Search, Bell, User } from 'lucide-react';
+import { Search, Bell, User, Menu, ClipboardList, Clock, Activity, CalendarDays, FolderPlus, Lock, Salad } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { ProfileMenu } from './ProfileMenu';
 import { IdentificacionPaciente } from './expediente/IdentificacionPaciente';
 import { HistoriaClinica } from './expediente/HistoriaClinica';
+import { HistoriaNutriologica } from './expediente/HistoriaNutriologica';
 import { AnalisisYReportes } from './expediente/AnalisisYReportes';
 import { patientAPI } from '../utils/api';
 
-type SectionType = 'identificacion' | 'historia' | 'bitacora' | 'analisis' | 'seguimiento' | 'documentos' | 'seguridad';
+type SectionType = 'identificacion' | 'historia' | 'nutriologica' | 'bitacora' | 'analisis' | 'seguimiento' | 'documentos' | 'seguridad';
 
 interface MenuItem {
   id: SectionType;
   label: string;
+  Icon: React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>;
 }
 
 const menuItems: MenuItem[] = [
-  { id: 'identificacion', label: 'Identificación del paciente' },
-  { id: 'historia', label: 'Historia clínica' },
-  { id: 'bitacora', label: 'Bitácora' },
-  { id: 'analisis', label: 'Análisis y reportes' },
-  { id: 'seguimiento', label: 'Seguimiento' },
-  { id: 'documentos', label: 'Documentos' },
-  { id: 'seguridad', label: 'Seguridad y registro de actividad' },
+  { id: 'identificacion', label: 'Identificación del paciente', Icon: User },
+  { id: 'historia', label: 'Historia clínica', Icon: ClipboardList },
+  { id: 'nutriologica', label: 'Historia nutriológica', Icon: Salad },
+  { id: 'bitacora', label: 'Bitácora', Icon: Clock },
+  { id: 'analisis', label: 'Análisis y reportes', Icon: Activity },
+  { id: 'seguimiento', label: 'Seguimiento', Icon: CalendarDays },
+  { id: 'documentos', label: 'Documentos', Icon: FolderPlus },
+  { id: 'seguridad', label: 'Seguridad y registro de actividad', Icon: Lock },
 ];
 
 interface PatientData {
@@ -35,6 +38,10 @@ interface PatientData {
   telefono?: string;
   email?: string;
   direccion?: string;
+  domicilio?: string;
+  estadoCivil?: string;
+  escolaridad?: string;
+  alergias?: string;
   edad?: number;
   peso?: number;
   talla?: number;
@@ -46,6 +53,7 @@ export function Expediente() {
   const { id } = useParams();
   const [activeSection, setActiveSection] = useState<SectionType>('identificacion');
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
   const [patient, setPatient] = useState<PatientData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -127,6 +135,8 @@ export function Expediente() {
         return <IdentificacionPaciente patient={patient} />;
       case 'historia':
         return <HistoriaClinica patient={patient} />;
+      case 'nutriologica':
+        return <HistoriaNutriologica patient={patient} />;
       case 'bitacora':
         return (
           <div className="p-[20px]">
@@ -225,37 +235,66 @@ export function Expediente() {
         {/* White Container */}
         <div className="bg-white rounded-[40px] w-full flex overflow-hidden min-h-[1040px]">
           {/* Left Sidebar Menu */}
-          <div className="bg-[#e1e9f2] w-[360px] flex-shrink-0 rounded-br-[25px] rounded-tr-[25px] pt-[45px] pb-[40px]">
-            <p className="font-[Poppins] font-bold text-[30px] text-black px-[40px] mb-[75px]">
-              Expediente
-            </p>
-            
+          <div
+            className={`bg-[#e1e9f2] flex-shrink-0 rounded-br-[25px] rounded-tr-[25px] pt-[45px] pb-[40px] flex flex-col transition-all duration-300 ease-in-out ${
+              isSidebarExpanded ? 'w-[280px]' : 'w-[72px]'
+            }`}
+          >
+            {/* Header: title + hamburger toggle */}
+            <div className={`flex items-center mb-[40px] px-[16px] ${isSidebarExpanded ? 'justify-between' : 'justify-center'}`}>
+              {isSidebarExpanded && (
+                <span className="font-[Poppins] font-bold text-[22px] text-black truncate">
+                  Expediente
+                </span>
+              )}
+              <button
+                onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
+                className="text-[#1D1B20] hover:text-[#458dff] transition-colors p-1 rounded flex-shrink-0"
+                aria-label={isSidebarExpanded ? 'Colapsar menú' : 'Expandir menú'}
+              >
+                <Menu size={22} strokeWidth={2} />
+              </button>
+            </div>
+
             {/* Menu Items */}
-            <div className="space-y-0">
-              {menuItems.map((item, index) => (
-                <div key={item.id}>
-                  <button
-                    onClick={() => setActiveSection(item.id)}
-                    className={`w-full px-[40px] py-[20px] text-center transition-colors ${
-                      activeSection === item.id
-                        ? 'text-[#458dff] font-[Poppins] font-medium'
-                        : 'text-black font-[Poppins] font-medium hover:text-[#458dff]'
-                    }`}
-                  >
-                    <p className="text-[20px] leading-tight">
-                      {item.label}
-                    </p>
-                  </button>
-                  {index < menuItems.length - 1 && (
-                    <div className="h-px bg-[#3457bf] mx-[10px]" />
-                  )}
-                </div>
-              ))}
+            <div className="flex flex-col">
+              {menuItems.map((item, index) => {
+                const isActive = activeSection === item.id;
+                return (
+                  <div key={item.id}>
+                    <button
+                      onClick={() => setActiveSection(item.id)}
+                      title={!isSidebarExpanded ? item.label : undefined}
+                      className={`w-full flex items-center gap-[14px] py-[18px] transition-colors group ${
+                        isSidebarExpanded ? 'px-[20px]' : 'justify-center px-0'
+                      } ${
+                        isActive
+                          ? 'text-[#458dff]'
+                          : 'text-[#1E1E1E] hover:text-[#458dff]'
+                      }`}
+                    >
+                      <item.Icon
+                        size={22}
+                        strokeWidth={2.2}
+                        className="flex-shrink-0"
+                      />
+                      {isSidebarExpanded && (
+                        <span className="font-[Poppins] font-medium text-[15px] leading-tight text-left">
+                          {item.label}
+                        </span>
+                      )}
+                    </button>
+                    {index < menuItems.length - 1 && (
+                      <div className="h-px bg-[#3457bf] mx-[10px]" />
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
           {/* Right Content Area */}
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto min-w-0">
             {renderContent()}
           </div>
         </div>

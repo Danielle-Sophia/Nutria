@@ -1,14 +1,17 @@
 import { UserCircle } from 'lucide-react';
 import { motion } from 'motion/react';
+import { getGreeting } from '../utils/api';
 
 interface WelcomeSectionProps {
   nombre: string;
   especialidad: string;
   folio?: string;
   profilePicture?: string;
+  pronombres?: string;
+  sexoBiologico?: string;
 }
 
-export function WelcomeSection({ nombre, especialidad, folio, profilePicture }: WelcomeSectionProps) {
+export function WelcomeSection({ nombre, especialidad, folio, profilePicture, pronombres, sexoBiologico }: WelcomeSectionProps) {
   return (
     <div className="flex items-center gap-[35px]">
       {/* Profile Picture with Gradient Background */}
@@ -39,7 +42,7 @@ export function WelcomeSection({ nombre, especialidad, folio, profilePicture }: 
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          ¡Bienvenida!
+          {getGreeting(pronombres, sexoBiologico)}
         </motion.p>
         <motion.p
           className="font-[Poppins] font-semibold leading-[normal] not-italic text-[18px] text-black mb-[8px]"
