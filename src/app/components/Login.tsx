@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 import { motion } from 'motion/react';
 import { authAPI } from '../utils/api';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
 import imgIniciarSesion from "figma:asset/54e3689f0316108b9ac0b7ce7baeb6fbcc865e7e.png";
 import { Header } from './Header';
 
@@ -13,28 +12,6 @@ export function Login() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-
-  // Initialize demo users on mount
-  useEffect(() => {
-    const initDemoUsers = async () => {
-      try {
-        await fetch(
-          `https://${projectId}.supabase.co/functions/v1/make-server-deaf8e85/init-demo`,
-          {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${publicAnonKey}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-      } catch (error) {
-        console.error('Failed to initialize demo users:', error);
-      }
-    };
-
-    initDemoUsers();
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

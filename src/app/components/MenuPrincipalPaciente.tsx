@@ -469,7 +469,7 @@ export function MenuPrincipalPaciente() {
               />
             </div>
 
-            {/* AI Insulin Calculator - Special Button */}
+            {/* AI Glucose Prediction - Special Button */}
             <div className="flex justify-center">
               <motion.button
                 onClick={() => window.open('https://huggingface.co/spaces/Lu1sHF/NIAXG', '_blank')}
@@ -491,7 +491,7 @@ export function MenuPrincipalPaciente() {
                         <Sparkles size={24} className="text-white" />
                       </motion.div>
                       <p className="font-[Poppins] font-bold text-[22px] text-white">
-                        Calcular dosis de insulina con IA
+                        Predecir niveles de glucosa futuros
                       </p>
                     </div>
                   </div>
@@ -500,13 +500,13 @@ export function MenuPrincipalPaciente() {
                   <div className="bg-[#f2f2f2] rounded-b-[10px] p-[20px] group-hover:bg-[#e8e8e8] transition-colors shadow-lg">
                     <div className="flex items-center justify-center h-[140px]">
                       <img
-                        alt="Calcular dosis IA"
+                        alt="Predicción de niveles de glucosa con IA"
                         className="max-h-full object-contain pointer-events-none"
                         src={imgHappyBunchChat}
                       />
                     </div>
                     <p className="font-[Poppins] font-normal text-[14px] text-center text-gray-600 mt-[10px]">
-                      Obtén una recomendación personalizada basada en tus datos de glucosa, ejercicio y alimentación
+                      Anticipa la evolución de tu glucosa con base en tus registros de ejercicio y alimentación
                     </p>
                   </div>
                 </div>
